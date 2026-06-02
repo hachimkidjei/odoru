@@ -3,8 +3,8 @@
   "Trivy": {
     "Version": "0.71.0"
   },
-  "ReportID": "019e85af-e590-765d-adfb-1aeb6c7462c3",
-  "CreatedAt": "2026-06-02T02:15:57.840420393+02:00",
+  "ReportID": "019e8824-7691-723f-804e-3e107d19ecd2",
+  "CreatedAt": "2026-06-02T13:42:31.569149774+02:00",
   "ArtifactID": "sha256:58302b63f0b22a53ce42cefb144447bda889ee5292a2d0a6dd3d7c35cbe7a959",
   "ArtifactName": "build-reports/oci/member-service-1.0.0.tar",
   "ArtifactType": "container_image",

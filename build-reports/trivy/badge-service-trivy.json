@@ -3,33 +3,33 @@
   "Trivy": {
     "Version": "0.71.0"
   },
-  "ReportID": "019e8822-3ae9-7bcb-801c-ecfdb06ec346",
-  "CreatedAt": "2026-06-02T13:40:05.225776437+02:00",
-  "ArtifactID": "sha256:415c2b7fa29198390cd2329fbb25b9181b41b5d4286d9cd4558301bffb144113",
-  "ArtifactName": "build-reports/oci/config-server-1.0.0.tar",
+  "ReportID": "019e8828-395f-70bb-8a0e-968e202de1c2",
+  "CreatedAt": "2026-06-02T13:46:38.047051045+02:00",
+  "ArtifactID": "sha256:b9f86335db9833b53f64ead1896e5fb99650ef8f4de15e0fea0860a832e955e4",
+  "ArtifactName": "build-reports/oci/badge-service-1.0.0.tar",
   "ArtifactType": "container_image",
   "Metadata": {
-    "Size": 229181952,
+    "Size": 264007680,
     "OS": {
       "Family": "alpine",
       "Name": "3.23.4"
     },
-    "ImageID": "sha256:4598cd55e86065ffb38b75aa7a523e5dca22aa9746309549e93987879b453fa5",
+    "ImageID": "sha256:94e07e4d0d7710b343e3f98bf77b336bec4a3ee8f4885ecfdd207ca4cd784dea",
     "DiffIDs": [
       "sha256:29df493baa13de438d6d2ece3a8333032e0b7b9b9d8cce4ee82194da255f61e1",
       "sha256:9392ce60bfe5cd0c1e1764c2faf2becb81d58c51d07deb8dd2e0ac5090d0ffb7",
       "sha256:7835431f45ba59a524f4ae9cfe2d2280a5aed1f60b4b2acf84ded86a6240a957",
       "sha256:fa70df9a2c3b55caef7887b1e21e6e668029c5c46f2ce76da2dc29f7680b5f15",
       "sha256:e6430be29944dbf174551dcdf52e9f15123d6d0ccafd0f811584fe27e8253597",
-      "sha256:61276da21c1a9f54f3c4c6265556ac083e910599bb0f4db16dcfb493daed6227"
+      "sha256:a56b319ee5fe176afdc6ffc2279e031e760822c0cbab06172983d35217688c9f"
     ],
     "RepoTags": [
-      "localhost/odoru/config-server:1.0.0"
+      "localhost/odoru/badge-service:1.0.0"
     ],
-    "Reference": "localhost/odoru/config-server:1.0.0",
+    "Reference": "localhost/odoru/badge-service:1.0.0",
     "ImageConfig": {
       "architecture": "amd64",
-      "created": "2026-06-01T23:50:33.766414485Z",
+      "created": "2026-06-01T23:50:58.652904052Z",
       "history": [
         {
           "created": "2026-04-15T20:01:40.139676757Z",
@@ -93,52 +93,47 @@
           "empty_layer": true
         },
         {
-          "created": "2026-06-01T23:50:32.000039837Z",
-          "created_by": "/bin/sh -c #(nop) LABEL org.opencontainers.image.title=\"odoru-config-server\"",
+          "created": "2026-06-01T23:50:56.229438314Z",
+          "created_by": "/bin/sh -c #(nop) LABEL org.opencontainers.image.title=\"odoru-badge-service\"",
           "empty_layer": true
         },
         {
-          "created": "2026-06-01T23:50:32.031386873Z",
-          "created_by": "/bin/sh -c #(nop) LABEL org.opencontainers.image.description=\"Odoru Spring Cloud Config Server\"",
+          "created": "2026-06-01T23:50:56.260303614Z",
+          "created_by": "/bin/sh -c #(nop) LABEL org.opencontainers.image.description=\"Odoru badge microservice\"",
           "empty_layer": true
         },
         {
-          "created": "2026-06-01T23:50:32.064635605Z",
+          "created": "2026-06-01T23:50:56.292786503Z",
           "created_by": "/bin/sh -c #(nop) LABEL org.opencontainers.image.version=\"1.0.0\"",
           "empty_layer": true
         },
         {
-          "created": "2026-06-01T23:50:32.096142778Z",
+          "created": "2026-06-01T23:50:56.324548606Z",
           "created_by": "/bin/sh -c #(nop) WORKDIR /app",
           "empty_layer": true
         },
         {
-          "created": "2026-06-01T23:50:32.380151304Z",
+          "created": "2026-06-01T23:50:56.622559026Z",
           "created_by": "/bin/sh -c addgroup -S odoru \u0026\u0026 adduser -S odoru -G odoru",
           "empty_layer": true
         },
         {
-          "created": "2026-06-01T23:50:33.2832989Z",
-          "created_by": "/bin/sh -c #(nop) COPY file:504a8be12af40b7e3a664e2fb80854d61d3dbd8c51c1ee366b65f427826c2cf3 in app.jar ",
+          "created": "2026-06-01T23:50:58.335247919Z",
+          "created_by": "/bin/sh -c #(nop) COPY file:8d3de6e11445d202ab3805d4f1020d6d5583bc97b1a747129e2aadf12d2a8012 in app.jar ",
           "empty_layer": true
         },
         {
-          "created": "2026-06-01T23:50:33.479722177Z",
-          "created_by": "/bin/sh -c #(nop) COPY dir:68f421f121fd5bda13689d4afd547f8d68476c7e49602a9b96df9674346c33b7 in /config-repo ",
-          "empty_layer": true
-        },
-        {
-          "created": "2026-06-01T23:50:33.573708715Z",
+          "created": "2026-06-01T23:50:58.437876353Z",
           "created_by": "/bin/sh -c #(nop) USER odoru",
           "empty_layer": true
         },
         {
-          "created": "2026-06-01T23:50:33.670111097Z",
-          "created_by": "/bin/sh -c #(nop) EXPOSE 8888",
+          "created": "2026-06-01T23:50:58.543890105Z",
+          "created_by": "/bin/sh -c #(nop) EXPOSE 8084",
           "empty_layer": true
         },
         {
-          "created": "2026-06-01T23:50:33.991434247Z",
+          "created": "2026-06-01T23:50:59.102905446Z",
           "created_by": "/bin/sh -c #(nop) ENTRYPOINT [\"java\", \"-jar\", \"/app/app.jar\"]",
           "comment": "FROM docker.io/library/eclipse-temurin:17-jre-alpine"
         }
@@ -152,7 +147,7 @@
           "sha256:7835431f45ba59a524f4ae9cfe2d2280a5aed1f60b4b2acf84ded86a6240a957",
           "sha256:fa70df9a2c3b55caef7887b1e21e6e668029c5c46f2ce76da2dc29f7680b5f15",
           "sha256:e6430be29944dbf174551dcdf52e9f15123d6d0ccafd0f811584fe27e8253597",
-          "sha256:61276da21c1a9f54f3c4c6265556ac083e910599bb0f4db16dcfb493daed6227"
+          "sha256:a56b319ee5fe176afdc6ffc2279e031e760822c0cbab06172983d35217688c9f"
         ]
       },
       "config": {
@@ -171,14 +166,14 @@
         ],
         "Labels": {
           "io.buildah.version": "1.33.7",
-          "org.opencontainers.image.description": "Odoru Spring Cloud Config Server",
-          "org.opencontainers.image.title": "odoru-config-server",
+          "org.opencontainers.image.description": "Odoru badge microservice",
+          "org.opencontainers.image.title": "odoru-badge-service",
           "org.opencontainers.image.version": "1.0.0"
         },
         "User": "odoru",
         "WorkingDir": "/app",
         "ExposedPorts": {
-          "8888/tcp": {}
+          "8084/tcp": {}
         }
       }
     },
@@ -204,14 +199,14 @@
         "DiffID": "sha256:e6430be29944dbf174551dcdf52e9f15123d6d0ccafd0f811584fe27e8253597"
       },
       {
-        "Size": 43942912,
-        "DiffID": "sha256:61276da21c1a9f54f3c4c6265556ac083e910599bb0f4db16dcfb493daed6227"
+        "Size": 78768640,
+        "DiffID": "sha256:a56b319ee5fe176afdc6ffc2279e031e760822c0cbab06172983d35217688c9f"
       }
     ]
   },
   "Results": [
     {
-      "Target": "build-reports/oci/config-server-1.0.0.tar (alpine 3.23.4)",
+      "Target": "build-reports/oci/badge-service-1.0.0.tar (alpine 3.23.4)",
       "Class": "os-pkgs",
       "Type": "alpine",
       "Packages": [
@@ -3586,6 +3581,19 @@
       "Type": "jar",
       "Packages": [
         {
+          "Name": "antlr:antlr",
+          "Identifier": {
+            "PURL": "pkg:maven/antlr/antlr@2.7.7",
+            "UID": "573f1a66307dff64"
+          },
+          "Version": "2.7.7",
+          "Layer": {
+            "DiffID": "sha256:a56b319ee5fe176afdc6ffc2279e031e760822c0cbab06172983d35217688c9f"
+          },
+          "FilePath": "app/app.jar/BOOT-INF/lib/antlr-2.7.7.jar",
+          "AnalyzedBy": "jar"
+        },
+        {
           "Name": "ch.qos.logback:logback-classic",
           "Identifier": {
             "PURL": "pkg:maven/ch.qos.logback/logback-classic@1.5.16",
@@ -3593,7 +3601,7 @@
           },
           "Version": "1.5.16",
           "Layer": {
-            "DiffID": "sha256:61276da21c1a9f54f3c4c6265556ac083e910599bb0f4db16dcfb493daed6227"
+            "DiffID": "sha256:a56b319ee5fe176afdc6ffc2279e031e760822c0cbab06172983d35217688c9f"
           },
           "FilePath": "app/app.jar/BOOT-INF/lib/logback-classic-1.5.16.jar",
           "AnalyzedBy": "jar"
@@ -3606,7 +3614,7 @@
           },
           "Version": "1.5.16",
           "Layer": {
-            "DiffID": "sha256:61276da21c1a9f54f3c4c6265556ac083e910599bb0f4db16dcfb493daed6227"
+            "DiffID": "sha256:a56b319ee5fe176afdc6ffc2279e031e760822c0cbab06172983d35217688c9f"
           },
           "FilePath": "app/app.jar/BOOT-INF/lib/logback-core-1.5.16.jar",
           "AnalyzedBy": "jar"
@@ -3619,7 +3627,7 @@
           },
           "Version": "2.18.2",
           "Layer": {
-            "DiffID": "sha256:61276da21c1a9f54f3c4c6265556ac083e910599bb0f4db16dcfb493daed6227"
+            "DiffID": "sha256:a56b319ee5fe176afdc6ffc2279e031e760822c0cbab06172983d35217688c9f"
           },
           "FilePath": "app/app.jar/BOOT-INF/lib/jackson-annotations-2.18.2.jar",
           "AnalyzedBy": "jar"
@@ -3632,7 +3640,7 @@
           },
           "Version": "2.18.2",
           "Layer": {
-            "DiffID": "sha256:61276da21c1a9f54f3c4c6265556ac083e910599bb0f4db16dcfb493daed6227"
+            "DiffID": "sha256:a56b319ee5fe176afdc6ffc2279e031e760822c0cbab06172983d35217688c9f"
           },
           "FilePath": "app/app.jar/BOOT-INF/lib/jackson-core-2.18.2.jar",
           "AnalyzedBy": "jar"
@@ -3645,22 +3653,9 @@
           },
           "Version": "2.18.2",
           "Layer": {
-            "DiffID": "sha256:61276da21c1a9f54f3c4c6265556ac083e910599bb0f4db16dcfb493daed6227"
+            "DiffID": "sha256:a56b319ee5fe176afdc6ffc2279e031e760822c0cbab06172983d35217688c9f"
           },
           "FilePath": "app/app.jar/BOOT-INF/lib/jackson-databind-2.18.2.jar",
-          "AnalyzedBy": "jar"
-        },
-        {
-          "Name": "com.fasterxml.jackson.dataformat:jackson-dataformat-yaml",
-          "Identifier": {
-            "PURL": "pkg:maven/com.fasterxml.jackson.dataformat/jackson-dataformat-yaml@2.18.2",
-            "UID": "6cee46a5fc4c57a5"
-          },
-          "Version": "2.18.2",
-          "Layer": {
-            "DiffID": "sha256:61276da21c1a9f54f3c4c6265556ac083e910599bb0f4db16dcfb493daed6227"
-          },
-          "FilePath": "app/app.jar/BOOT-INF/lib/jackson-dataformat-yaml-2.18.2.jar",
           "AnalyzedBy": "jar"
         },
         {
@@ -3671,7 +3666,7 @@
           },
           "Version": "2.18.2",
           "Layer": {
-            "DiffID": "sha256:61276da21c1a9f54f3c4c6265556ac083e910599bb0f4db16dcfb493daed6227"
+            "DiffID": "sha256:a56b319ee5fe176afdc6ffc2279e031e760822c0cbab06172983d35217688c9f"
           },
           "FilePath": "app/app.jar/BOOT-INF/lib/jackson-datatype-jdk8-2.18.2.jar",
           "AnalyzedBy": "jar"
@@ -3684,7 +3679,7 @@
           },
           "Version": "2.18.2",
           "Layer": {
-            "DiffID": "sha256:61276da21c1a9f54f3c4c6265556ac083e910599bb0f4db16dcfb493daed6227"
+            "DiffID": "sha256:a56b319ee5fe176afdc6ffc2279e031e760822c0cbab06172983d35217688c9f"
           },
           "FilePath": "app/app.jar/BOOT-INF/lib/jackson-datatype-jsr310-2.18.2.jar",
           "AnalyzedBy": "jar"
@@ -3697,7 +3692,7 @@
           },
           "Version": "2.18.2",
           "Layer": {
-            "DiffID": "sha256:61276da21c1a9f54f3c4c6265556ac083e910599bb0f4db16dcfb493daed6227"
+            "DiffID": "sha256:a56b319ee5fe176afdc6ffc2279e031e760822c0cbab06172983d35217688c9f"
           },
           "FilePath": "app/app.jar/BOOT-INF/lib/jackson-module-parameter-names-2.18.2.jar",
           "AnalyzedBy": "jar"
@@ -3710,22 +3705,165 @@
           },
           "Version": "1.7.0",
           "Layer": {
-            "DiffID": "sha256:61276da21c1a9f54f3c4c6265556ac083e910599bb0f4db16dcfb493daed6227"
+            "DiffID": "sha256:a56b319ee5fe176afdc6ffc2279e031e760822c0cbab06172983d35217688c9f"
           },
           "FilePath": "app/app.jar/BOOT-INF/lib/classmate-1.7.0.jar",
           "AnalyzedBy": "jar"
         },
         {
-          "Name": "com.googlecode.javaewah:JavaEWAH",
+          "Name": "com.google.code.gson:gson",
           "Identifier": {
-            "PURL": "pkg:maven/com.googlecode.javaewah/JavaEWAH@1.2.3",
-            "UID": "8e6a10a0866ed3dd"
+            "PURL": "pkg:maven/com.google.code.gson/gson@2.11.0",
+            "UID": "af5b252a7c963103"
           },
-          "Version": "1.2.3",
+          "Version": "2.11.0",
           "Layer": {
-            "DiffID": "sha256:61276da21c1a9f54f3c4c6265556ac083e910599bb0f4db16dcfb493daed6227"
+            "DiffID": "sha256:a56b319ee5fe176afdc6ffc2279e031e760822c0cbab06172983d35217688c9f"
           },
-          "FilePath": "app/app.jar/BOOT-INF/lib/JavaEWAH-1.2.3.jar",
+          "FilePath": "app/app.jar/BOOT-INF/lib/gson-2.11.0.jar",
+          "AnalyzedBy": "jar"
+        },
+        {
+          "Name": "com.google.errorprone:error_prone_annotations",
+          "Identifier": {
+            "PURL": "pkg:maven/com.google.errorprone/error_prone_annotations@2.27.0",
+            "UID": "98cb3b56133943fb"
+          },
+          "Version": "2.27.0",
+          "Layer": {
+            "DiffID": "sha256:a56b319ee5fe176afdc6ffc2279e031e760822c0cbab06172983d35217688c9f"
+          },
+          "FilePath": "app/app.jar/BOOT-INF/lib/error_prone_annotations-2.27.0.jar",
+          "AnalyzedBy": "jar"
+        },
+        {
+          "Name": "com.google.guava:guava",
+          "Identifier": {
+            "PURL": "pkg:maven/com.google.guava/guava@14.0.1",
+            "UID": "1743f8a40b87dce8"
+          },
+          "Version": "14.0.1",
+          "Layer": {
+            "DiffID": "sha256:a56b319ee5fe176afdc6ffc2279e031e760822c0cbab06172983d35217688c9f"
+          },
+          "FilePath": "app/app.jar/BOOT-INF/lib/guava-14.0.1.jar",
+          "AnalyzedBy": "jar"
+        },
+        {
+          "Name": "com.netflix.eureka:eureka-client",
+          "Identifier": {
+            "PURL": "pkg:maven/com.netflix.eureka/eureka-client@2.0.4",
+            "UID": "8af3392e7e44db5d"
+          },
+          "Version": "2.0.4",
+          "Layer": {
+            "DiffID": "sha256:a56b319ee5fe176afdc6ffc2279e031e760822c0cbab06172983d35217688c9f"
+          },
+          "FilePath": "app/app.jar/BOOT-INF/lib/eureka-client-2.0.4.jar",
+          "AnalyzedBy": "jar"
+        },
+        {
+          "Name": "com.netflix.netflix-commons:netflix-eventbus",
+          "Identifier": {
+            "PURL": "pkg:maven/com.netflix.netflix-commons/netflix-eventbus@0.3.0",
+            "UID": "89d4ed7286b9e253"
+          },
+          "Version": "0.3.0",
+          "Layer": {
+            "DiffID": "sha256:a56b319ee5fe176afdc6ffc2279e031e760822c0cbab06172983d35217688c9f"
+          },
+          "FilePath": "app/app.jar/BOOT-INF/lib/netflix-eventbus-0.3.0.jar",
+          "AnalyzedBy": "jar"
+        },
+        {
+          "Name": "com.netflix.netflix-commons:netflix-infix",
+          "Identifier": {
+            "PURL": "pkg:maven/com.netflix.netflix-commons/netflix-infix@0.3.0",
+            "UID": "eb9c2d3d428f42b9"
+          },
+          "Version": "0.3.0",
+          "Layer": {
+            "DiffID": "sha256:a56b319ee5fe176afdc6ffc2279e031e760822c0cbab06172983d35217688c9f"
+          },
+          "FilePath": "app/app.jar/BOOT-INF/lib/netflix-infix-0.3.0.jar",
+          "AnalyzedBy": "jar"
+        },
+        {
+          "Name": "com.netflix.servo:servo-core",
+          "Identifier": {
+            "PURL": "pkg:maven/com.netflix.servo/servo-core@0.5.3",
+            "UID": "92088d4163c83f8c"
+          },
+          "Version": "0.5.3",
+          "Layer": {
+            "DiffID": "sha256:a56b319ee5fe176afdc6ffc2279e031e760822c0cbab06172983d35217688c9f"
+          },
+          "FilePath": "app/app.jar/BOOT-INF/lib/servo-core-0.5.3.jar",
+          "AnalyzedBy": "jar"
+        },
+        {
+          "Name": "com.netflix.spectator:spectator-api",
+          "Identifier": {
+            "PURL": "pkg:maven/com.netflix.spectator/spectator-api@1.7.3",
+            "UID": "415735cfebb4de22"
+          },
+          "Version": "1.7.3",
+          "Layer": {
+            "DiffID": "sha256:a56b319ee5fe176afdc6ffc2279e031e760822c0cbab06172983d35217688c9f"
+          },
+          "FilePath": "app/app.jar/BOOT-INF/lib/spectator-api-1.7.3.jar",
+          "AnalyzedBy": "jar"
+        },
+        {
+          "Name": "com.stoyanr:evictor",
+          "Identifier": {
+            "PURL": "pkg:maven/com.stoyanr/evictor@1.0.0",
+            "UID": "b70c4ba4aff63e06"
+          },
+          "Version": "1.0.0",
+          "Layer": {
+            "DiffID": "sha256:a56b319ee5fe176afdc6ffc2279e031e760822c0cbab06172983d35217688c9f"
+          },
+          "FilePath": "app/app.jar/BOOT-INF/lib/evictor-1.0.0.jar",
+          "AnalyzedBy": "jar"
+        },
+        {
+          "Name": "com.sun.istack:istack-commons-runtime",
+          "Identifier": {
+            "PURL": "pkg:maven/com.sun.istack/istack-commons-runtime@4.1.2",
+            "UID": "ea663215db1f82bf"
+          },
+          "Version": "4.1.2",
+          "Layer": {
+            "DiffID": "sha256:a56b319ee5fe176afdc6ffc2279e031e760822c0cbab06172983d35217688c9f"
+          },
+          "FilePath": "app/app.jar/BOOT-INF/lib/istack-commons-runtime-4.1.2.jar",
+          "AnalyzedBy": "jar"
+        },
+        {
+          "Name": "com.thoughtworks.xstream:xstream",
+          "Identifier": {
+            "PURL": "pkg:maven/com.thoughtworks.xstream/xstream@1.4.20",
+            "UID": "c550e97354c1b734"
+          },
+          "Version": "1.4.20",
+          "Layer": {
+            "DiffID": "sha256:a56b319ee5fe176afdc6ffc2279e031e760822c0cbab06172983d35217688c9f"
+          },
+          "FilePath": "app/app.jar/BOOT-INF/lib/xstream-1.4.20.jar",
+          "AnalyzedBy": "jar"
+        },
+        {
+          "Name": "com.zaxxer:HikariCP",
+          "Identifier": {
+            "PURL": "pkg:maven/com.zaxxer/HikariCP@5.1.0",
+            "UID": "b7a05cac701d2baf"
+          },
+          "Version": "5.1.0",
+          "Layer": {
+            "DiffID": "sha256:a56b319ee5fe176afdc6ffc2279e031e760822c0cbab06172983d35217688c9f"
+          },
+          "FilePath": "app/app.jar/BOOT-INF/lib/HikariCP-5.1.0.jar",
           "AnalyzedBy": "jar"
         },
         {
@@ -3736,35 +3874,74 @@
           },
           "Version": "1.17.2",
           "Layer": {
-            "DiffID": "sha256:61276da21c1a9f54f3c4c6265556ac083e910599bb0f4db16dcfb493daed6227"
+            "DiffID": "sha256:a56b319ee5fe176afdc6ffc2279e031e760822c0cbab06172983d35217688c9f"
           },
           "FilePath": "app/app.jar/BOOT-INF/lib/commons-codec-1.17.2.jar",
           "AnalyzedBy": "jar"
         },
         {
-          "Name": "commons-logging:commons-logging",
+          "Name": "commons-configuration:commons-configuration",
           "Identifier": {
-            "PURL": "pkg:maven/commons-logging/commons-logging@1.2",
-            "UID": "52e21ac1cb050415"
+            "PURL": "pkg:maven/commons-configuration/commons-configuration@1.10",
+            "UID": "8645ce52f4714733"
           },
-          "Version": "1.2",
+          "Version": "1.10",
           "Layer": {
-            "DiffID": "sha256:61276da21c1a9f54f3c4c6265556ac083e910599bb0f4db16dcfb493daed6227"
+            "DiffID": "sha256:a56b319ee5fe176afdc6ffc2279e031e760822c0cbab06172983d35217688c9f"
           },
-          "FilePath": "app/app.jar/BOOT-INF/lib/commons-logging-1.2.jar",
+          "FilePath": "app/app.jar/BOOT-INF/lib/commons-configuration-1.10.jar",
           "AnalyzedBy": "jar"
         },
         {
-          "Name": "fr.miage.toulouse.odoru:config-server",
+          "Name": "commons-jxpath:commons-jxpath",
           "Identifier": {
-            "PURL": "pkg:maven/fr.miage.toulouse.odoru/config-server@0.0.1-SNAPSHOT",
-            "UID": "78ed450d9f836169"
+            "PURL": "pkg:maven/commons-jxpath/commons-jxpath@1.3",
+            "UID": "b1a128b89a37d357"
+          },
+          "Version": "1.3",
+          "Layer": {
+            "DiffID": "sha256:a56b319ee5fe176afdc6ffc2279e031e760822c0cbab06172983d35217688c9f"
+          },
+          "FilePath": "app/app.jar/BOOT-INF/lib/commons-jxpath-1.3.jar",
+          "AnalyzedBy": "jar"
+        },
+        {
+          "Name": "commons-lang:commons-lang",
+          "Identifier": {
+            "PURL": "pkg:maven/commons-lang/commons-lang@2.6",
+            "UID": "2c7d956e52c2814b"
+          },
+          "Version": "2.6",
+          "Layer": {
+            "DiffID": "sha256:a56b319ee5fe176afdc6ffc2279e031e760822c0cbab06172983d35217688c9f"
+          },
+          "FilePath": "app/app.jar/BOOT-INF/lib/commons-lang-2.6.jar",
+          "AnalyzedBy": "jar"
+        },
+        {
+          "Name": "fr.miage.toulouse.odoru:badge-service",
+          "Identifier": {
+            "PURL": "pkg:maven/fr.miage.toulouse.odoru/badge-service@0.0.1-SNAPSHOT",
+            "UID": "6a58e421958eee60"
           },
           "Version": "0.0.1-SNAPSHOT",
           "Layer": {
-            "DiffID": "sha256:61276da21c1a9f54f3c4c6265556ac083e910599bb0f4db16dcfb493daed6227"
+            "DiffID": "sha256:a56b319ee5fe176afdc6ffc2279e031e760822c0cbab06172983d35217688c9f"
           },
           "FilePath": "app/app.jar",
+          "AnalyzedBy": "jar"
+        },
+        {
+          "Name": "io.github.x-stream:mxparser",
+          "Identifier": {
+            "PURL": "pkg:maven/io.github.x-stream/mxparser@1.2.2",
+            "UID": "86180fa01ec81b4b"
+          },
+          "Version": "1.2.2",
+          "Layer": {
+            "DiffID": "sha256:a56b319ee5fe176afdc6ffc2279e031e760822c0cbab06172983d35217688c9f"
+          },
+          "FilePath": "app/app.jar/BOOT-INF/lib/mxparser-1.2.2.jar",
           "AnalyzedBy": "jar"
         },
         {
@@ -3775,7 +3952,7 @@
           },
           "Version": "1.14.4",
           "Layer": {
-            "DiffID": "sha256:61276da21c1a9f54f3c4c6265556ac083e910599bb0f4db16dcfb493daed6227"
+            "DiffID": "sha256:a56b319ee5fe176afdc6ffc2279e031e760822c0cbab06172983d35217688c9f"
           },
           "FilePath": "app/app.jar/BOOT-INF/lib/micrometer-commons-1.14.4.jar",
           "AnalyzedBy": "jar"
@@ -3788,7 +3965,7 @@
           },
           "Version": "1.14.4",
           "Layer": {
-            "DiffID": "sha256:61276da21c1a9f54f3c4c6265556ac083e910599bb0f4db16dcfb493daed6227"
+            "DiffID": "sha256:a56b319ee5fe176afdc6ffc2279e031e760822c0cbab06172983d35217688c9f"
           },
           "FilePath": "app/app.jar/BOOT-INF/lib/micrometer-core-1.14.4.jar",
           "AnalyzedBy": "jar"
@@ -3801,7 +3978,7 @@
           },
           "Version": "1.14.4",
           "Layer": {
-            "DiffID": "sha256:61276da21c1a9f54f3c4c6265556ac083e910599bb0f4db16dcfb493daed6227"
+            "DiffID": "sha256:a56b319ee5fe176afdc6ffc2279e031e760822c0cbab06172983d35217688c9f"
           },
           "FilePath": "app/app.jar/BOOT-INF/lib/micrometer-jakarta9-1.14.4.jar",
           "AnalyzedBy": "jar"
@@ -3814,9 +3991,61 @@
           },
           "Version": "1.14.4",
           "Layer": {
-            "DiffID": "sha256:61276da21c1a9f54f3c4c6265556ac083e910599bb0f4db16dcfb493daed6227"
+            "DiffID": "sha256:a56b319ee5fe176afdc6ffc2279e031e760822c0cbab06172983d35217688c9f"
           },
           "FilePath": "app/app.jar/BOOT-INF/lib/micrometer-observation-1.14.4.jar",
+          "AnalyzedBy": "jar"
+        },
+        {
+          "Name": "io.projectreactor.addons:reactor-extra",
+          "Identifier": {
+            "PURL": "pkg:maven/io.projectreactor.addons/reactor-extra@3.5.2",
+            "UID": "d0c3ee38ad1f0f38"
+          },
+          "Version": "3.5.2",
+          "Layer": {
+            "DiffID": "sha256:a56b319ee5fe176afdc6ffc2279e031e760822c0cbab06172983d35217688c9f"
+          },
+          "FilePath": "app/app.jar/BOOT-INF/lib/reactor-extra-3.5.2.jar",
+          "AnalyzedBy": "jar"
+        },
+        {
+          "Name": "io.projectreactor:reactor-core",
+          "Identifier": {
+            "PURL": "pkg:maven/io.projectreactor/reactor-core@3.7.3",
+            "UID": "ea6c617b70cb1193"
+          },
+          "Version": "3.7.3",
+          "Layer": {
+            "DiffID": "sha256:a56b319ee5fe176afdc6ffc2279e031e760822c0cbab06172983d35217688c9f"
+          },
+          "FilePath": "app/app.jar/BOOT-INF/lib/reactor-core-3.7.3.jar",
+          "AnalyzedBy": "jar"
+        },
+        {
+          "Name": "io.smallrye:jandex",
+          "Identifier": {
+            "PURL": "pkg:maven/io.smallrye/jandex@3.2.0",
+            "UID": "cfb96deb67263fd5"
+          },
+          "Version": "3.2.0",
+          "Layer": {
+            "DiffID": "sha256:a56b319ee5fe176afdc6ffc2279e031e760822c0cbab06172983d35217688c9f"
+          },
+          "FilePath": "app/app.jar/BOOT-INF/lib/jandex-3.2.0.jar",
+          "AnalyzedBy": "jar"
+        },
+        {
+          "Name": "jakarta.activation:jakarta.activation-api",
+          "Identifier": {
+            "PURL": "pkg:maven/jakarta.activation/jakarta.activation-api@2.1.3",
+            "UID": "7b85fde354885211"
+          },
+          "Version": "2.1.3",
+          "Layer": {
+            "DiffID": "sha256:a56b319ee5fe176afdc6ffc2279e031e760822c0cbab06172983d35217688c9f"
+          },
+          "FilePath": "app/app.jar/BOOT-INF/lib/jakarta.activation-api-2.1.3.jar",
           "AnalyzedBy": "jar"
         },
         {
@@ -3827,9 +4056,48 @@
           },
           "Version": "2.1.1",
           "Layer": {
-            "DiffID": "sha256:61276da21c1a9f54f3c4c6265556ac083e910599bb0f4db16dcfb493daed6227"
+            "DiffID": "sha256:a56b319ee5fe176afdc6ffc2279e031e760822c0cbab06172983d35217688c9f"
           },
           "FilePath": "app/app.jar/BOOT-INF/lib/jakarta.annotation-api-2.1.1.jar",
+          "AnalyzedBy": "jar"
+        },
+        {
+          "Name": "jakarta.inject:jakarta.inject-api",
+          "Identifier": {
+            "PURL": "pkg:maven/jakarta.inject/jakarta.inject-api@2.0.1",
+            "UID": "e656bc41d04a1a43"
+          },
+          "Version": "2.0.1",
+          "Layer": {
+            "DiffID": "sha256:a56b319ee5fe176afdc6ffc2279e031e760822c0cbab06172983d35217688c9f"
+          },
+          "FilePath": "app/app.jar/BOOT-INF/lib/jakarta.inject-api-2.0.1.jar",
+          "AnalyzedBy": "jar"
+        },
+        {
+          "Name": "jakarta.persistence:jakarta.persistence-api",
+          "Identifier": {
+            "PURL": "pkg:maven/jakarta.persistence/jakarta.persistence-api@3.1.0",
+            "UID": "c2ffb92075057c63"
+          },
+          "Version": "3.1.0",
+          "Layer": {
+            "DiffID": "sha256:a56b319ee5fe176afdc6ffc2279e031e760822c0cbab06172983d35217688c9f"
+          },
+          "FilePath": "app/app.jar/BOOT-INF/lib/jakarta.persistence-api-3.1.0.jar",
+          "AnalyzedBy": "jar"
+        },
+        {
+          "Name": "jakarta.transaction:jakarta.transaction-api",
+          "Identifier": {
+            "PURL": "pkg:maven/jakarta.transaction/jakarta.transaction-api@2.0.1",
+            "UID": "548e851efec45a74"
+          },
+          "Version": "2.0.1",
+          "Layer": {
+            "DiffID": "sha256:a56b319ee5fe176afdc6ffc2279e031e760822c0cbab06172983d35217688c9f"
+          },
+          "FilePath": "app/app.jar/BOOT-INF/lib/jakarta.transaction-api-2.0.1.jar",
           "AnalyzedBy": "jar"
         },
         {
@@ -3840,22 +4108,126 @@
           },
           "Version": "3.0.2",
           "Layer": {
-            "DiffID": "sha256:61276da21c1a9f54f3c4c6265556ac083e910599bb0f4db16dcfb493daed6227"
+            "DiffID": "sha256:a56b319ee5fe176afdc6ffc2279e031e760822c0cbab06172983d35217688c9f"
           },
           "FilePath": "app/app.jar/BOOT-INF/lib/jakarta.validation-api-3.0.2.jar",
           "AnalyzedBy": "jar"
         },
         {
-          "Name": "net.i2p.crypto:eddsa",
+          "Name": "jakarta.ws.rs:jakarta.ws.rs-api",
           "Identifier": {
-            "PURL": "pkg:maven/net.i2p.crypto/eddsa@0.3.0",
-            "UID": "299b32fa5f14cd11"
+            "PURL": "pkg:maven/jakarta.ws.rs/jakarta.ws.rs-api@3.1.0",
+            "UID": "d9b6436b1ba9ab63"
           },
-          "Version": "0.3.0",
+          "Version": "3.1.0",
           "Layer": {
-            "DiffID": "sha256:61276da21c1a9f54f3c4c6265556ac083e910599bb0f4db16dcfb493daed6227"
+            "DiffID": "sha256:a56b319ee5fe176afdc6ffc2279e031e760822c0cbab06172983d35217688c9f"
           },
-          "FilePath": "app/app.jar/BOOT-INF/lib/eddsa-0.3.0.jar",
+          "FilePath": "app/app.jar/BOOT-INF/lib/jakarta.ws.rs-api-3.1.0.jar",
+          "AnalyzedBy": "jar"
+        },
+        {
+          "Name": "jakarta.xml.bind:jakarta.xml.bind-api",
+          "Identifier": {
+            "PURL": "pkg:maven/jakarta.xml.bind/jakarta.xml.bind-api@4.0.2",
+            "UID": "dbbdc8030b46f99c"
+          },
+          "Version": "4.0.2",
+          "Layer": {
+            "DiffID": "sha256:a56b319ee5fe176afdc6ffc2279e031e760822c0cbab06172983d35217688c9f"
+          },
+          "FilePath": "app/app.jar/BOOT-INF/lib/jakarta.xml.bind-api-4.0.2.jar",
+          "AnalyzedBy": "jar"
+        },
+        {
+          "Name": "javax.annotation:javax.annotation-api",
+          "Identifier": {
+            "PURL": "pkg:maven/javax.annotation/javax.annotation-api@1.2",
+            "UID": "dfe08d14f8ffaeac"
+          },
+          "Version": "1.2",
+          "Layer": {
+            "DiffID": "sha256:a56b319ee5fe176afdc6ffc2279e031e760822c0cbab06172983d35217688c9f"
+          },
+          "FilePath": "app/app.jar/BOOT-INF/lib/javax.annotation-api-1.2.jar",
+          "AnalyzedBy": "jar"
+        },
+        {
+          "Name": "joda-time:joda-time",
+          "Identifier": {
+            "PURL": "pkg:maven/joda-time/joda-time@2.3",
+            "UID": "2c3124a6aaa5a500"
+          },
+          "Version": "2.3",
+          "Layer": {
+            "DiffID": "sha256:a56b319ee5fe176afdc6ffc2279e031e760822c0cbab06172983d35217688c9f"
+          },
+          "FilePath": "app/app.jar/BOOT-INF/lib/joda-time-2.3.jar",
+          "AnalyzedBy": "jar"
+        },
+        {
+          "Name": "net.bytebuddy:byte-buddy",
+          "Identifier": {
+            "PURL": "pkg:maven/net.bytebuddy/byte-buddy@1.15.11",
+            "UID": "d96cf87e5b7c55a0"
+          },
+          "Version": "1.15.11",
+          "Layer": {
+            "DiffID": "sha256:a56b319ee5fe176afdc6ffc2279e031e760822c0cbab06172983d35217688c9f"
+          },
+          "FilePath": "app/app.jar/BOOT-INF/lib/byte-buddy-1.15.11.jar",
+          "AnalyzedBy": "jar"
+        },
+        {
+          "Name": "org.antlr:antlr-runtime",
+          "Identifier": {
+            "PURL": "pkg:maven/org.antlr/antlr-runtime@3.4",
+            "UID": "d82712a6f9c2151"
+          },
+          "Version": "3.4",
+          "Layer": {
+            "DiffID": "sha256:a56b319ee5fe176afdc6ffc2279e031e760822c0cbab06172983d35217688c9f"
+          },
+          "FilePath": "app/app.jar/BOOT-INF/lib/antlr-runtime-3.4.jar",
+          "AnalyzedBy": "jar"
+        },
+        {
+          "Name": "org.antlr:antlr4-runtime",
+          "Identifier": {
+            "PURL": "pkg:maven/org.antlr/antlr4-runtime@4.13.0",
+            "UID": "dfea83437225dad4"
+          },
+          "Version": "4.13.0",
+          "Layer": {
+            "DiffID": "sha256:a56b319ee5fe176afdc6ffc2279e031e760822c0cbab06172983d35217688c9f"
+          },
+          "FilePath": "app/app.jar/BOOT-INF/lib/antlr4-runtime-4.13.0.jar",
+          "AnalyzedBy": "jar"
+        },
+        {
+          "Name": "org.antlr:stringtemplate",
+          "Identifier": {
+            "PURL": "pkg:maven/org.antlr/stringtemplate@3.2.1",
+            "UID": "259834a2096878c"
+          },
+          "Version": "3.2.1",
+          "Layer": {
+            "DiffID": "sha256:a56b319ee5fe176afdc6ffc2279e031e760822c0cbab06172983d35217688c9f"
+          },
+          "FilePath": "app/app.jar/BOOT-INF/lib/stringtemplate-3.2.1.jar",
+          "AnalyzedBy": "jar"
+        },
+        {
+          "Name": "org.apache.commons:commons-math",
+          "Identifier": {
+            "PURL": "pkg:maven/org.apache.commons/commons-math@2.2",
+            "UID": "3d0f0288ae7581d8"
+          },
+          "Version": "2.2",
+          "Layer": {
+            "DiffID": "sha256:a56b319ee5fe176afdc6ffc2279e031e760822c0cbab06172983d35217688c9f"
+          },
+          "FilePath": "app/app.jar/BOOT-INF/lib/commons-math-2.2.jar",
           "AnalyzedBy": "jar"
         },
         {
@@ -3866,7 +4238,7 @@
           },
           "Version": "5.4.2",
           "Layer": {
-            "DiffID": "sha256:61276da21c1a9f54f3c4c6265556ac083e910599bb0f4db16dcfb493daed6227"
+            "DiffID": "sha256:a56b319ee5fe176afdc6ffc2279e031e760822c0cbab06172983d35217688c9f"
           },
           "FilePath": "app/app.jar/BOOT-INF/lib/httpclient5-5.4.2.jar",
           "AnalyzedBy": "jar"
@@ -3879,7 +4251,7 @@
           },
           "Version": "5.3.3",
           "Layer": {
-            "DiffID": "sha256:61276da21c1a9f54f3c4c6265556ac083e910599bb0f4db16dcfb493daed6227"
+            "DiffID": "sha256:a56b319ee5fe176afdc6ffc2279e031e760822c0cbab06172983d35217688c9f"
           },
           "FilePath": "app/app.jar/BOOT-INF/lib/httpcore5-5.3.3.jar",
           "AnalyzedBy": "jar"
@@ -3892,7 +4264,7 @@
           },
           "Version": "5.3.3",
           "Layer": {
-            "DiffID": "sha256:61276da21c1a9f54f3c4c6265556ac083e910599bb0f4db16dcfb493daed6227"
+            "DiffID": "sha256:a56b319ee5fe176afdc6ffc2279e031e760822c0cbab06172983d35217688c9f"
           },
           "FilePath": "app/app.jar/BOOT-INF/lib/httpcore5-h2-5.3.3.jar",
           "AnalyzedBy": "jar"
@@ -3900,14 +4272,14 @@
         {
           "Name": "org.apache.httpcomponents:httpclient",
           "Identifier": {
-            "PURL": "pkg:maven/org.apache.httpcomponents/httpclient@4.5.14",
-            "UID": "412d4e34fe5a4049"
+            "PURL": "pkg:maven/org.apache.httpcomponents/httpclient@4.5.3",
+            "UID": "9dc8b3eb9c9f460e"
           },
-          "Version": "4.5.14",
+          "Version": "4.5.3",
           "Layer": {
-            "DiffID": "sha256:61276da21c1a9f54f3c4c6265556ac083e910599bb0f4db16dcfb493daed6227"
+            "DiffID": "sha256:a56b319ee5fe176afdc6ffc2279e031e760822c0cbab06172983d35217688c9f"
           },
-          "FilePath": "app/app.jar/BOOT-INF/lib/httpclient-4.5.14.jar",
+          "FilePath": "app/app.jar/BOOT-INF/lib/httpclient-4.5.3.jar",
           "AnalyzedBy": "jar"
         },
         {
@@ -3918,7 +4290,7 @@
           },
           "Version": "4.4.16",
           "Layer": {
-            "DiffID": "sha256:61276da21c1a9f54f3c4c6265556ac083e910599bb0f4db16dcfb493daed6227"
+            "DiffID": "sha256:a56b319ee5fe176afdc6ffc2279e031e760822c0cbab06172983d35217688c9f"
           },
           "FilePath": "app/app.jar/BOOT-INF/lib/httpcore-4.4.16.jar",
           "AnalyzedBy": "jar"
@@ -3931,7 +4303,7 @@
           },
           "Version": "2.24.3",
           "Layer": {
-            "DiffID": "sha256:61276da21c1a9f54f3c4c6265556ac083e910599bb0f4db16dcfb493daed6227"
+            "DiffID": "sha256:a56b319ee5fe176afdc6ffc2279e031e760822c0cbab06172983d35217688c9f"
           },
           "FilePath": "app/app.jar/BOOT-INF/lib/log4j-api-2.24.3.jar",
           "AnalyzedBy": "jar"
@@ -3944,35 +4316,9 @@
           },
           "Version": "2.24.3",
           "Layer": {
-            "DiffID": "sha256:61276da21c1a9f54f3c4c6265556ac083e910599bb0f4db16dcfb493daed6227"
+            "DiffID": "sha256:a56b319ee5fe176afdc6ffc2279e031e760822c0cbab06172983d35217688c9f"
           },
           "FilePath": "app/app.jar/BOOT-INF/lib/log4j-to-slf4j-2.24.3.jar",
-          "AnalyzedBy": "jar"
-        },
-        {
-          "Name": "org.apache.sshd:sshd-osgi",
-          "Identifier": {
-            "PURL": "pkg:maven/org.apache.sshd/sshd-osgi@2.12.1",
-            "UID": "cb6e99422a05d638"
-          },
-          "Version": "2.12.1",
-          "Layer": {
-            "DiffID": "sha256:61276da21c1a9f54f3c4c6265556ac083e910599bb0f4db16dcfb493daed6227"
-          },
-          "FilePath": "app/app.jar/BOOT-INF/lib/sshd-osgi-2.12.1.jar",
-          "AnalyzedBy": "jar"
-        },
-        {
-          "Name": "org.apache.sshd:sshd-sftp",
-          "Identifier": {
-            "PURL": "pkg:maven/org.apache.sshd/sshd-sftp@2.12.1",
-            "UID": "1e28d5964600454b"
-          },
-          "Version": "2.12.1",
-          "Layer": {
-            "DiffID": "sha256:61276da21c1a9f54f3c4c6265556ac083e910599bb0f4db16dcfb493daed6227"
-          },
-          "FilePath": "app/app.jar/BOOT-INF/lib/sshd-sftp-2.12.1.jar",
           "AnalyzedBy": "jar"
         },
         {
@@ -3983,7 +4329,7 @@
           },
           "Version": "10.1.36",
           "Layer": {
-            "DiffID": "sha256:61276da21c1a9f54f3c4c6265556ac083e910599bb0f4db16dcfb493daed6227"
+            "DiffID": "sha256:a56b319ee5fe176afdc6ffc2279e031e760822c0cbab06172983d35217688c9f"
           },
           "FilePath": "app/app.jar/BOOT-INF/lib/tomcat-embed-core-10.1.36.jar",
           "AnalyzedBy": "jar"
@@ -3996,7 +4342,7 @@
           },
           "Version": "10.1.36",
           "Layer": {
-            "DiffID": "sha256:61276da21c1a9f54f3c4c6265556ac083e910599bb0f4db16dcfb493daed6227"
+            "DiffID": "sha256:a56b319ee5fe176afdc6ffc2279e031e760822c0cbab06172983d35217688c9f"
           },
           "FilePath": "app/app.jar/BOOT-INF/lib/tomcat-embed-el-10.1.36.jar",
           "AnalyzedBy": "jar"
@@ -4009,9 +4355,22 @@
           },
           "Version": "10.1.36",
           "Layer": {
-            "DiffID": "sha256:61276da21c1a9f54f3c4c6265556ac083e910599bb0f4db16dcfb493daed6227"
+            "DiffID": "sha256:a56b319ee5fe176afdc6ffc2279e031e760822c0cbab06172983d35217688c9f"
           },
           "FilePath": "app/app.jar/BOOT-INF/lib/tomcat-embed-websocket-10.1.36.jar",
+          "AnalyzedBy": "jar"
+        },
+        {
+          "Name": "org.aspectj:aspectjweaver",
+          "Identifier": {
+            "PURL": "pkg:maven/org.aspectj/aspectjweaver@1.9.22.1",
+            "UID": "f7a2d175f71efd09"
+          },
+          "Version": "1.9.22.1",
+          "Layer": {
+            "DiffID": "sha256:a56b319ee5fe176afdc6ffc2279e031e760822c0cbab06172983d35217688c9f"
+          },
+          "FilePath": "app/app.jar/BOOT-INF/lib/aspectjweaver-1.9.22.1.jar",
           "AnalyzedBy": "jar"
         },
         {
@@ -4022,48 +4381,87 @@
           },
           "Version": "1.78.1",
           "Layer": {
-            "DiffID": "sha256:61276da21c1a9f54f3c4c6265556ac083e910599bb0f4db16dcfb493daed6227"
+            "DiffID": "sha256:a56b319ee5fe176afdc6ffc2279e031e760822c0cbab06172983d35217688c9f"
           },
           "FilePath": "app/app.jar/BOOT-INF/lib/bcprov-jdk18on-1.78.1.jar",
           "AnalyzedBy": "jar"
         },
         {
-          "Name": "org.eclipse.jgit:org.eclipse.jgit",
+          "Name": "org.checkerframework:checker-qual",
           "Identifier": {
-            "PURL": "pkg:maven/org.eclipse.jgit/org.eclipse.jgit@6.10.0.202406032230-r",
-            "UID": "ef45c185fcd38942"
+            "PURL": "pkg:maven/org.checkerframework/checker-qual@3.48.3",
+            "UID": "67a2efcd22d42b18"
           },
-          "Version": "6.10.0.202406032230-r",
+          "Version": "3.48.3",
           "Layer": {
-            "DiffID": "sha256:61276da21c1a9f54f3c4c6265556ac083e910599bb0f4db16dcfb493daed6227"
+            "DiffID": "sha256:a56b319ee5fe176afdc6ffc2279e031e760822c0cbab06172983d35217688c9f"
           },
-          "FilePath": "app/app.jar/BOOT-INF/lib/org.eclipse.jgit-6.10.0.202406032230-r.jar",
+          "FilePath": "app/app.jar/BOOT-INF/lib/checker-qual-3.48.3.jar",
           "AnalyzedBy": "jar"
         },
         {
-          "Name": "org.eclipse.jgit:org.eclipse.jgit.http.apache",
+          "Name": "org.codehaus.jettison:jettison",
           "Identifier": {
-            "PURL": "pkg:maven/org.eclipse.jgit/org.eclipse.jgit.http.apache@6.10.0.202406032230-r",
-            "UID": "fd3496494a897751"
+            "PURL": "pkg:maven/org.codehaus.jettison/jettison@1.5.4",
+            "UID": "adbe0bccdabe5627"
           },
-          "Version": "6.10.0.202406032230-r",
+          "Version": "1.5.4",
           "Layer": {
-            "DiffID": "sha256:61276da21c1a9f54f3c4c6265556ac083e910599bb0f4db16dcfb493daed6227"
+            "DiffID": "sha256:a56b319ee5fe176afdc6ffc2279e031e760822c0cbab06172983d35217688c9f"
           },
-          "FilePath": "app/app.jar/BOOT-INF/lib/org.eclipse.jgit.http.apache-6.10.0.202406032230-r.jar",
+          "FilePath": "app/app.jar/BOOT-INF/lib/jettison-1.5.4.jar",
           "AnalyzedBy": "jar"
         },
         {
-          "Name": "org.eclipse.jgit:org.eclipse.jgit.ssh.apache",
+          "Name": "org.eclipse.angus:angus-activation",
           "Identifier": {
-            "PURL": "pkg:maven/org.eclipse.jgit/org.eclipse.jgit.ssh.apache@6.10.0.202406032230-r",
-            "UID": "ca8acb0150bb301e"
+            "PURL": "pkg:maven/org.eclipse.angus/angus-activation@2.0.2",
+            "UID": "d87ebb2f675a287a"
           },
-          "Version": "6.10.0.202406032230-r",
+          "Version": "2.0.2",
           "Layer": {
-            "DiffID": "sha256:61276da21c1a9f54f3c4c6265556ac083e910599bb0f4db16dcfb493daed6227"
+            "DiffID": "sha256:a56b319ee5fe176afdc6ffc2279e031e760822c0cbab06172983d35217688c9f"
           },
-          "FilePath": "app/app.jar/BOOT-INF/lib/org.eclipse.jgit.ssh.apache-6.10.0.202406032230-r.jar",
+          "FilePath": "app/app.jar/BOOT-INF/lib/angus-activation-2.0.2.jar",
+          "AnalyzedBy": "jar"
+        },
+        {
+          "Name": "org.glassfish.jaxb:jaxb-core",
+          "Identifier": {
+            "PURL": "pkg:maven/org.glassfish.jaxb/jaxb-core@4.0.5",
+            "UID": "f58b8abc7aa0f210"
+          },
+          "Version": "4.0.5",
+          "Layer": {
+            "DiffID": "sha256:a56b319ee5fe176afdc6ffc2279e031e760822c0cbab06172983d35217688c9f"
+          },
+          "FilePath": "app/app.jar/BOOT-INF/lib/jaxb-core-4.0.5.jar",
+          "AnalyzedBy": "jar"
+        },
+        {
+          "Name": "org.glassfish.jaxb:jaxb-runtime",
+          "Identifier": {
+            "PURL": "pkg:maven/org.glassfish.jaxb/jaxb-runtime@4.0.5",
+            "UID": "85340a4a2ae8616"
+          },
+          "Version": "4.0.5",
+          "Layer": {
+            "DiffID": "sha256:a56b319ee5fe176afdc6ffc2279e031e760822c0cbab06172983d35217688c9f"
+          },
+          "FilePath": "app/app.jar/BOOT-INF/lib/jaxb-runtime-4.0.5.jar",
+          "AnalyzedBy": "jar"
+        },
+        {
+          "Name": "org.glassfish.jaxb:txw2",
+          "Identifier": {
+            "PURL": "pkg:maven/org.glassfish.jaxb/txw2@4.0.5",
+            "UID": "9ad7963650aa8294"
+          },
+          "Version": "4.0.5",
+          "Layer": {
+            "DiffID": "sha256:a56b319ee5fe176afdc6ffc2279e031e760822c0cbab06172983d35217688c9f"
+          },
+          "FilePath": "app/app.jar/BOOT-INF/lib/txw2-4.0.5.jar",
           "AnalyzedBy": "jar"
         },
         {
@@ -4074,9 +4472,22 @@
           },
           "Version": "2.2.2",
           "Layer": {
-            "DiffID": "sha256:61276da21c1a9f54f3c4c6265556ac083e910599bb0f4db16dcfb493daed6227"
+            "DiffID": "sha256:a56b319ee5fe176afdc6ffc2279e031e760822c0cbab06172983d35217688c9f"
           },
           "FilePath": "app/app.jar/BOOT-INF/lib/HdrHistogram-2.2.2.jar",
+          "AnalyzedBy": "jar"
+        },
+        {
+          "Name": "org.hibernate.common:hibernate-commons-annotations",
+          "Identifier": {
+            "PURL": "pkg:maven/org.hibernate.common/hibernate-commons-annotations@7.0.3.Final",
+            "UID": "eee9d40a98db82ef"
+          },
+          "Version": "7.0.3.Final",
+          "Layer": {
+            "DiffID": "sha256:a56b319ee5fe176afdc6ffc2279e031e760822c0cbab06172983d35217688c9f"
+          },
+          "FilePath": "app/app.jar/BOOT-INF/lib/hibernate-commons-annotations-7.0.3.Final.jar",
           "AnalyzedBy": "jar"
         },
         {
@@ -4087,9 +4498,22 @@
           },
           "Version": "8.0.2.Final",
           "Layer": {
-            "DiffID": "sha256:61276da21c1a9f54f3c4c6265556ac083e910599bb0f4db16dcfb493daed6227"
+            "DiffID": "sha256:a56b319ee5fe176afdc6ffc2279e031e760822c0cbab06172983d35217688c9f"
           },
           "FilePath": "app/app.jar/BOOT-INF/lib/hibernate-validator-8.0.2.Final.jar",
+          "AnalyzedBy": "jar"
+        },
+        {
+          "Name": "org.hibernate:hibernate-core",
+          "Identifier": {
+            "PURL": "pkg:maven/org.hibernate/hibernate-core@6.6.8.Final",
+            "UID": "38a156e8fa2a592e"
+          },
+          "Version": "6.6.8.Final",
+          "Layer": {
+            "DiffID": "sha256:a56b319ee5fe176afdc6ffc2279e031e760822c0cbab06172983d35217688c9f"
+          },
+          "FilePath": "app/app.jar/BOOT-INF/lib/hibernate-core-6.6.8.Final.jar",
           "AnalyzedBy": "jar"
         },
         {
@@ -4100,7 +4524,7 @@
           },
           "Version": "3.6.1.Final",
           "Layer": {
-            "DiffID": "sha256:61276da21c1a9f54f3c4c6265556ac083e910599bb0f4db16dcfb493daed6227"
+            "DiffID": "sha256:a56b319ee5fe176afdc6ffc2279e031e760822c0cbab06172983d35217688c9f"
           },
           "FilePath": "app/app.jar/BOOT-INF/lib/jboss-logging-3.6.1.Final.jar",
           "AnalyzedBy": "jar"
@@ -4113,22 +4537,35 @@
           },
           "Version": "2.0.3",
           "Layer": {
-            "DiffID": "sha256:61276da21c1a9f54f3c4c6265556ac083e910599bb0f4db16dcfb493daed6227"
+            "DiffID": "sha256:a56b319ee5fe176afdc6ffc2279e031e760822c0cbab06172983d35217688c9f"
           },
           "FilePath": "app/app.jar/BOOT-INF/lib/LatencyUtils-2.0.3.jar",
           "AnalyzedBy": "jar"
         },
         {
-          "Name": "org.slf4j:jcl-over-slf4j",
+          "Name": "org.postgresql:postgresql",
           "Identifier": {
-            "PURL": "pkg:maven/org.slf4j/jcl-over-slf4j@2.0.16",
-            "UID": "a34e2540151e23b1"
+            "PURL": "pkg:maven/org.postgresql/postgresql@42.7.5",
+            "UID": "eded279e91bec6a3"
           },
-          "Version": "2.0.16",
+          "Version": "42.7.5",
           "Layer": {
-            "DiffID": "sha256:61276da21c1a9f54f3c4c6265556ac083e910599bb0f4db16dcfb493daed6227"
+            "DiffID": "sha256:a56b319ee5fe176afdc6ffc2279e031e760822c0cbab06172983d35217688c9f"
           },
-          "FilePath": "app/app.jar/BOOT-INF/lib/jcl-over-slf4j-2.0.16.jar",
+          "FilePath": "app/app.jar/BOOT-INF/lib/postgresql-42.7.5.jar",
+          "AnalyzedBy": "jar"
+        },
+        {
+          "Name": "org.reactivestreams:reactive-streams",
+          "Identifier": {
+            "PURL": "pkg:maven/org.reactivestreams/reactive-streams@1.0.4",
+            "UID": "147ae6dd5080fbeb"
+          },
+          "Version": "1.0.4",
+          "Layer": {
+            "DiffID": "sha256:a56b319ee5fe176afdc6ffc2279e031e760822c0cbab06172983d35217688c9f"
+          },
+          "FilePath": "app/app.jar/BOOT-INF/lib/reactive-streams-1.0.4.jar",
           "AnalyzedBy": "jar"
         },
         {
@@ -4139,7 +4576,7 @@
           },
           "Version": "2.0.16",
           "Layer": {
-            "DiffID": "sha256:61276da21c1a9f54f3c4c6265556ac083e910599bb0f4db16dcfb493daed6227"
+            "DiffID": "sha256:a56b319ee5fe176afdc6ffc2279e031e760822c0cbab06172983d35217688c9f"
           },
           "FilePath": "app/app.jar/BOOT-INF/lib/jul-to-slf4j-2.0.16.jar",
           "AnalyzedBy": "jar"
@@ -4152,7 +4589,7 @@
           },
           "Version": "2.0.16",
           "Layer": {
-            "DiffID": "sha256:61276da21c1a9f54f3c4c6265556ac083e910599bb0f4db16dcfb493daed6227"
+            "DiffID": "sha256:a56b319ee5fe176afdc6ffc2279e031e760822c0cbab06172983d35217688c9f"
           },
           "FilePath": "app/app.jar/BOOT-INF/lib/slf4j-api-2.0.16.jar",
           "AnalyzedBy": "jar"
@@ -4165,7 +4602,7 @@
           },
           "Version": "3.4.3",
           "Layer": {
-            "DiffID": "sha256:61276da21c1a9f54f3c4c6265556ac083e910599bb0f4db16dcfb493daed6227"
+            "DiffID": "sha256:a56b319ee5fe176afdc6ffc2279e031e760822c0cbab06172983d35217688c9f"
           },
           "FilePath": "app/app.jar/BOOT-INF/lib/spring-boot-3.4.3.jar",
           "AnalyzedBy": "jar"
@@ -4178,7 +4615,7 @@
           },
           "Version": "3.4.3",
           "Layer": {
-            "DiffID": "sha256:61276da21c1a9f54f3c4c6265556ac083e910599bb0f4db16dcfb493daed6227"
+            "DiffID": "sha256:a56b319ee5fe176afdc6ffc2279e031e760822c0cbab06172983d35217688c9f"
           },
           "FilePath": "app/app.jar/BOOT-INF/lib/spring-boot-actuator-3.4.3.jar",
           "AnalyzedBy": "jar"
@@ -4191,7 +4628,7 @@
           },
           "Version": "3.4.3",
           "Layer": {
-            "DiffID": "sha256:61276da21c1a9f54f3c4c6265556ac083e910599bb0f4db16dcfb493daed6227"
+            "DiffID": "sha256:a56b319ee5fe176afdc6ffc2279e031e760822c0cbab06172983d35217688c9f"
           },
           "FilePath": "app/app.jar/BOOT-INF/lib/spring-boot-actuator-autoconfigure-3.4.3.jar",
           "AnalyzedBy": "jar"
@@ -4204,7 +4641,7 @@
           },
           "Version": "3.4.3",
           "Layer": {
-            "DiffID": "sha256:61276da21c1a9f54f3c4c6265556ac083e910599bb0f4db16dcfb493daed6227"
+            "DiffID": "sha256:a56b319ee5fe176afdc6ffc2279e031e760822c0cbab06172983d35217688c9f"
           },
           "FilePath": "app/app.jar/BOOT-INF/lib/spring-boot-autoconfigure-3.4.3.jar",
           "AnalyzedBy": "jar"
@@ -4217,7 +4654,7 @@
           },
           "Version": "3.4.3",
           "Layer": {
-            "DiffID": "sha256:61276da21c1a9f54f3c4c6265556ac083e910599bb0f4db16dcfb493daed6227"
+            "DiffID": "sha256:a56b319ee5fe176afdc6ffc2279e031e760822c0cbab06172983d35217688c9f"
           },
           "FilePath": "app/app.jar/BOOT-INF/lib/spring-boot-jarmode-tools-3.4.3.jar",
           "AnalyzedBy": "jar"
@@ -4230,7 +4667,7 @@
           },
           "Version": "4.2.0",
           "Layer": {
-            "DiffID": "sha256:61276da21c1a9f54f3c4c6265556ac083e910599bb0f4db16dcfb493daed6227"
+            "DiffID": "sha256:a56b319ee5fe176afdc6ffc2279e031e760822c0cbab06172983d35217688c9f"
           },
           "FilePath": "app/app.jar/BOOT-INF/lib/spring-cloud-commons-4.2.0.jar",
           "AnalyzedBy": "jar"
@@ -4243,22 +4680,9 @@
           },
           "Version": "4.2.0",
           "Layer": {
-            "DiffID": "sha256:61276da21c1a9f54f3c4c6265556ac083e910599bb0f4db16dcfb493daed6227"
+            "DiffID": "sha256:a56b319ee5fe176afdc6ffc2279e031e760822c0cbab06172983d35217688c9f"
           },
           "FilePath": "app/app.jar/BOOT-INF/lib/spring-cloud-config-client-4.2.0.jar",
-          "AnalyzedBy": "jar"
-        },
-        {
-          "Name": "org.springframework.cloud:spring-cloud-config-server",
-          "Identifier": {
-            "PURL": "pkg:maven/org.springframework.cloud/spring-cloud-config-server@4.2.0",
-            "UID": "65fd995cfcca4236"
-          },
-          "Version": "4.2.0",
-          "Layer": {
-            "DiffID": "sha256:61276da21c1a9f54f3c4c6265556ac083e910599bb0f4db16dcfb493daed6227"
-          },
-          "FilePath": "app/app.jar/BOOT-INF/lib/spring-cloud-config-server-4.2.0.jar",
           "AnalyzedBy": "jar"
         },
         {
@@ -4269,9 +4693,35 @@
           },
           "Version": "4.2.0",
           "Layer": {
-            "DiffID": "sha256:61276da21c1a9f54f3c4c6265556ac083e910599bb0f4db16dcfb493daed6227"
+            "DiffID": "sha256:a56b319ee5fe176afdc6ffc2279e031e760822c0cbab06172983d35217688c9f"
           },
           "FilePath": "app/app.jar/BOOT-INF/lib/spring-cloud-context-4.2.0.jar",
+          "AnalyzedBy": "jar"
+        },
+        {
+          "Name": "org.springframework.cloud:spring-cloud-loadbalancer",
+          "Identifier": {
+            "PURL": "pkg:maven/org.springframework.cloud/spring-cloud-loadbalancer@4.2.0",
+            "UID": "2282473246c2a6cc"
+          },
+          "Version": "4.2.0",
+          "Layer": {
+            "DiffID": "sha256:a56b319ee5fe176afdc6ffc2279e031e760822c0cbab06172983d35217688c9f"
+          },
+          "FilePath": "app/app.jar/BOOT-INF/lib/spring-cloud-loadbalancer-4.2.0.jar",
+          "AnalyzedBy": "jar"
+        },
+        {
+          "Name": "org.springframework.cloud:spring-cloud-netflix-eureka-client",
+          "Identifier": {
+            "PURL": "pkg:maven/org.springframework.cloud/spring-cloud-netflix-eureka-client@4.2.0",
+            "UID": "c16b0011dabdbd08"
+          },
+          "Version": "4.2.0",
+          "Layer": {
+            "DiffID": "sha256:a56b319ee5fe176afdc6ffc2279e031e760822c0cbab06172983d35217688c9f"
+          },
+          "FilePath": "app/app.jar/BOOT-INF/lib/spring-cloud-netflix-eureka-client-4.2.0.jar",
           "AnalyzedBy": "jar"
         },
         {
@@ -4282,9 +4732,74 @@
           },
           "Version": "4.2.0",
           "Layer": {
-            "DiffID": "sha256:61276da21c1a9f54f3c4c6265556ac083e910599bb0f4db16dcfb493daed6227"
+            "DiffID": "sha256:a56b319ee5fe176afdc6ffc2279e031e760822c0cbab06172983d35217688c9f"
           },
           "FilePath": "app/app.jar/BOOT-INF/lib/spring-cloud-starter-4.2.0.jar",
+          "AnalyzedBy": "jar"
+        },
+        {
+          "Name": "org.springframework.cloud:spring-cloud-starter-config",
+          "Identifier": {
+            "PURL": "pkg:maven/org.springframework.cloud/spring-cloud-starter-config@4.2.0",
+            "UID": "734518ed8fd18ad1"
+          },
+          "Version": "4.2.0",
+          "Layer": {
+            "DiffID": "sha256:a56b319ee5fe176afdc6ffc2279e031e760822c0cbab06172983d35217688c9f"
+          },
+          "FilePath": "app/app.jar/BOOT-INF/lib/spring-cloud-starter-config-4.2.0.jar",
+          "AnalyzedBy": "jar"
+        },
+        {
+          "Name": "org.springframework.cloud:spring-cloud-starter-loadbalancer",
+          "Identifier": {
+            "PURL": "pkg:maven/org.springframework.cloud/spring-cloud-starter-loadbalancer@4.2.0",
+            "UID": "5ab63e02cc8691e5"
+          },
+          "Version": "4.2.0",
+          "Layer": {
+            "DiffID": "sha256:a56b319ee5fe176afdc6ffc2279e031e760822c0cbab06172983d35217688c9f"
+          },
+          "FilePath": "app/app.jar/BOOT-INF/lib/spring-cloud-starter-loadbalancer-4.2.0.jar",
+          "AnalyzedBy": "jar"
+        },
+        {
+          "Name": "org.springframework.cloud:spring-cloud-starter-netflix-eureka-client",
+          "Identifier": {
+            "PURL": "pkg:maven/org.springframework.cloud/spring-cloud-starter-netflix-eureka-client@4.2.0",
+            "UID": "e529fbc5764373a5"
+          },
+          "Version": "4.2.0",
+          "Layer": {
+            "DiffID": "sha256:a56b319ee5fe176afdc6ffc2279e031e760822c0cbab06172983d35217688c9f"
+          },
+          "FilePath": "app/app.jar/BOOT-INF/lib/spring-cloud-starter-netflix-eureka-client-4.2.0.jar",
+          "AnalyzedBy": "jar"
+        },
+        {
+          "Name": "org.springframework.data:spring-data-commons",
+          "Identifier": {
+            "PURL": "pkg:maven/org.springframework.data/spring-data-commons@3.4.3",
+            "UID": "20538d5228b7674a"
+          },
+          "Version": "3.4.3",
+          "Layer": {
+            "DiffID": "sha256:a56b319ee5fe176afdc6ffc2279e031e760822c0cbab06172983d35217688c9f"
+          },
+          "FilePath": "app/app.jar/BOOT-INF/lib/spring-data-commons-3.4.3.jar",
+          "AnalyzedBy": "jar"
+        },
+        {
+          "Name": "org.springframework.data:spring-data-jpa",
+          "Identifier": {
+            "PURL": "pkg:maven/org.springframework.data/spring-data-jpa@3.4.3",
+            "UID": "e666a64d61d6a52f"
+          },
+          "Version": "3.4.3",
+          "Layer": {
+            "DiffID": "sha256:a56b319ee5fe176afdc6ffc2279e031e760822c0cbab06172983d35217688c9f"
+          },
+          "FilePath": "app/app.jar/BOOT-INF/lib/spring-data-jpa-3.4.3.jar",
           "AnalyzedBy": "jar"
         },
         {
@@ -4295,7 +4810,7 @@
           },
           "Version": "6.4.3",
           "Layer": {
-            "DiffID": "sha256:61276da21c1a9f54f3c4c6265556ac083e910599bb0f4db16dcfb493daed6227"
+            "DiffID": "sha256:a56b319ee5fe176afdc6ffc2279e031e760822c0cbab06172983d35217688c9f"
           },
           "FilePath": "app/app.jar/BOOT-INF/lib/spring-security-crypto-6.4.3.jar",
           "AnalyzedBy": "jar"
@@ -4308,9 +4823,22 @@
           },
           "Version": "6.2.3",
           "Layer": {
-            "DiffID": "sha256:61276da21c1a9f54f3c4c6265556ac083e910599bb0f4db16dcfb493daed6227"
+            "DiffID": "sha256:a56b319ee5fe176afdc6ffc2279e031e760822c0cbab06172983d35217688c9f"
           },
           "FilePath": "app/app.jar/BOOT-INF/lib/spring-aop-6.2.3.jar",
+          "AnalyzedBy": "jar"
+        },
+        {
+          "Name": "org.springframework:spring-aspects",
+          "Identifier": {
+            "PURL": "pkg:maven/org.springframework/spring-aspects@6.2.3",
+            "UID": "5802ebbb028e2b93"
+          },
+          "Version": "6.2.3",
+          "Layer": {
+            "DiffID": "sha256:a56b319ee5fe176afdc6ffc2279e031e760822c0cbab06172983d35217688c9f"
+          },
+          "FilePath": "app/app.jar/BOOT-INF/lib/spring-aspects-6.2.3.jar",
           "AnalyzedBy": "jar"
         },
         {
@@ -4321,7 +4849,7 @@
           },
           "Version": "6.2.3",
           "Layer": {
-            "DiffID": "sha256:61276da21c1a9f54f3c4c6265556ac083e910599bb0f4db16dcfb493daed6227"
+            "DiffID": "sha256:a56b319ee5fe176afdc6ffc2279e031e760822c0cbab06172983d35217688c9f"
           },
           "FilePath": "app/app.jar/BOOT-INF/lib/spring-beans-6.2.3.jar",
           "AnalyzedBy": "jar"
@@ -4334,9 +4862,22 @@
           },
           "Version": "6.2.3",
           "Layer": {
-            "DiffID": "sha256:61276da21c1a9f54f3c4c6265556ac083e910599bb0f4db16dcfb493daed6227"
+            "DiffID": "sha256:a56b319ee5fe176afdc6ffc2279e031e760822c0cbab06172983d35217688c9f"
           },
           "FilePath": "app/app.jar/BOOT-INF/lib/spring-context-6.2.3.jar",
+          "AnalyzedBy": "jar"
+        },
+        {
+          "Name": "org.springframework:spring-context-support",
+          "Identifier": {
+            "PURL": "pkg:maven/org.springframework/spring-context-support@6.2.3",
+            "UID": "1a8c575946c87567"
+          },
+          "Version": "6.2.3",
+          "Layer": {
+            "DiffID": "sha256:a56b319ee5fe176afdc6ffc2279e031e760822c0cbab06172983d35217688c9f"
+          },
+          "FilePath": "app/app.jar/BOOT-INF/lib/spring-context-support-6.2.3.jar",
           "AnalyzedBy": "jar"
         },
         {
@@ -4347,7 +4888,7 @@
           },
           "Version": "6.2.3",
           "Layer": {
-            "DiffID": "sha256:61276da21c1a9f54f3c4c6265556ac083e910599bb0f4db16dcfb493daed6227"
+            "DiffID": "sha256:a56b319ee5fe176afdc6ffc2279e031e760822c0cbab06172983d35217688c9f"
           },
           "FilePath": "app/app.jar/BOOT-INF/lib/spring-core-6.2.3.jar",
           "AnalyzedBy": "jar"
@@ -4360,7 +4901,7 @@
           },
           "Version": "6.2.3",
           "Layer": {
-            "DiffID": "sha256:61276da21c1a9f54f3c4c6265556ac083e910599bb0f4db16dcfb493daed6227"
+            "DiffID": "sha256:a56b319ee5fe176afdc6ffc2279e031e760822c0cbab06172983d35217688c9f"
           },
           "FilePath": "app/app.jar/BOOT-INF/lib/spring-expression-6.2.3.jar",
           "AnalyzedBy": "jar"
@@ -4373,9 +4914,48 @@
           },
           "Version": "6.2.3",
           "Layer": {
-            "DiffID": "sha256:61276da21c1a9f54f3c4c6265556ac083e910599bb0f4db16dcfb493daed6227"
+            "DiffID": "sha256:a56b319ee5fe176afdc6ffc2279e031e760822c0cbab06172983d35217688c9f"
           },
           "FilePath": "app/app.jar/BOOT-INF/lib/spring-jcl-6.2.3.jar",
+          "AnalyzedBy": "jar"
+        },
+        {
+          "Name": "org.springframework:spring-jdbc",
+          "Identifier": {
+            "PURL": "pkg:maven/org.springframework/spring-jdbc@6.2.3",
+            "UID": "7f31aeb2b44f7133"
+          },
+          "Version": "6.2.3",
+          "Layer": {
+            "DiffID": "sha256:a56b319ee5fe176afdc6ffc2279e031e760822c0cbab06172983d35217688c9f"
+          },
+          "FilePath": "app/app.jar/BOOT-INF/lib/spring-jdbc-6.2.3.jar",
+          "AnalyzedBy": "jar"
+        },
+        {
+          "Name": "org.springframework:spring-orm",
+          "Identifier": {
+            "PURL": "pkg:maven/org.springframework/spring-orm@6.2.3",
+            "UID": "b3adb128a9d6b9a6"
+          },
+          "Version": "6.2.3",
+          "Layer": {
+            "DiffID": "sha256:a56b319ee5fe176afdc6ffc2279e031e760822c0cbab06172983d35217688c9f"
+          },
+          "FilePath": "app/app.jar/BOOT-INF/lib/spring-orm-6.2.3.jar",
+          "AnalyzedBy": "jar"
+        },
+        {
+          "Name": "org.springframework:spring-tx",
+          "Identifier": {
+            "PURL": "pkg:maven/org.springframework/spring-tx@6.2.3",
+            "UID": "8fc276001f6ec563"
+          },
+          "Version": "6.2.3",
+          "Layer": {
+            "DiffID": "sha256:a56b319ee5fe176afdc6ffc2279e031e760822c0cbab06172983d35217688c9f"
+          },
+          "FilePath": "app/app.jar/BOOT-INF/lib/spring-tx-6.2.3.jar",
           "AnalyzedBy": "jar"
         },
         {
@@ -4386,7 +4966,7 @@
           },
           "Version": "6.2.3",
           "Layer": {
-            "DiffID": "sha256:61276da21c1a9f54f3c4c6265556ac083e910599bb0f4db16dcfb493daed6227"
+            "DiffID": "sha256:a56b319ee5fe176afdc6ffc2279e031e760822c0cbab06172983d35217688c9f"
           },
           "FilePath": "app/app.jar/BOOT-INF/lib/spring-web-6.2.3.jar",
           "AnalyzedBy": "jar"
@@ -4399,7 +4979,7 @@
           },
           "Version": "6.2.3",
           "Layer": {
-            "DiffID": "sha256:61276da21c1a9f54f3c4c6265556ac083e910599bb0f4db16dcfb493daed6227"
+            "DiffID": "sha256:a56b319ee5fe176afdc6ffc2279e031e760822c0cbab06172983d35217688c9f"
           },
           "FilePath": "app/app.jar/BOOT-INF/lib/spring-webmvc-6.2.3.jar",
           "AnalyzedBy": "jar"
@@ -4412,13 +4992,89 @@
           },
           "Version": "2.3",
           "Layer": {
-            "DiffID": "sha256:61276da21c1a9f54f3c4c6265556ac083e910599bb0f4db16dcfb493daed6227"
+            "DiffID": "sha256:a56b319ee5fe176afdc6ffc2279e031e760822c0cbab06172983d35217688c9f"
           },
           "FilePath": "app/app.jar/BOOT-INF/lib/snakeyaml-2.3.jar",
+          "AnalyzedBy": "jar"
+        },
+        {
+          "Name": "xmlpull:xmlpull",
+          "Identifier": {
+            "PURL": "pkg:maven/xmlpull/xmlpull@1.1.3.1",
+            "UID": "4c8ba8518a81122d"
+          },
+          "Version": "1.1.3.1",
+          "Layer": {
+            "DiffID": "sha256:a56b319ee5fe176afdc6ffc2279e031e760822c0cbab06172983d35217688c9f"
+          },
+          "FilePath": "app/app.jar/BOOT-INF/lib/xmlpull-1.1.3.1.jar",
           "AnalyzedBy": "jar"
         }
       ],
       "Vulnerabilities": [
+        {
+          "VulnerabilityID": "CVE-2024-47072",
+          "VendorIDs": [
+            "GHSA-hfq9-hggm-c56q"
+          ],
+          "PkgName": "com.thoughtworks.xstream:xstream",
+          "PkgPath": "app/app.jar/BOOT-INF/lib/xstream-1.4.20.jar",
+          "PkgIdentifier": {
+            "PURL": "pkg:maven/com.thoughtworks.xstream/xstream@1.4.20",
+            "UID": "c550e97354c1b734"
+          },
+          "InstalledVersion": "1.4.20",
+          "FixedVersion": "1.4.21",
+          "Status": "fixed",
+          "Layer": {
+            "DiffID": "sha256:a56b319ee5fe176afdc6ffc2279e031e760822c0cbab06172983d35217688c9f"
+          },
+          "SeveritySource": "ghsa",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2024-47072",
+          "DataSource": {
+            "ID": "ghsa",
+            "Name": "GitHub Security Advisory Maven",
+            "URL": "https://github.com/advisories?query=type%3Areviewed+ecosystem%3Amaven"
+          },
+          "Fingerprint": "sha256:1a444f9141377e3edf5e22c9f3bc2a7ae0b5f5a5ff867e54ae1e29f0f29023a3",
+          "Title": "com.thoughtworks.xstream: XStream is vulnerable to a Denial of Service attack due to stack overflow from a manipulated binary input stream",
+          "Description": "XStream is a simple library to serialize objects to XML and back again. This vulnerability may allow a remote attacker to terminate the application with a stack overflow error resulting in a denial of service only by manipulating the processed input stream when XStream is configured to use the BinaryStreamDriver. XStream 1.4.21 has been patched to detect the manipulation in the binary input stream causing the the stack overflow and raises an InputManipulationException instead. Users are advised to upgrade. Users unable to upgrade may catch the StackOverflowError in the client code calling XStream if XStream is configured to use the BinaryStreamDriver.",
+          "Severity": "HIGH",
+          "CweIDs": [
+            "CWE-121",
+            "CWE-502"
+          ],
+          "VendorSeverity": {
+            "amazon": 3,
+            "ghsa": 3,
+            "redhat": 3
+          },
+          "CVSS": {
+            "ghsa": {
+              "V3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+              "V40Vector": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:H/SC:N/SI:N/SA:N/E:P",
+              "V3Score": 7.5,
+              "V40Score": 7.7
+            },
+            "redhat": {
+              "V3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+              "V3Score": 7.5
+            }
+          },
+          "References": [
+            "https://access.redhat.com/security/cve/CVE-2024-47072",
+            "https://github.com/x-stream/xstream",
+            "https://github.com/x-stream/xstream/commit/bb838ce2269cac47433e31c77b2b236466e9f266",
+            "https://github.com/x-stream/xstream/commit/fdd9f7d3de0d7ccf2f9979bcd09fbf3e6a0c881a",
+            "https://github.com/x-stream/xstream/security/advisories/GHSA-hfq9-hggm-c56q",
+            "https://lists.debian.org/debian-lts-announce/2024/12/msg00023.html",
+            "https://nvd.nist.gov/vuln/detail/CVE-2024-47072",
+            "https://www.cve.org/CVERecord?id=CVE-2024-47072",
+            "https://x-stream.github.io/CVE-2024-47072.html"
+          ],
+          "PublishedDate": "2024-11-08T00:15:14.937Z",
+          "LastModifiedDate": "2026-04-15T00:35:42.02Z"
+        },
         {
           "VulnerabilityID": "CVE-2025-27820",
           "VendorIDs": [
@@ -4434,7 +5090,7 @@
           "FixedVersion": "5.4.3",
           "Status": "fixed",
           "Layer": {
-            "DiffID": "sha256:61276da21c1a9f54f3c4c6265556ac083e910599bb0f4db16dcfb493daed6227"
+            "DiffID": "sha256:a56b319ee5fe176afdc6ffc2279e031e760822c0cbab06172983d35217688c9f"
           },
           "SeveritySource": "ghsa",
           "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2025-27820",
@@ -4443,7 +5099,7 @@
             "Name": "GitHub Security Advisory Maven",
             "URL": "https://github.com/advisories?query=type%3Areviewed+ecosystem%3Amaven"
           },
-          "Fingerprint": "sha256:46695f1e6edc5c30a8e2015ecefd75f4f333cd7527fffff35737eb8bab7e3617",
+          "Fingerprint": "sha256:0f5ec31457061f80953e0125aefb4ba4fbf8e0a36ad93b8cd73a4680b742994e",
           "Title": "org.apache.httpcomponents.client5/httpclient5: Apache HttpComponents: PSL (Public Suffix List) validation bypass",
           "Description": "A bug in PSL validation logic in Apache HttpClient 5.4.x disables domain checks, affecting cookie management and host name verification. Discovered by the Apache HttpClient team. Fixed in the 5.4.3 release",
           "Severity": "HIGH",
@@ -4495,7 +5151,7 @@
           "FixedVersion": "9.0.118, 10.1.55, 11.0.22",
           "Status": "fixed",
           "Layer": {
-            "DiffID": "sha256:61276da21c1a9f54f3c4c6265556ac083e910599bb0f4db16dcfb493daed6227"
+            "DiffID": "sha256:a56b319ee5fe176afdc6ffc2279e031e760822c0cbab06172983d35217688c9f"
           },
           "SeveritySource": "ghsa",
           "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-41293",
@@ -4504,7 +5160,7 @@
             "Name": "GitHub Security Advisory Maven",
             "URL": "https://github.com/advisories?query=type%3Areviewed+ecosystem%3Amaven"
           },
-          "Fingerprint": "sha256:f99f335d5390204e0d9ed2a46991fa6a83f574df04c5cede287c774492086b47",
+          "Fingerprint": "sha256:cdb97935a5056adfa153ff8e084cc2eff1f9a891edc3f94f4fff0c32d3575226",
           "Title": "Improper Input Validation vulnerability in Apache Tomcat.  This issue  ...",
           "Description": "Improper Input Validation vulnerability in Apache Tomcat.\n\nThis issue affects Apache Tomcat: from 11.0.0-M1 through 11.0.21, from 10.1.0-M1 through 10.1.54, from 9.0.0.M1 through 9.0.117, from 10.0.0-M1 through 10.0.27.\nOlder, end of support versions may also be affected.\n\nUsers are recommended to upgrade to version [FIXED_VERSION], which fixes the issue.",
           "Severity": "CRITICAL",
@@ -4563,7 +5219,7 @@
           "FixedVersion": "9.0.118, 10.1.55, 11.0.22",
           "Status": "fixed",
           "Layer": {
-            "DiffID": "sha256:61276da21c1a9f54f3c4c6265556ac083e910599bb0f4db16dcfb493daed6227"
+            "DiffID": "sha256:a56b319ee5fe176afdc6ffc2279e031e760822c0cbab06172983d35217688c9f"
           },
           "SeveritySource": "ghsa",
           "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-43512",
@@ -4572,7 +5228,7 @@
             "Name": "GitHub Security Advisory Maven",
             "URL": "https://github.com/advisories?query=type%3Areviewed+ecosystem%3Amaven"
           },
-          "Fingerprint": "sha256:8c225ef42c0d1e84819f684747aea2d1ca2ccd3736e5824b865689c03847cdd9",
+          "Fingerprint": "sha256:259ddeb65e2aea110d65dee61344ff309d66a9fe45c1c4c12edbafe5f4f21ea9",
           "Title": "tomcat-coyote: Apache Tomcat: Authentication bypass via digest authentication",
           "Description": "DEPRECATED: Authentication Bypass Issues vulnerability in digest authentication in Apache Tomcat.\n\nThis issue affects Apache Tomcat: from 11.0.0-M1 through 11.0.21, from 10.1.0-M1 through 10.1.54, from 9.0.0.M1 through 9.0.117, from 8.5.0 through 8.5.100, from before 7.0.0.\nOlder unsupported versions any also be affect\n\nUsers are recommended to upgrade to version 11.0.22, 10.1.55 or 9.0.118 which fix the issue.",
           "Severity": "CRITICAL",
@@ -4630,7 +5286,7 @@
           "FixedVersion": "9.0.118, 10.1.55, 11.0.22",
           "Status": "fixed",
           "Layer": {
-            "DiffID": "sha256:61276da21c1a9f54f3c4c6265556ac083e910599bb0f4db16dcfb493daed6227"
+            "DiffID": "sha256:a56b319ee5fe176afdc6ffc2279e031e760822c0cbab06172983d35217688c9f"
           },
           "SeveritySource": "ghsa",
           "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-43515",
@@ -4639,7 +5295,7 @@
             "Name": "GitHub Security Advisory Maven",
             "URL": "https://github.com/advisories?query=type%3Areviewed+ecosystem%3Amaven"
           },
-          "Fingerprint": "sha256:e7445560733de82bebe0b42139dd2b21d4b55d1bc76234e1bd459e5e00b75b21",
+          "Fingerprint": "sha256:3f447ba0e8eeab5a97ba442a3b07426a32e4967e4c8241c4a814f2a93b535874",
           "Title": "Improper Authorization vulnerability when multiple method constraints  ...",
           "Description": "Improper Authorization vulnerability when multiple method constraints define an HTTP method for the same extension in Apache Tomcat.\n\nThis issue affects Apache Tomcat: from 11.0.0-M1 through 11.0.21, from 10.1.0-M1 through 10.1.54, from 9.0.0.M1 through 9.0.117, from 8.5.0 through 8.5.100, from 7.0.0 through 7.0.109.\n\nUsers are recommended to upgrade to version 11.0.22, 10.1.55 or 9.0.118 which fix the issue.",
           "Severity": "CRITICAL",
@@ -4692,7 +5348,7 @@
           "FixedVersion": "11.0.8, 10.1.42, 9.0.106",
           "Status": "fixed",
           "Layer": {
-            "DiffID": "sha256:61276da21c1a9f54f3c4c6265556ac083e910599bb0f4db16dcfb493daed6227"
+            "DiffID": "sha256:a56b319ee5fe176afdc6ffc2279e031e760822c0cbab06172983d35217688c9f"
           },
           "SeveritySource": "ghsa",
           "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2025-48988",
@@ -4701,7 +5357,7 @@
             "Name": "GitHub Security Advisory Maven",
             "URL": "https://github.com/advisories?query=type%3Areviewed+ecosystem%3Amaven"
           },
-          "Fingerprint": "sha256:8f71e8f5a2f5b5072588cf3d0da477f13cc90cba61a41043d229735c08246768",
+          "Fingerprint": "sha256:3e7cfcf6cda6cba7af70dca1693597eb6aef044d4430e9bdaa88a0ebc3887c99",
           "Title": "tomcat: Apache Tomcat DoS in multipart upload",
           "Description": "Allocation of Resources Without Limits or Throttling vulnerability in Apache Tomcat.\n\nThis issue affects Apache Tomcat: from 11.0.0-M1 through 11.0.7, from 10.1.0-M1 through 10.1.41, from 9.0.0.M1 through 9.0.105.\nThe following versions were EOL at the time the CVE was created but are \nknown to be affected: 8.5.0 though 8.5.100. Other, older, EOL versions \nmay also be affected.\n\n\nUsers are recommended to upgrade to version 11.0.8, 10.1.42 or 9.0.106, which fix the issue.",
           "Severity": "HIGH",
@@ -4797,7 +5453,7 @@
           "FixedVersion": "11.0.10, 10.1.44, 9.0.108",
           "Status": "fixed",
           "Layer": {
-            "DiffID": "sha256:61276da21c1a9f54f3c4c6265556ac083e910599bb0f4db16dcfb493daed6227"
+            "DiffID": "sha256:a56b319ee5fe176afdc6ffc2279e031e760822c0cbab06172983d35217688c9f"
           },
           "SeveritySource": "ghsa",
           "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2025-48989",
@@ -4806,7 +5462,7 @@
             "Name": "GitHub Security Advisory Maven",
             "URL": "https://github.com/advisories?query=type%3Areviewed+ecosystem%3Amaven"
           },
-          "Fingerprint": "sha256:6c38a9db3e16701f121b0e0a44e458daa835cd4a217486db954cdcaad7b9e7bf",
+          "Fingerprint": "sha256:101c0b307b548d35bc7de7b93fd19701b2d3ecb0cdae14283de685504d036cb8",
           "Title": "tomcat: http/2 \"MadeYouReset\" DoS attack through HTTP/2 control frames",
           "Description": "Improper Resource Shutdown or Release vulnerability in Apache Tomcat made Tomcat vulnerable to the made you reset attack.\n\nThis issue affects Apache Tomcat: from 11.0.0-M1 through 11.0.9, from 10.1.0-M1 through 10.1.43 and from 9.0.0.M1 through 9.0.107. Older, EOL versions may also be affected.\n\nUsers are recommended to upgrade to one of versions 11.0.10, 10.1.44 or 9.0.108 which fix the issue.",
           "Severity": "HIGH",
@@ -4902,7 +5558,7 @@
           "FixedVersion": "11.0.9, 10.1.43, 9.0.107",
           "Status": "fixed",
           "Layer": {
-            "DiffID": "sha256:61276da21c1a9f54f3c4c6265556ac083e910599bb0f4db16dcfb493daed6227"
+            "DiffID": "sha256:a56b319ee5fe176afdc6ffc2279e031e760822c0cbab06172983d35217688c9f"
           },
           "SeveritySource": "ghsa",
           "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2025-52520",
@@ -4911,7 +5567,7 @@
             "Name": "GitHub Security Advisory Maven",
             "URL": "https://github.com/advisories?query=type%3Areviewed+ecosystem%3Amaven"
           },
-          "Fingerprint": "sha256:39c869d211431e866ce2fde3031e65f2353564bdac8318878e6510ca68d9a52f",
+          "Fingerprint": "sha256:f51bc11103a547ff16831a407a12152ef65814de98f1f825faf129545fa0d145",
           "Title": "tomcat: Apache Tomcat denial of service",
           "Description": "For some unlikely configurations of multipart upload, an Integer Overflow vulnerability in Apache Tomcat could lead to a DoS via bypassing of size limits.\n\nThis issue affects Apache Tomcat: from 11.0.0-M1 through 11.0.8, from 10.1.0-M1 through 10.1.42, from 9.0.0.M1 through 9.0.106.\nThe following versions were EOL at the time the CVE was created but are \nknown to be affected: 8.5.0 through 8.5.100. Other, older, EOL versions \nmay also be affected.\n\n\nUsers are recommended to upgrade to version 11.0.9, 10.1.43 or 9.0.107, which fix the issue.",
           "Severity": "HIGH",
@@ -5002,7 +5658,7 @@
           "FixedVersion": "9.0.107, 10.1.43, 11.0.9",
           "Status": "fixed",
           "Layer": {
-            "DiffID": "sha256:61276da21c1a9f54f3c4c6265556ac083e910599bb0f4db16dcfb493daed6227"
+            "DiffID": "sha256:a56b319ee5fe176afdc6ffc2279e031e760822c0cbab06172983d35217688c9f"
           },
           "SeveritySource": "ghsa",
           "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2025-53506",
@@ -5011,7 +5667,7 @@
             "Name": "GitHub Security Advisory Maven",
             "URL": "https://github.com/advisories?query=type%3Areviewed+ecosystem%3Amaven"
           },
-          "Fingerprint": "sha256:75d34aa0493fc5a73237416ea7b493aaf742e77c22aa7016fa2a6f1eef49427b",
+          "Fingerprint": "sha256:19d6f7b95c60a3d5d3e0e4ccfd213a385f3864b7eb86cc7571bd8e67edd01183",
           "Title": "tomcat: Apache Tomcat denial of service",
           "Description": "Uncontrolled Resource Consumption vulnerability in Apache Tomcat if an HTTP/2 client did not acknowledge the initial settings frame that reduces the maximum permitted concurrent streams.\n\nThis issue affects Apache Tomcat: from 11.0.0-M1 through 11.0.8, from 10.1.0-M1 through 10.1.42, from 9.0.0.M1 through 9.0.106.\nThe following versions were EOL at the time the CVE was created but are \nknown to be affected: 8.5.0 through 8.5.100. Other EOL versions may also be affected.\n\n\nUsers are recommended to upgrade to version 11.0.9, 10.1.43 or 9.0.107, which fix the issue.",
           "Severity": "HIGH",
@@ -5102,7 +5758,7 @@
           "FixedVersion": "11.0.11, 10.1.45, 9.0.109",
           "Status": "fixed",
           "Layer": {
-            "DiffID": "sha256:61276da21c1a9f54f3c4c6265556ac083e910599bb0f4db16dcfb493daed6227"
+            "DiffID": "sha256:a56b319ee5fe176afdc6ffc2279e031e760822c0cbab06172983d35217688c9f"
           },
           "SeveritySource": "ghsa",
           "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2025-55752",
@@ -5111,7 +5767,7 @@
             "Name": "GitHub Security Advisory Maven",
             "URL": "https://github.com/advisories?query=type%3Areviewed+ecosystem%3Amaven"
           },
-          "Fingerprint": "sha256:3cb3c0b7e7967e41a3a0dbf26fd06f791105adbf5229955b461d9e91c97268af",
+          "Fingerprint": "sha256:92f214cdd91bee1c716f423b3b3b689c844f7d3324c8040930bf5c0b1f9702b0",
           "Title": "tomcat: org.apache.tomcat/tomcat-catalina: Apache Tomcat: Directory traversal via rewrite with possible RCE",
           "Description": "Relative Path Traversal vulnerability in Apache Tomcat.\n\nThe fix for bug 60013 introduced a regression where the       rewritten URL was normalized before it was decoded. This introduced the       possibility that, for rewrite rules that rewrite query parameters to the       URL, an attacker could manipulate the request URI to bypass security       constraints including the protection for /WEB-INF/ and /META-INF/. If PUT requests were also enabled then malicious files could be uploaded leading to remote code execution. PUT requests are normally limited to trusted users and it is considered unlikely that PUT requests would be enabled in conjunction with a rewrite that manipulated the URI.\n\n\n\nThis issue affects Apache Tomcat: from 11.0.0-M1 through 11.0.10, from 10.1.0-M1 through 10.1.44, from 9.0.0.M11 through 9.0.108.\n\nThe following versions were EOL at the time the CVE was created but are \nknown to be affected: 8.5.6 though 8.5.100. Other, older, EOL versions may also be affected.\nUsers are recommended to upgrade to version 11.0.11 or later, 10.1.45 or later or 9.0.109 or later, which fix the issue.",
           "Severity": "HIGH",
@@ -5193,7 +5849,7 @@
           "FixedVersion": "11.0.18, 10.1.52, 9.0.115",
           "Status": "fixed",
           "Layer": {
-            "DiffID": "sha256:61276da21c1a9f54f3c4c6265556ac083e910599bb0f4db16dcfb493daed6227"
+            "DiffID": "sha256:a56b319ee5fe176afdc6ffc2279e031e760822c0cbab06172983d35217688c9f"
           },
           "SeveritySource": "ghsa",
           "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-24734",
@@ -5202,7 +5858,7 @@
             "Name": "GitHub Security Advisory Maven",
             "URL": "https://github.com/advisories?query=type%3Areviewed+ecosystem%3Amaven"
           },
-          "Fingerprint": "sha256:72526a486b727eec8737c71bd823ef7d448d143ee51cb80ad0418b221bb87769",
+          "Fingerprint": "sha256:2ebe92c5021b840a9eb41a771b5a550c9e3ebbeed4e7c16cc6e578e638bce924",
           "Title": "tomcat: Apache Tomcat: Certificate revocation bypass due to improper OCSP response validation",
           "Description": "Improper Input Validation vulnerability in Apache Tomcat Native, Apache Tomcat.\n\nWhen using an OCSP responder, Tomcat Native (and Tomcat's FFM port of the Tomcat Native code) did not complete verification or freshness checks on the OCSP response which could allow certificate revocation to be bypassed.\n\nThis issue affects Apache Tomcat Native:  from 1.3.0 through 1.3.4, from 2.0.0 through 2.0.11; Apache Tomcat: from 11.0.0-M1 through 11.0.17, from 10.1.0-M7 through 10.1.51, from 9.0.83 through 9.0.114.\n\n\nThe following versions were EOL at the time the CVE was created but are \nknown to be affected: from 1.1.23 through 1.1.34, from 1.2.0 through 1.2.39. Older EOL versions are not affected.\n\nApache Tomcat Native users are recommended to upgrade to versions 1.3.5 or later or 2.0.12 or later, which fix the issue.\n\nApache Tomcat users are recommended to upgrade to versions 11.0.18 or later, 10.1.52 or later or 9.0.115 or later which fix the issue.",
           "Severity": "HIGH",
@@ -5265,7 +5921,7 @@
           "FixedVersion": "9.0.116, 10.1.52, 11.0.20",
           "Status": "fixed",
           "Layer": {
-            "DiffID": "sha256:61276da21c1a9f54f3c4c6265556ac083e910599bb0f4db16dcfb493daed6227"
+            "DiffID": "sha256:a56b319ee5fe176afdc6ffc2279e031e760822c0cbab06172983d35217688c9f"
           },
           "SeveritySource": "ghsa",
           "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-24880",
@@ -5274,7 +5930,7 @@
             "Name": "GitHub Security Advisory Maven",
             "URL": "https://github.com/advisories?query=type%3Areviewed+ecosystem%3Amaven"
           },
-          "Fingerprint": "sha256:3dba18dc3771bed7fd8054ccf5c6bca39923448d6530f1c664458854e88a7bd0",
+          "Fingerprint": "sha256:88a0dd6af4f08ee4ebcca5bb0db1792988916272c15e74402b850c19acd0cb34",
           "Title": "Apache Tomcat: Apache Tomcat: HTTP Request/Response Smuggling via invalid chunk extension",
           "Description": "Inconsistent Interpretation of HTTP Requests ('HTTP Request/Response Smuggling') vulnerability in Apache Tomcat via invalid chunk extension.\n\nThis issue affects Apache Tomcat: from 11.0.0-M1 through 11.0.18, from 10.1.0-M1 through 10.1.52, from 9.0.0.M1 through 9.0.115, from 8.5.0 through 8.5.100, from 7.0.0 through 7.0.109.\nOther, unsupported versions may also be affected.\n\nUsers are recommended to upgrade to version 11.0.20, 10.1.52 or 9.0.116, which fix the issue.",
           "Severity": "HIGH",
@@ -5338,7 +5994,7 @@
           "FixedVersion": "9.0.116, 10.1.54, 11.0.21",
           "Status": "fixed",
           "Layer": {
-            "DiffID": "sha256:61276da21c1a9f54f3c4c6265556ac083e910599bb0f4db16dcfb493daed6227"
+            "DiffID": "sha256:a56b319ee5fe176afdc6ffc2279e031e760822c0cbab06172983d35217688c9f"
           },
           "SeveritySource": "ghsa",
           "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-34483",
@@ -5347,7 +6003,7 @@
             "Name": "GitHub Security Advisory Maven",
             "URL": "https://github.com/advisories?query=type%3Areviewed+ecosystem%3Amaven"
           },
-          "Fingerprint": "sha256:8993e3fe20812bacd245e77cc9843a5271c1e313383410317e3595152b1e5ea9",
+          "Fingerprint": "sha256:03d6bb3465b69fe1953db499b3c036e0b66221831e67f2f3e2f100a743af1deb",
           "Title": "Apache Tomcat: Apache Tomcat: Information disclosure due to improper encoding in JsonAccessLogValve",
           "Description": "Improper Encoding or Escaping of Output vulnerability in the JsonAccessLogValve component of Apache Tomcat.\n\nThis issue affects Apache Tomcat: from 11.0.0-M1 through 11.0.20, from 10.1.0-M1 through 10.1.53, from 9.0.40 through 9.0.116.\n\nUsers are recommended to upgrade to version 11.0.21, 10.1.54 or 9.0.117 , which fix the issue.",
           "Severity": "HIGH",
@@ -5401,7 +6057,7 @@
           "FixedVersion": "9.0.117, 10.1.54, 11.0.21",
           "Status": "fixed",
           "Layer": {
-            "DiffID": "sha256:61276da21c1a9f54f3c4c6265556ac083e910599bb0f4db16dcfb493daed6227"
+            "DiffID": "sha256:a56b319ee5fe176afdc6ffc2279e031e760822c0cbab06172983d35217688c9f"
           },
           "SeveritySource": "ghsa",
           "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-34487",
@@ -5410,7 +6066,7 @@
             "Name": "GitHub Security Advisory Maven",
             "URL": "https://github.com/advisories?query=type%3Areviewed+ecosystem%3Amaven"
           },
-          "Fingerprint": "sha256:78cc3adb9be0845446a1111d0520a88e89936cb2f65f027104e48ff66bb50c2d",
+          "Fingerprint": "sha256:ad3cc108cca7552db1a9a085eb1d9478866a385e99d5f823b64b5bdcbdc100c0",
           "Title": "Apache Tomcat: Apache Tomcat: Information disclosure via sensitive data in log files",
           "Description": "Insertion of Sensitive Information into Log File vulnerability in the cloud membership for clustering component of Apache Tomcat exposed the Kubernetes bearer token.\n\nThis issue affects Apache Tomcat: from 11.0.0-M1 through 11.0.20, from 10.1.0-M1 through 10.1.53, from 9.0.13 through 9.0.116.\n\nUsers are recommended to upgrade to version 11.0.21, 10.1.54 or 9.0.117, which fix the issue.",
           "Severity": "HIGH",
@@ -5464,7 +6120,7 @@
           "FixedVersion": "9.0.118, 10.1.55, 11.0.22",
           "Status": "fixed",
           "Layer": {
-            "DiffID": "sha256:61276da21c1a9f54f3c4c6265556ac083e910599bb0f4db16dcfb493daed6227"
+            "DiffID": "sha256:a56b319ee5fe176afdc6ffc2279e031e760822c0cbab06172983d35217688c9f"
           },
           "SeveritySource": "ghsa",
           "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-41284",
@@ -5473,7 +6129,7 @@
             "Name": "GitHub Security Advisory Maven",
             "URL": "https://github.com/advisories?query=type%3Areviewed+ecosystem%3Amaven"
           },
-          "Fingerprint": "sha256:d17c1ea440bcaee5b0c8a928acc12b2bef15e8675ea68b1388e60aeab2509598",
+          "Fingerprint": "sha256:850e9463c9417b05a288526569563d0c98b46a54c0f098488afb7e391b2d8793",
           "Title": "Allocation of Resources Without Limits or Throttling vulnerability in  ...",
           "Description": "Allocation of Resources Without Limits or Throttling vulnerability in Apache Tomcat.\n\nThis issue affects Apache Tomcat: from 11.0.0-M1 through 11.0.21, from 10.1.0-M1 through 10.1.54, from 9.0.0.M1 through 9.0.117.\nOlder, unsupported versions may also be affected.\n\nUsers are recommended to upgrade to version [FIXED_VERSION], which fixes the issue.",
           "Severity": "HIGH",
@@ -5526,7 +6182,7 @@
           "FixedVersion": "9.0.118, 10.1.55, 11.0.22",
           "Status": "fixed",
           "Layer": {
-            "DiffID": "sha256:61276da21c1a9f54f3c4c6265556ac083e910599bb0f4db16dcfb493daed6227"
+            "DiffID": "sha256:a56b319ee5fe176afdc6ffc2279e031e760822c0cbab06172983d35217688c9f"
           },
           "SeveritySource": "ghsa",
           "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-42498",
@@ -5535,7 +6191,7 @@
             "Name": "GitHub Security Advisory Maven",
             "URL": "https://github.com/advisories?query=type%3Areviewed+ecosystem%3Amaven"
           },
-          "Fingerprint": "sha256:c2c1b2941f740d18a70c177600bfa24ae9c1047cf2f7986bce939bb95863d06a",
+          "Fingerprint": "sha256:e400cfee4e49424627d63865eeda2bb88007883dc8c2a4c17cbb4d780f9b6fbd",
           "Title": "Exposure of HTTP Authentication Header to unexpected hosts during WebS ...",
           "Description": "Exposure of HTTP Authentication Header to unexpected hosts during WebSocket authentication vulnerability in Apache Tomcat.\n\nThis issue affects Apache Tomcat: from 11.0.0-M1 through 11.0.21, from 10.1.0-M1 through 10.1.54, from 9.0.2 through 9.0.117, from 8.5.24 through 8.5.100, from 7.0.83 through 7.0.109.\n\nUsers are recommended to upgrade to version 11.0.22, 10.1.55 or 9.0.118, which fix the issue.",
           "Severity": "HIGH",
@@ -5588,7 +6244,7 @@
           "FixedVersion": "9.0.118, 10.1.55, 11.0.22",
           "Status": "fixed",
           "Layer": {
-            "DiffID": "sha256:61276da21c1a9f54f3c4c6265556ac083e910599bb0f4db16dcfb493daed6227"
+            "DiffID": "sha256:a56b319ee5fe176afdc6ffc2279e031e760822c0cbab06172983d35217688c9f"
           },
           "SeveritySource": "ghsa",
           "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-43513",
@@ -5597,7 +6253,7 @@
             "Name": "GitHub Security Advisory Maven",
             "URL": "https://github.com/advisories?query=type%3Areviewed+ecosystem%3Amaven"
           },
-          "Fingerprint": "sha256:b0ab82450ea89e8ed312a257a30bef02a59dfc878be93a95b20a99f7d3f86d35",
+          "Fingerprint": "sha256:b682c96baff9f1cc96dee84d472bbbc9f2a4bf97a6e3f9bd44f5c0aad191e601",
           "Title": "Improper Handling of Case Sensitivity vulnerability in LockOutRealm in ...",
           "Description": "Improper Handling of Case Sensitivity vulnerability in LockOutRealm in Apache Tomcat.\n\nThis issue affects Apache Tomcat: from 11.0.0-M1 through 11.0.21, from 10.1.0-M1 through 10.1.54, from 9.0.0.M1 through 9.0.117, from 8.5.0 through 8.5.100, from 7.0.0 through 7.0.109.\nOlder unsupported versions may also be affected.\n\nUsers are recommended to upgrade to version 11.0.22, 10.1.55 or 9.0.118 which fix the issue.",
           "Severity": "HIGH",
@@ -5650,7 +6306,7 @@
           "FixedVersion": "1.84",
           "Status": "fixed",
           "Layer": {
-            "DiffID": "sha256:61276da21c1a9f54f3c4c6265556ac083e910599bb0f4db16dcfb493daed6227"
+            "DiffID": "sha256:a56b319ee5fe176afdc6ffc2279e031e760822c0cbab06172983d35217688c9f"
           },
           "SeveritySource": "ghsa",
           "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-5598",
@@ -5659,7 +6315,7 @@
             "Name": "GitHub Security Advisory Maven",
             "URL": "https://github.com/advisories?query=type%3Areviewed+ecosystem%3Amaven"
           },
-          "Fingerprint": "sha256:00d0835f4c13185134f0729ab82ff753388b67f37c09ee9864b629aaa5536597",
+          "Fingerprint": "sha256:e4e04efcaaafdadd9cc5478d9331d50258304507f12cf86d92bfde9f2b34ea0a",
           "Title": "bouncycastle: BC-JAVA: private key leakage via non-constant time comparisons",
           "Description": "Covert timing channel vulnerability in Legion of the Bouncy Castle Inc. BC-JAVA core on all (core modules).\n\n This vulnerability is associated with program files FrodoEngine.Java.\n\n\n\nThis issue affects BC-JAVA: from 1.71 before 1.80.2, from 1.81 before 1.80.1, from 1.82 before 1.84.",
           "Severity": "HIGH",
@@ -5695,6 +6351,136 @@
           "LastModifiedDate": "2026-05-19T00:16:37.773Z"
         },
         {
+          "VulnerabilityID": "CVE-2025-49146",
+          "VendorIDs": [
+            "GHSA-hq9p-pm7w-8p54"
+          ],
+          "PkgName": "org.postgresql:postgresql",
+          "PkgPath": "app/app.jar/BOOT-INF/lib/postgresql-42.7.5.jar",
+          "PkgIdentifier": {
+            "PURL": "pkg:maven/org.postgresql/postgresql@42.7.5",
+            "UID": "eded279e91bec6a3"
+          },
+          "InstalledVersion": "42.7.5",
+          "FixedVersion": "42.7.7",
+          "Status": "fixed",
+          "Layer": {
+            "DiffID": "sha256:a56b319ee5fe176afdc6ffc2279e031e760822c0cbab06172983d35217688c9f"
+          },
+          "SeveritySource": "ghsa",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2025-49146",
+          "DataSource": {
+            "ID": "ghsa",
+            "Name": "GitHub Security Advisory Maven",
+            "URL": "https://github.com/advisories?query=type%3Areviewed+ecosystem%3Amaven"
+          },
+          "Fingerprint": "sha256:a18d7a37561e6e6b4510925cdda196977022fe6c5fcb2c3d1600d8351c859bbc",
+          "Title": "pgjdbc: pgjdbc insecure authentication in channel binding",
+          "Description": "pgjdbc is an open source postgresql JDBC Driver. From 42.7.4 and until 42.7.7, when the PostgreSQL JDBC driver is configured with channel binding set to required (default value is prefer), the driver would incorrectly allow connections to proceed with authentication methods that do not support channel binding (such as password, MD5, GSS, or SSPI authentication). This could allow a man-in-the-middle attacker to intercept connections that users believed were protected by channel binding requirements. This vulnerability is fixed in 42.7.7.",
+          "Severity": "HIGH",
+          "CweIDs": [
+            "CWE-287"
+          ],
+          "VendorSeverity": {
+            "bitnami": 2,
+            "ghsa": 3,
+            "nvd": 2,
+            "redhat": 3
+          },
+          "CVSS": {
+            "bitnami": {
+              "V3Vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:N/A:N",
+              "V3Score": 5.9
+            },
+            "ghsa": {
+              "V3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:L/A:N",
+              "V3Score": 8.2
+            },
+            "nvd": {
+              "V3Vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:N/A:N",
+              "V3Score": 5.9
+            },
+            "redhat": {
+              "V3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:L/A:N",
+              "V3Score": 8.2
+            }
+          },
+          "References": [
+            "https://access.redhat.com/security/cve/CVE-2025-49146",
+            "https://datatracker.ietf.org/doc/html/rfc5802",
+            "https://datatracker.ietf.org/doc/html/rfc7677",
+            "https://github.com/pgjdbc/pgjdbc",
+            "https://github.com/pgjdbc/pgjdbc/commit/9217ed16cb2918ab1b6b9258ae97e6ede244d8a0",
+            "https://github.com/pgjdbc/pgjdbc/security/advisories/GHSA-hq9p-pm7w-8p54",
+            "https://nvd.nist.gov/vuln/detail/CVE-2025-49146",
+            "https://www.cve.org/CVERecord?id=CVE-2025-49146",
+            "https://www.postgresql.org/docs/current/sasl-authentication.html#SASL-SCRAM-SHA-256"
+          ],
+          "PublishedDate": "2025-06-11T15:15:42.85Z",
+          "LastModifiedDate": "2025-10-06T19:29:58.977Z"
+        },
+        {
+          "VulnerabilityID": "CVE-2026-42198",
+          "VendorIDs": [
+            "GHSA-98qh-xjc8-98pq"
+          ],
+          "PkgName": "org.postgresql:postgresql",
+          "PkgPath": "app/app.jar/BOOT-INF/lib/postgresql-42.7.5.jar",
+          "PkgIdentifier": {
+            "PURL": "pkg:maven/org.postgresql/postgresql@42.7.5",
+            "UID": "eded279e91bec6a3"
+          },
+          "InstalledVersion": "42.7.5",
+          "FixedVersion": "42.7.11",
+          "Status": "fixed",
+          "Layer": {
+            "DiffID": "sha256:a56b319ee5fe176afdc6ffc2279e031e760822c0cbab06172983d35217688c9f"
+          },
+          "SeveritySource": "ghsa",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-42198",
+          "DataSource": {
+            "ID": "ghsa",
+            "Name": "GitHub Security Advisory Maven",
+            "URL": "https://github.com/advisories?query=type%3Areviewed+ecosystem%3Amaven"
+          },
+          "Fingerprint": "sha256:76be41ee14d4ceae3a3a8eddbead4afa568eeecd300bd8e56e3126cf8ae1cf6e",
+          "Title": "jdbc.postgresql.org: pgjdbc: Client-side Denial of Service via malicious SCRAM-SHA-256 authentication",
+          "Description": "pgjdbc is an open source postgresql JDBC Driver. From version 42.2.0 to before version 42.7.11, pgjdbc is vulnerable to a client-side denial of service during SCRAM-SHA-256 authentication. A malicious server can instruct the driver to perform SCRAM authentication with a very large iteration count. With a large enough value, the client spends an unbounded amount of CPU time inside PBKDF2 before authentication can fail. A single attempt ties up a CPU core. Repeated or concurrent attempts exhaust client CPU and can wedge connection pools. In affected versions, loginTimeout did not fully mitigate this problem. When loginTimeout expired, the caller could stop waiting, but the worker thread performing the connection attempt could continue running and burning CPU inside the SCRAM PBKDF2 computation. This issue has been patched in version 42.7.11.",
+          "Severity": "HIGH",
+          "CweIDs": [
+            "CWE-770"
+          ],
+          "VendorSeverity": {
+            "bitnami": 3,
+            "ghsa": 3,
+            "redhat": 3
+          },
+          "CVSS": {
+            "bitnami": {
+              "V3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+              "V3Score": 7.5
+            },
+            "ghsa": {
+              "V3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+              "V3Score": 7.5
+            },
+            "redhat": {
+              "V3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+              "V3Score": 7.5
+            }
+          },
+          "References": [
+            "https://access.redhat.com/security/cve/CVE-2026-42198",
+            "https://github.com/pgjdbc/pgjdbc",
+            "https://github.com/pgjdbc/pgjdbc/releases/tag/REL42.7.11",
+            "https://github.com/pgjdbc/pgjdbc/security/advisories/GHSA-98qh-xjc8-98pq",
+            "https://nvd.nist.gov/vuln/detail/CVE-2026-42198",
+            "https://www.cve.org/CVERecord?id=CVE-2026-42198"
+          ],
+          "PublishedDate": "2026-04-29T16:16:25.427Z",
+          "LastModifiedDate": "2026-05-01T12:51:20.853Z"
+        },
+        {
           "VulnerabilityID": "CVE-2025-22235",
           "VendorIDs": [
             "GHSA-rc42-6c7j-7h5r"
@@ -5709,7 +6495,7 @@
           "FixedVersion": "3.3.11, 3.4.5",
           "Status": "fixed",
           "Layer": {
-            "DiffID": "sha256:61276da21c1a9f54f3c4c6265556ac083e910599bb0f4db16dcfb493daed6227"
+            "DiffID": "sha256:a56b319ee5fe176afdc6ffc2279e031e760822c0cbab06172983d35217688c9f"
           },
           "SeveritySource": "ghsa",
           "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2025-22235",
@@ -5718,7 +6504,7 @@
             "Name": "GitHub Security Advisory Maven",
             "URL": "https://github.com/advisories?query=type%3Areviewed+ecosystem%3Amaven"
           },
-          "Fingerprint": "sha256:ab940b7873baa98cbc2ac43f4278774b672f8c2793d1a731fbb25f71eed86ab9",
+          "Fingerprint": "sha256:96e9d83a9fb72f66d010f6b3b3d7be6852386497454ad56cfce25d4f67cdd628",
           "Title": "org.springframework.boot/spring-boot: Spring Boot EndpointRequest.to() creates wrong matcher if actuator endpoint is not exposed",
           "Description": "EndpointRequest.to() creates a matcher for null/** if the actuator endpoint, for which the EndpointRequest has been created, is disabled or not exposed.\n\nYour application may be affected by this if all the following conditions are met:\n\n  *  You use Spring Security\n  *  EndpointRequest.to() has been used in a Spring Security chain configuration\n  *  The endpoint which EndpointRequest references is disabled or not exposed via web\n  *  Your application handles requests to /null and this path needs protection\n\n\nYou are not affected if any of the following is true:\n\n  *  You don't use Spring Security\n  *  You don't use EndpointRequest.to()\n  *  The endpoint which EndpointRequest.to() refers to is enabled and is exposed\n  *  Your application does not handle requests to /null or this path does not need protection",
           "Severity": "HIGH",
@@ -5767,7 +6553,7 @@
           "FixedVersion": "4.0.6, 3.5.14",
           "Status": "fixed",
           "Layer": {
-            "DiffID": "sha256:61276da21c1a9f54f3c4c6265556ac083e910599bb0f4db16dcfb493daed6227"
+            "DiffID": "sha256:a56b319ee5fe176afdc6ffc2279e031e760822c0cbab06172983d35217688c9f"
           },
           "SeveritySource": "ghsa",
           "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-40973",
@@ -5776,7 +6562,7 @@
             "Name": "GitHub Security Advisory Maven",
             "URL": "https://github.com/advisories?query=type%3Areviewed+ecosystem%3Amaven"
           },
-          "Fingerprint": "sha256:42241d91d2a0423564b04459b3c16fffbb45924dc691b97cefc38772eef998b9",
+          "Fingerprint": "sha256:a171f7e773af04209c0d0f9115a07eeff70c1fa6d03e8fc4ea204db9156beb3d",
           "Title": "Spring Boot: Spring Boot: Arbitrary Code Execution and Session Hijacking via predictable temporary directory",
           "Description": "A local attacker on the same host as the application may be able to take control of the directory used by `ApplicationTemp`. When `server.servlet.session.persistent` is set to `true` and the attack persists across application restarts, this may allow the attacker to read session information and hijack authenticated users or deploy a gadget chain and execute code as the application's user.\n\nAffected: Spring Boot 4.0.0–4.0.5 (fix 4.0.6), 3.5.0–3.5.13 (fix 3.5.14), 3.4.0–3.4.15 (fix 3.4.16), 3.3.0–3.3.18 (fix 3.3.19), 2.7.0–2.7.32 (fix 2.7.33); predictable temp directory / `ApplicationTemp` ownership verification. Versions that are no longer supported are also affected per vendor advisory.",
           "Severity": "HIGH",
@@ -5808,158 +6594,6 @@
           "LastModifiedDate": "2026-04-30T14:25:36.86Z"
         },
         {
-          "VulnerabilityID": "CVE-2026-40982",
-          "VendorIDs": [
-            "GHSA-6g23-24mc-hx6x"
-          ],
-          "PkgName": "org.springframework.cloud:spring-cloud-config-server",
-          "PkgPath": "app/app.jar/BOOT-INF/lib/spring-cloud-config-server-4.2.0.jar",
-          "PkgIdentifier": {
-            "PURL": "pkg:maven/org.springframework.cloud/spring-cloud-config-server@4.2.0",
-            "UID": "65fd995cfcca4236"
-          },
-          "InstalledVersion": "4.2.0",
-          "FixedVersion": "4.3.3, 5.0.3",
-          "Status": "fixed",
-          "Layer": {
-            "DiffID": "sha256:61276da21c1a9f54f3c4c6265556ac083e910599bb0f4db16dcfb493daed6227"
-          },
-          "SeveritySource": "ghsa",
-          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-40982",
-          "DataSource": {
-            "ID": "ghsa",
-            "Name": "GitHub Security Advisory Maven",
-            "URL": "https://github.com/advisories?query=type%3Areviewed+ecosystem%3Amaven"
-          },
-          "Fingerprint": "sha256:e9257007db6d17ccb9fdc8b26f1e13ac0dc6d08e88e3e8dc2befef62afc9e84b",
-          "Title": "Spring Cloud Config vulnerable to Path Traversal",
-          "Description": "Spring Cloud Config allows applications to serve arbitrary text and binary files through the spring-cloud-config-server module. A malicious user, or attacker, can send a request using a specially crafted URL that can lead to a directory traversal attack.\nSpring Cloud Config 3.1.x: affected from 3.1.0 through 3.1.13 (inclusive); upgrade to 3.1.14 or greater (Enterprise Support Only). Spring Cloud Config 4.1.x: affected from 4.1.0 through 4.1.9 (inclusive); upgrade to 4.1.10 or greater (Enterprise Support Only). Spring Cloud Config 4.2.x: affected from 4.2.0 through 4.2.6 (inclusive); upgrade to 4.2.7 or greater (Enterprise Support Only). Spring Cloud Config 4.3.x: affected from 4.3.0 through 4.3.2 (inclusive); upgrade to 4.3.3 or greater. Spring Cloud Config 5.0.x: affected from 5.0.0 through 5.0.2 (inclusive); upgrade to 5.0.3 or greater.",
-          "Severity": "CRITICAL",
-          "CweIDs": [
-            "CWE-22"
-          ],
-          "VendorSeverity": {
-            "ghsa": 4
-          },
-          "CVSS": {
-            "ghsa": {
-              "V3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:N",
-              "V3Score": 9.1
-            }
-          },
-          "References": [
-            "https://github.com/spring-cloud/spring-cloud-config",
-            "https://nvd.nist.gov/vuln/detail/CVE-2026-40982",
-            "https://spring.io/security/cve-2026-40982"
-          ],
-          "PublishedDate": "2026-05-07T04:16:24.79Z",
-          "LastModifiedDate": "2026-05-12T17:30:35.937Z"
-        },
-        {
-          "VulnerabilityID": "CVE-2026-22739",
-          "VendorIDs": [
-            "GHSA-3qwq-q9vm-5j42"
-          ],
-          "PkgName": "org.springframework.cloud:spring-cloud-config-server",
-          "PkgPath": "app/app.jar/BOOT-INF/lib/spring-cloud-config-server-4.2.0.jar",
-          "PkgIdentifier": {
-            "PURL": "pkg:maven/org.springframework.cloud/spring-cloud-config-server@4.2.0",
-            "UID": "65fd995cfcca4236"
-          },
-          "InstalledVersion": "4.2.0",
-          "FixedVersion": "4.3.2, 5.0.2",
-          "Status": "fixed",
-          "Layer": {
-            "DiffID": "sha256:61276da21c1a9f54f3c4c6265556ac083e910599bb0f4db16dcfb493daed6227"
-          },
-          "SeveritySource": "ghsa",
-          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-22739",
-          "DataSource": {
-            "ID": "ghsa",
-            "Name": "GitHub Security Advisory Maven",
-            "URL": "https://github.com/advisories?query=type%3Areviewed+ecosystem%3Amaven"
-          },
-          "Fingerprint": "sha256:44fc4ce23983f84d84dcb42c22b0eebe022468f3e15ba7fabc82d17ff6d62a7f",
-          "Title": "Spring Cloud Config Server: Path Traversal via Profile Parameter Allows Arbitrary File Access",
-          "Description": "Vulnerability in Spring Cloud when substituting the profile parameter from a request made to the Spring Cloud Config Server configured to the native file system as a backend, because it was possible to access files outside of the configured search directories.This issue affects Spring Cloud: from 3.1.X before 3.1.13, from 4.1.X before 4.1.9, from 4.2.X before 4.2.3, from 4.3.X before 4.3.2, from 5.0.X before 5.0.2.",
-          "Severity": "HIGH",
-          "CweIDs": [
-            "CWE-22"
-          ],
-          "VendorSeverity": {
-            "ghsa": 3
-          },
-          "CVSS": {
-            "ghsa": {
-              "V3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:L/A:L",
-              "V3Score": 8.6
-            }
-          },
-          "References": [
-            "https://github.com/spring-cloud/spring-cloud-config",
-            "https://github.com/spring-cloud/spring-cloud-config/commit/1870f07befd5f62edcfdaea5ad82441d0fd49912",
-            "https://github.com/spring-cloud/spring-cloud-config/releases/tag/v4.3.2",
-            "https://github.com/spring-cloud/spring-cloud-config/releases/tag/v5.0.2",
-            "https://nvd.nist.gov/vuln/detail/CVE-2026-22739",
-            "https://spring.io/security/cve-2026-22739"
-          ],
-          "PublishedDate": "2026-03-24T01:17:00.91Z",
-          "LastModifiedDate": "2026-03-24T15:53:48.067Z"
-        },
-        {
-          "VulnerabilityID": "CVE-2026-41002",
-          "VendorIDs": [
-            "GHSA-86wq-234q-r6wg"
-          ],
-          "PkgName": "org.springframework.cloud:spring-cloud-config-server",
-          "PkgPath": "app/app.jar/BOOT-INF/lib/spring-cloud-config-server-4.2.0.jar",
-          "PkgIdentifier": {
-            "PURL": "pkg:maven/org.springframework.cloud/spring-cloud-config-server@4.2.0",
-            "UID": "65fd995cfcca4236"
-          },
-          "InstalledVersion": "4.2.0",
-          "FixedVersion": "4.3.3, 5.0.3",
-          "Status": "fixed",
-          "Layer": {
-            "DiffID": "sha256:61276da21c1a9f54f3c4c6265556ac083e910599bb0f4db16dcfb493daed6227"
-          },
-          "SeveritySource": "ghsa",
-          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-41002",
-          "DataSource": {
-            "ID": "ghsa",
-            "Name": "GitHub Security Advisory Maven",
-            "URL": "https://github.com/advisories?query=type%3Areviewed+ecosystem%3Amaven"
-          },
-          "Fingerprint": "sha256:be84bb9076430291ca5aebe280f96dc0854352b127a78e486d8c1673f5b57cdc",
-          "Title": "Spring Cloud Config Server Susceptible To TOCTOU Attack",
-          "Description": "The base directory (`spring.cloud.config.server.git.basedir`) used by the Spring Cloud Config Server to clone Git repositories to is susceptible to time-of-check-time-of-use (TOCTOU) attacks.\nSpring Cloud Config 3.1.x: affected from 3.1.0 through 3.1.13 (inclusive); upgrade to 3.1.14 or greater (Enterprise Support Only). Spring Cloud Config 4.1.x: affected from 4.1.0 through 4.1.9 (inclusive); upgrade to 4.1.10 or greater (Enterprise Support Only). Spring Cloud Config 4.2.x: affected from 4.2.0 through 4.2.6 (inclusive); upgrade to 4.2.7 or greater (Enterprise Support Only). Spring Cloud Config 4.3.x: affected from 4.3.0 through 4.3.2 (inclusive); upgrade to 4.3.3 or greater. Spring Cloud Config 5.0.x: affected from 5.0.0 through 5.0.2 (inclusive); upgrade to 5.0.3 or greater.",
-          "Severity": "HIGH",
-          "CweIDs": [
-            "CWE-367"
-          ],
-          "VendorSeverity": {
-            "ghsa": 3,
-            "nvd": 3
-          },
-          "CVSS": {
-            "ghsa": {
-              "V3Vector": "CVSS:3.1/AV:L/AC:H/PR:H/UI:N/S:C/C:H/I:H/A:N",
-              "V3Score": 7.2
-            },
-            "nvd": {
-              "V3Vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:H/A:H",
-              "V3Score": 8.1
-            }
-          },
-          "References": [
-            "https://github.com/spring-cloud/spring-cloud-config",
-            "https://nvd.nist.gov/vuln/detail/CVE-2026-41002",
-            "https://spring.io/security/cve-2026-41002"
-          ],
-          "PublishedDate": "2026-05-07T04:16:25.707Z",
-          "LastModifiedDate": "2026-05-12T17:29:53.063Z"
-        },
-        {
           "VulnerabilityID": "CVE-2025-22228",
           "VendorIDs": [
             "GHSA-mg83-c7gq-rv5c"
@@ -5974,7 +6608,7 @@
           "FixedVersion": "6.3.8, 6.4.4, 6.2.10, 6.1.14, 6.0.16, 5.8.18, 5.7.16",
           "Status": "fixed",
           "Layer": {
-            "DiffID": "sha256:61276da21c1a9f54f3c4c6265556ac083e910599bb0f4db16dcfb493daed6227"
+            "DiffID": "sha256:a56b319ee5fe176afdc6ffc2279e031e760822c0cbab06172983d35217688c9f"
           },
           "SeveritySource": "ghsa",
           "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2025-22228",
@@ -5983,7 +6617,7 @@
             "Name": "GitHub Security Advisory Maven",
             "URL": "https://github.com/advisories?query=type%3Areviewed+ecosystem%3Amaven"
           },
-          "Fingerprint": "sha256:6319e95e600a35df98b2715b30be33898cd408756244b1259a9d25d022f5795d",
+          "Fingerprint": "sha256:c92ff2ecf4abd8fe4d077958a81457df90a0048cfff15f4e82db014f8dd01168",
           "Title": "spring-security-core: Spring Security BCryptPasswordEncoder does not enforce maximum password length",
           "Description": "BCryptPasswordEncoder.matches(CharSequence,String) will incorrectly return true for passwords larger than 72 characters as long as the first 72 characters are the same.",
           "Severity": "HIGH",
@@ -6032,7 +6666,7 @@
           "FixedVersion": "6.2.11",
           "Status": "fixed",
           "Layer": {
-            "DiffID": "sha256:61276da21c1a9f54f3c4c6265556ac083e910599bb0f4db16dcfb493daed6227"
+            "DiffID": "sha256:a56b319ee5fe176afdc6ffc2279e031e760822c0cbab06172983d35217688c9f"
           },
           "SeveritySource": "ghsa",
           "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2025-41249",
@@ -6041,7 +6675,7 @@
             "Name": "GitHub Security Advisory Maven",
             "URL": "https://github.com/advisories?query=type%3Areviewed+ecosystem%3Amaven"
           },
-          "Fingerprint": "sha256:a99d12e3742f4de81fa073ecbbbaf8fbc55649d9c9fe7d0d66f7a92f096daa10",
+          "Fingerprint": "sha256:97b5ba211be5580cedf3368890db80c3f11a88948b35b486bed09954e46c1281",
           "Title": "org.springframework/spring-core: Spring Framework Annotation Detection Vulnerability",
           "Description": "The Spring Framework annotation detection mechanism may not correctly resolve annotations on methods within type hierarchies with a parameterized super type with unbounded generics. This can be an issue if such annotations are used for authorization decisions.\n\nYour application may be affected by this if you are using Spring Security's @EnableMethodSecurity feature.\n\nYou are not affected by this if you are not using @EnableMethodSecurity or if you do not use security annotations on methods in generic superclasses or generic interfaces.\n\nThis CVE is published in conjunction with  CVE-2025-41248 https://spring.io/security/cve-2025-41248 .",
           "Severity": "HIGH",

@@ -3,8 +3,8 @@
   "Trivy": {
     "Version": "0.71.0"
   },
-  "ReportID": "019e85b5-046d-7ce3-b8ba-40f2651958b7",
-  "CreatedAt": "2026-06-02T02:21:33.421847261+02:00",
+  "ReportID": "019e8823-5025-79de-8c24-6dc7cd68aa01",
+  "CreatedAt": "2026-06-02T13:41:16.197649231+02:00",
   "ArtifactID": "sha256:82e06db01d36de7c53989cf2f705fd435c9c674127716795e246abe4173a6f16",
   "ArtifactName": "build-reports/oci/discovery-service-1.0.0.tar",
   "ArtifactType": "container_image",
