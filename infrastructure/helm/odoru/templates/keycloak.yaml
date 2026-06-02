@@ -1,0 +1,60 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.keycloak.serviceName }}
+  namespace: {{ .Values.global.namespace }}
+  labels:
+    app.kubernetes.io/name: odoru
+    app.kubernetes.io/component: identity-provider
+    app.kubernetes.io/instance: {{ .Values.keycloak.serviceName }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: {{ .Values.keycloak.serviceName }}
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: odoru
+        app.kubernetes.io/component: identity-provider
+        app.kubernetes.io/instance: {{ .Values.keycloak.serviceName }}
+    spec:
+      containers:
+        - name: keycloak
+          image: {{ .Values.keycloak.image }}
+          imagePullPolicy: IfNotPresent
+          args:
+{{- range .Values.keycloak.command }}
+            - {{ . | quote }}
+{{- end }}
+          ports:
+            - containerPort: {{ .Values.keycloak.port }}
+          env:
+            - name: KEYCLOAK_ADMIN
+              valueFrom:
+                secretKeyRef:
+                  name: odoru-keycloak-secret
+                  key: KEYCLOAK_ADMIN
+            - name: KEYCLOAK_ADMIN_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: odoru-keycloak-secret
+                  key: KEYCLOAK_ADMIN_PASSWORD
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.keycloak.serviceName }}
+  namespace: {{ .Values.global.namespace }}
+  labels:
+    app.kubernetes.io/name: odoru
+    app.kubernetes.io/component: identity-provider
+    app.kubernetes.io/instance: {{ .Values.keycloak.serviceName }}
+spec:
+  type: ClusterIP
+  selector:
+    app.kubernetes.io/instance: {{ .Values.keycloak.serviceName }}
+  ports:
+    - name: http
+      port: {{ .Values.keycloak.port }}
+      targetPort: {{ .Values.keycloak.port }}

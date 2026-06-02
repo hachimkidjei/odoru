@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.front.name }}
+  namespace: {{ .Values.global.namespace }}
+  labels:
+    app.kubernetes.io/name: odoru
+    app.kubernetes.io/component: frontend
+    app.kubernetes.io/instance: {{ .Values.front.name }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: {{ .Values.front.name }}
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: odoru
+        app.kubernetes.io/component: frontend
+        app.kubernetes.io/instance: {{ .Values.front.name }}
+    spec:
+      containers:
+        - name: {{ .Values.front.name }}
+          image: "{{ .Values.image.registry }}/{{ .Values.front.image }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.global.imagePullPolicy }}
+          ports:
+            - containerPort: {{ .Values.front.port }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.front.name }}
+  namespace: {{ .Values.global.namespace }}
+  labels:
+    app.kubernetes.io/name: odoru
+    app.kubernetes.io/component: frontend
+    app.kubernetes.io/instance: {{ .Values.front.name }}
+spec:
+  type: NodePort
+  selector:
+    app.kubernetes.io/instance: {{ .Values.front.name }}
+  ports:
+    - name: http
+      port: {{ .Values.front.port }}
+      targetPort: {{ .Values.front.port }}
+      nodePort: {{ .Values.front.nodePort }}
