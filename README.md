@@ -8,7 +8,16 @@ Ce rendu correspond au TP **Buildah, Trivy, Dive & Helm/Kubernetes**.
 
 Le sujet de référence mentionne l’application **MIAGE Bank**. Dans ce rendu, les mêmes objectifs techniques ont été appliqués au projet microservices **Odoru**, une application de gestion d’un club de danse rythmique.
 
-Cette adaptation conserve l’esprit du sujet : construction d’images OCI, analyse de sécurité, analyse des couches d’images, packaging Helm, déploiement Kubernetes, sécurisation du cluster et mise en place d’une approche GitOps.
+Cette adaptation conserve l’esprit du sujet :
+
+- construction d’images OCI ;
+- analyse de sécurité des images ;
+- analyse des couches d’images ;
+- packaging Helm ;
+- déploiement Kubernetes ;
+- sécurisation du déploiement ;
+- gestion des secrets ;
+- approche GitOps avec ArgoCD.
 
 Le projet Odoru présente une architecture microservices comparable à celle attendue dans le TP :
 
@@ -21,15 +30,18 @@ Le projet Odoru présente une architecture microservices comparable à celle att
 - authentification centralisée avec Keycloak ;
 - déploiement Kubernetes avec Helm ;
 - analyse d’images avec Trivy et Dive ;
-- approche GitOps avec ArgoCD.
+- synchronisation GitOps avec ArgoCD.
 
 L’objectif du rendu est de démontrer la capacité à :
 
 - construire des images OCI avec Buildah ;
 - analyser la sécurité des images avec Trivy ;
-- analyser et optimiser les couches d’images avec Dive ;
-- packager et déployer l’application avec Helm/Kubernetes ;
-- sécuriser le déploiement Kubernetes ;
+- analyser les couches d’images avec Dive ;
+- automatiser la chaîne de build ;
+- packager une application microservices avec Helm ;
+- déployer l’application sur Kubernetes ;
+- sécuriser le déploiement avec RBAC, NetworkPolicy, probes, resources et HPA ;
+- gérer les secrets avec des `Secret` Kubernetes ;
 - automatiser la configuration Keycloak ;
 - initialiser les données métier nécessaires aux tests ;
 - démontrer une approche GitOps avec ArgoCD.
@@ -67,9 +79,9 @@ L’application est composée des éléments suivants :
 
 ---
 
-## 3. Architecture technique
+## 3. Architecture générale
 
-L’architecture déployée suit une logique microservices.
+L’architecture suit une logique microservices.
 
 ```text
 Navigateur
@@ -95,19 +107,13 @@ API Gateway
    +--> Config Server
 ```
 
-En Kubernetes, l’application est déployée dans le namespace :
-
-```text
-odoru
-```
-
 Les services exposés localement sont :
 
-| Service | Type | Port |
+| Service | Type Kubernetes | Port local |
 | --- | --- | --- |
 | `front` | NodePort | `30081` |
 | `api-gateway` | NodePort | `30080` |
-| autres services | ClusterIP | ports internes |
+| autres services | ClusterIP | interne au cluster |
 
 ---
 
@@ -158,7 +164,7 @@ L’environnement de test utilisé repose sur :
 | --- | --- |
 | WSL2 Ubuntu | Environnement Linux |
 | Docker Desktop | Runtime conteneur et Kubernetes local |
-| Kubernetes `docker-desktop` | Cluster local |
+| Kubernetes `docker-desktop` | Cluster Kubernetes local |
 | Buildah | Construction d’images OCI |
 | Trivy | Analyse de vulnérabilités |
 | Dive | Analyse des couches d’images |
@@ -214,7 +220,7 @@ La Partie A du TP porte sur :
 
 ## 7. Analyse comparative Docker / Buildah
 
-Docker est une solution complète de gestion de conteneurs, reposant historiquement sur un démon centralisé.
+Docker est une solution complète de gestion de conteneurs. Il repose historiquement sur un démon centralisé.
 
 Buildah est un outil spécialisé dans la construction d’images OCI. Il permet de construire des images sans dépendre d’un démon Docker permanent.
 
@@ -222,17 +228,17 @@ Buildah est un outil spécialisé dans la construction d’images OCI. Il permet
 | --- | --- | --- |
 | Architecture | Client + démon Docker | Sans démon centralisé |
 | Usage principal | Build, run, gestion complète | Build d’images OCI |
-| Sécurité | Dépend du démon Docker | Réduction de la surface d’attaque |
 | Format | Images Docker/OCI | Images OCI |
-| Intérêt DevSecOps | Standard très répandu | Adapté aux pipelines rootless et OCI |
+| Sécurité | Dépend du démon Docker | Réduction de la surface d’attaque |
+| Intérêt DevSecOps | Très répandu | Adapté aux pipelines rootless et OCI |
 
-Dans ce rendu, Buildah a été utilisé pour construire les images des composants Odoru.
+Dans ce rendu, Buildah est utilisé pour construire toutes les images des composants Odoru.
 
 ---
 
 ## 8. Images construites avec Buildah
 
-Les images suivantes ont été construites :
+Les images construites sont :
 
 ```text
 localhost/odoru/config-server:1.0.0
@@ -253,6 +259,7 @@ Exemples :
 ```text
 services/member-service/Containerfile
 services/api-gateway/Containerfile
+services/config-server/Containerfile
 odoru-front/Containerfile
 ```
 
@@ -268,7 +275,7 @@ scripts/build-all.sh
 
 Il permet de construire toutes les images Odoru avec Buildah.
 
-Commande utilisée :
+Commande :
 
 ```bash
 ./scripts/build-all.sh 1.0.0
@@ -280,7 +287,7 @@ Vérification :
 buildah images | grep odoru
 ```
 
-Le script centralise la construction des images et rend le processus reproductible.
+Ce script centralise la construction des images et rend le processus reproductible.
 
 ---
 
@@ -300,7 +307,9 @@ build-reports/oci/api-gateway-1.0.0.tar
 build-reports/oci/front-1.0.0.tar
 ```
 
-Ces archives permettent ensuite de charger les images dans Docker Desktop pour le déploiement Kubernetes local :
+Ces archives permettent de charger les images dans Docker Desktop pour le déploiement Kubernetes local.
+
+Commandes :
 
 ```bash
 docker load -i build-reports/oci/config-server-1.0.0.tar
@@ -324,7 +333,7 @@ docker images | grep odoru
 
 ## 11. Analyse Trivy
 
-Trivy a été utilisé pour analyser les vulnérabilités des images.
+Trivy est utilisé pour analyser les vulnérabilités des images.
 
 Script utilisé :
 
@@ -370,7 +379,7 @@ Plan de remédiation général :
 
 ## 12. Analyse Dive
 
-Dive a été utilisé pour analyser les couches des images.
+Dive est utilisé pour analyser les couches des images.
 
 Script utilisé :
 
@@ -473,8 +482,8 @@ Le chart permet de déployer :
 - Config Server ;
 - Discovery Service ;
 - API Gateway ;
-- microservices métier ;
-- frontend ;
+- les microservices métier ;
+- le frontend ;
 - RBAC ;
 - NetworkPolicy ;
 - HPA ;
@@ -482,7 +491,137 @@ Le chart permet de déployer :
 
 ---
 
-## 15. Configuration standard et production
+## 15. Infrastructure Kubernetes déployée
+
+Le chart Helm Odoru déploie l’ensemble de l’application dans un namespace dédié :
+
+```text
+odoru
+```
+
+L’infrastructure Kubernetes est composée des ressources suivantes :
+
+| Ressource Kubernetes | Rôle dans Odoru |
+| --- | --- |
+| `Namespace` | Isole les ressources de l’application |
+| `Deployment` | Déploie les composants applicatifs et techniques |
+| `Service` | Permet la communication réseau entre les pods |
+| `Secret` | Stocke les identifiants PostgreSQL et Keycloak |
+| `ServiceAccount` | Fournit une identité Kubernetes dédiée aux pods |
+| `Role` / `RoleBinding` | Définit les droits associés au ServiceAccount |
+| `NetworkPolicy` | Contrôle les flux réseau entrants dans le namespace |
+| `HorizontalPodAutoscaler` | Prépare l’autoscaling horizontal |
+| `Ingress` | Prépare l’exposition HTTP via Traefik |
+| `Application ArgoCD` | Synchronise l’état Kubernetes avec le dépôt Git |
+
+---
+
+## 16. Composants applicatifs déployés
+
+Le chart Helm déploie les composants suivants sous forme de `Deployment` :
+
+| Deployment | Description | Port |
+| --- | --- | --- |
+| `front` | Frontend web Odoru | 80 |
+| `api-gateway` | Point d’entrée API | 8080 |
+| `member-service` | Gestion des membres | 8081 |
+| `course-service` | Gestion des cours | 8082 |
+| `competition-service` | Gestion des compétitions | 8083 |
+| `badge-service` | Gestion des badges | 8084 |
+| `statistics-service` | Statistiques | 8085 |
+| `config-server` | Configuration centralisée | 8888 |
+| `discovery-service` | Service Eureka | 8761 |
+| `keycloak` | Fournisseur d’identité | 8080 |
+
+---
+
+## 17. Bases PostgreSQL déployées
+
+Chaque microservice métier nécessitant une base dispose de sa propre base PostgreSQL.
+
+| Deployment PostgreSQL | Base créée | Service associé |
+| --- | --- | --- |
+| `member-postgres` | `odoru_member_db` | `member-service` |
+| `course-postgres` | `odoru_course_db` | `course-service` |
+| `competition-postgres` | `odoru_competition_db` | `competition-service` |
+| `badge-postgres` | `odoru_badge_db` | `badge-service` |
+
+Cette séparation respecte la logique microservices : chaque service métier possède sa propre persistance.
+
+---
+
+## 18. Services Kubernetes
+
+Les services Kubernetes assurent la communication entre les composants.
+
+| Service | Type | Usage |
+| --- | --- | --- |
+| `front` | NodePort | Exposition locale du frontend |
+| `api-gateway` | NodePort | Exposition locale de l’API Gateway |
+| `member-service` | ClusterIP | Communication interne |
+| `course-service` | ClusterIP | Communication interne |
+| `competition-service` | ClusterIP | Communication interne |
+| `badge-service` | ClusterIP | Communication interne |
+| `statistics-service` | ClusterIP | Communication interne |
+| `config-server` | ClusterIP | Configuration interne |
+| `discovery-service` | ClusterIP | Découverte de services |
+| `keycloak` | ClusterIP | Authentification interne |
+| `*-postgres` | ClusterIP | Accès interne aux bases PostgreSQL |
+
+Les deux services exposés localement sont :
+
+```text
+front        -> http://localhost:30081
+api-gateway  -> http://localhost:30080
+```
+
+Les autres services restent internes au cluster.
+
+---
+
+## 19. Communication entre les composants
+
+Le flux principal est le suivant :
+
+```text
+Utilisateur
+   |
+   v
+front
+   |
+   v
+api-gateway
+   |
+   +--> member-service
+   +--> course-service
+   +--> competition-service
+   +--> badge-service
+   +--> statistics-service
+```
+
+Les microservices récupèrent leur configuration via :
+
+```text
+config-server
+```
+
+Ils s’enregistrent auprès de :
+
+```text
+discovery-service
+```
+
+L’authentification repose sur :
+
+```text
+keycloak
+```
+
+Les services métier accèdent à leurs bases PostgreSQL respectives via des services internes de type `ClusterIP`.
+
+---
+
+## 20. Configuration standard et production
 
 Deux fichiers de configuration sont disponibles.
 
@@ -512,7 +651,7 @@ probes
 
 ---
 
-## 16. Sécurité Kubernetes
+## 21. Sécurité Kubernetes
 
 Les éléments de sécurité suivants sont présents dans le chart Helm.
 
@@ -529,7 +668,21 @@ Les éléments de sécurité suivants sont présents dans le chart Helm.
 
 ---
 
-## 17. Gestion des secrets
+## 22. NetworkPolicy
+
+La configuration production génère trois `NetworkPolicy` :
+
+| NetworkPolicy | Rôle |
+| --- | --- |
+| `odoru-default-deny-ingress` | Bloque les flux entrants par défaut |
+| `odoru-allow-same-namespace` | Autorise les communications internes au namespace |
+| `odoru-allow-ingress-controller` | Autorise l’accès au frontend via l’Ingress Controller |
+
+Cette configuration permet de documenter une logique réseau plus contrôlée que le comportement Kubernetes par défaut.
+
+---
+
+## 23. Gestion des secrets
 
 Les secrets Kubernetes sont générés par :
 
@@ -563,7 +716,7 @@ Dans un contexte de production réel, une solution comme Vault ou External Secre
 
 ---
 
-## 18. Probes et ressources
+## 24. Probes et ressources
 
 Tous les composants principaux disposent de :
 
@@ -580,9 +733,20 @@ Les services Spring Boot utilisent :
 
 Les bases PostgreSQL et Keycloak utilisent des probes TCP.
 
+Les probes permettent à Kubernetes de vérifier :
+
+- si un pod est prêt à recevoir du trafic ;
+- si un pod doit être redémarré en cas de blocage ;
+- si un service est disponible après démarrage.
+
+Les ressources CPU/mémoire permettent de déclarer :
+
+- une consommation minimale (`requests`) ;
+- une limite maximale (`limits`).
+
 ---
 
-## 19. HPA
+## 25. HPA
 
 La configuration production génère des `HorizontalPodAutoscaler` pour :
 
@@ -607,7 +771,7 @@ En environnement local Docker Desktop, les HPA nécessitent `metrics-server` pou
 
 ---
 
-## 20. Ingress
+## 26. Ingress
 
 La configuration production génère un Ingress :
 
@@ -637,7 +801,7 @@ http://localhost:30080
 
 ---
 
-## 21. Validation Helm
+## 27. Validation Helm
 
 Validation du chart standard :
 
@@ -686,9 +850,15 @@ HorizontalPodAutoscaler
 Ingress
 ```
 
+Commande de vérification utilisée :
+
+```bash
+grep -n "kind: NetworkPolicy\|kind: HorizontalPodAutoscaler\|kind: Ingress\|kind: ServiceAccount\|kind: Role\|kind: RoleBinding" /tmp/odoru-prod-rendered.yaml
+```
+
 ---
 
-## 22. Déploiement Kubernetes
+## 28. Déploiement Kubernetes
 
 Déploiement standard :
 
@@ -737,11 +907,17 @@ postgres             1/1 Running
 
 # Automatisation Keycloak et données métier
 
-## 23. Pourquoi automatiser Keycloak et les données métier ?
+## 29. Rôle de l’automatisation
 
-Le déploiement Kubernetes lance les pods, les services, les bases PostgreSQL et Keycloak. Cependant, Keycloak doit aussi contenir un realm, un client, des rôles et des utilisateurs pour que l’authentification fonctionne.
+Le déploiement Kubernetes lance les pods, les services, les bases PostgreSQL et Keycloak. Cependant, Keycloak doit aussi contenir :
 
-De plus, l’application Odoru ne se limite pas à l’identité Keycloak : elle possède aussi une base métier, notamment dans `member-service`. Un utilisateur peut donc exister dans Keycloak sans être reconnu par l’application si son profil métier n’existe pas.
+- un realm ;
+- un client OAuth2/OIDC ;
+- des rôles ;
+- des utilisateurs ;
+- des redirections frontend.
+
+De plus, l’application Odoru possède aussi une base métier. Un utilisateur peut donc exister dans Keycloak sans être reconnu par l’application si son profil métier n’existe pas dans `member-service`.
 
 Deux scripts ont été ajoutés pour automatiser cette initialisation :
 
@@ -750,11 +926,11 @@ scripts/setup-keycloak-odoru.sh
 scripts/seed-kubernetes-data.sh
 ```
 
-Ces scripts permettent de rendre le projet reproductible après un déploiement Kubernetes.
+Ces scripts rendent le projet reproductible après un déploiement Kubernetes.
 
 ---
 
-## 24. Script `setup-keycloak-odoru.sh`
+## 30. Script `setup-keycloak-odoru.sh`
 
 Le script `setup-keycloak-odoru.sh` initialise automatiquement la configuration Keycloak nécessaire à Odoru.
 
@@ -805,7 +981,7 @@ Ce script évite de configurer manuellement Keycloak via l’interface d’admin
 
 ---
 
-## 25. Script `seed-kubernetes-data.sh`
+## 31. Script `seed-kubernetes-data.sh`
 
 Le script `seed-kubernetes-data.sh` initialise les données métier nécessaires dans l’application Odoru.
 
@@ -853,7 +1029,7 @@ Ce script évite une incohérence entre un utilisateur authentifié dans Keycloa
 
 ---
 
-## 26. Ordre recommandé après le déploiement Kubernetes
+## 32. Ordre recommandé après le déploiement Kubernetes
 
 Terminal 1 :
 
@@ -883,7 +1059,7 @@ lea.martin / secret123
 
 ---
 
-## 27. Validation fonctionnelle
+## 33. Validation fonctionnelle
 
 Après déploiement et initialisation, l’application est accessible via :
 
@@ -923,7 +1099,7 @@ HTTP/1.1 200 OK
 
 # GitOps avec ArgoCD
 
-## 28. Manifeste ArgoCD
+## 34. Manifeste ArgoCD
 
 Le manifeste ArgoCD est disponible dans :
 
@@ -965,7 +1141,7 @@ spec:
 
 ---
 
-## 29. Installation ArgoCD
+## 35. Installation ArgoCD
 
 ArgoCD a été installé dans le namespace `argocd` :
 
@@ -1008,7 +1184,7 @@ applications app,apps argoproj.io/v1alpha1 true Application
 
 ---
 
-## 30. Application ArgoCD Odoru
+## 36. Application ArgoCD Odoru
 
 Application du manifeste :
 
@@ -1031,11 +1207,15 @@ odoru   Synced        Progressing
 
 Le statut `Synced` confirme que l’état déclaré dans GitHub est synchronisé avec le cluster Kubernetes.
 
-Le statut `Progressing` concerne l’état de santé applicatif observé par ArgoCD au moment du test. Il peut apparaître pendant le redéploiement des pods, l’évaluation des probes ou l’utilisation de HPA sans `metrics-server` dans un environnement local.
+Le statut `Progressing` concerne l’état de santé applicatif observé par ArgoCD au moment du test. Il peut apparaître pendant :
+
+- le redéploiement des pods ;
+- l’évaluation des probes ;
+- l’utilisation de HPA sans `metrics-server` dans un environnement local.
 
 ---
 
-## 31. Démonstration de dérive ArgoCD
+## 37. Démonstration de dérive ArgoCD
 
 Une dérive volontaire a été créée en modifiant manuellement le nombre de replicas du microservice `member-service` :
 
@@ -1082,7 +1262,7 @@ Cela valide le mécanisme GitOps attendu : une modification manuelle du cluster 
 
 # Procédure complète de reproduction
 
-## 32. Cloner le dépôt
+## 38. Cloner le dépôt
 
 ```bash
 git clone https://github.com/hachimkidjei/odoru.git
@@ -1091,7 +1271,7 @@ cd odoru
 
 ---
 
-## 33. Construire les services Java
+## 39. Construire les services Java
 
 ```bash
 cd services/config-server && chmod +x mvnw && ./mvnw clean package -DskipTests && cd ../..
@@ -1106,7 +1286,7 @@ cd services/statistics-service && chmod +x mvnw && ./mvnw clean package -DskipTe
 
 ---
 
-## 34. Construire le frontend
+## 40. Construire le frontend
 
 ```bash
 cd odoru-front
@@ -1117,7 +1297,7 @@ cd ..
 
 ---
 
-## 35. Construire les images OCI avec Buildah
+## 41. Construire les images OCI avec Buildah
 
 ```bash
 chmod +x scripts/*.sh
@@ -1132,7 +1312,7 @@ buildah images | grep odoru
 
 ---
 
-## 36. Analyser les images avec Trivy
+## 42. Analyser les images avec Trivy
 
 ```bash
 ./scripts/scan-trivy.sh 1.0.0
@@ -1146,7 +1326,7 @@ build-reports/trivy
 
 ---
 
-## 37. Analyser les images avec Dive
+## 43. Analyser les images avec Dive
 
 ```bash
 ./scripts/analyze-dive.sh 1.0.0
@@ -1160,7 +1340,7 @@ build-reports/dive
 
 ---
 
-## 38. Charger les images dans Docker Desktop
+## 44. Charger les images dans Docker Desktop
 
 ```bash
 docker load -i build-reports/oci/config-server-1.0.0.tar
@@ -1176,7 +1356,7 @@ docker load -i build-reports/oci/front-1.0.0.tar
 
 ---
 
-## 39. Déployer avec Helm
+## 45. Déployer avec Helm
 
 Déploiement standard :
 
@@ -1200,7 +1380,7 @@ kubectl get svc -n odoru
 
 ---
 
-## 40. Initialiser Keycloak et les données métier
+## 46. Initialiser Keycloak et les données métier
 
 Terminal 1 :
 
@@ -1217,7 +1397,7 @@ Terminal 2 :
 
 ---
 
-## 41. Accéder à l’application
+## 47. Accéder à l’application
 
 Frontend :
 
@@ -1235,7 +1415,7 @@ lea.martin / secret123
 
 # Couverture des critères d’évaluation
 
-## 42. Critères d’évaluation — Partie A
+## 48. Critères d’évaluation — Partie A
 
 | Critère | Pondération |
 | --- | --- |
@@ -1245,7 +1425,7 @@ lea.martin / secret123
 | Analyse Dive + optimisations | 15% |
 | Script de build intégré et documenté | 25% |
 
-## 43. Couverture Partie A dans Odoru
+## 49. Couverture Partie A dans Odoru
 
 | Critère | Couverture |
 | --- | --- |
@@ -1257,7 +1437,7 @@ lea.martin / secret123
 
 ---
 
-## 44. Critères d’évaluation — Partie B
+## 50. Critères d’évaluation — Partie B
 
 | Critère | Pondération |
 | --- | --- |
@@ -1266,7 +1446,7 @@ lea.martin / secret123
 | Gestion des secrets : Vault/ESO ou Secret Kubernetes | 20% |
 | GitOps ArgoCD fonctionnel avec démonstration de dérive | 25% |
 
-## 45. Couverture Partie B dans Odoru
+## 51. Couverture Partie B dans Odoru
 
 | Critère | Couverture |
 | --- | --- |
@@ -1279,7 +1459,7 @@ lea.martin / secret123
 
 # Points d’attention liés à l’environnement local
 
-## 46. Points d’attention
+## 52. Points d’attention
 
 Le déploiement a été réalisé dans un environnement Kubernetes local basé sur Docker Desktop. Certains comportements peuvent donc dépendre des composants disponibles dans ce cluster local.
 
@@ -1291,7 +1471,7 @@ Points d’attention identifiés :
 - les secrets sont gérés avec des `Secret` Kubernetes pour répondre au périmètre du TP ;
 - dans un contexte de production réel, une solution comme Vault ou External Secrets Operator serait plus adaptée pour la gestion centralisée des secrets.
 
-Ces points correspondent à des choix d’environnement et de périmètre. Ils sont documentés pour faciliter la reproduction et l’interprétation des résultats.
+Ces points sont documentés pour faciliter la reproduction et l’interprétation des résultats dans un environnement Kubernetes local.
 
 ---
 
