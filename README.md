@@ -8,7 +8,9 @@ Ce rendu correspond au TP **Buildah, Trivy, Dive & Helm/Kubernetes**.
 
 Le sujet de référence mentionne l’application **MIAGE Bank**. Dans ce rendu, les mêmes objectifs techniques ont été appliqués au projet microservices **Odoru**, une application de gestion d’un club de danse rythmique.
 
-Le projet Odoru présente une architecture comparable à celle attendue dans le sujet :
+Cette adaptation conserve l’esprit du sujet : construction d’images OCI, analyse de sécurité, analyse des couches d’images, packaging Helm, déploiement Kubernetes, sécurisation du cluster et mise en place d’une approche GitOps.
+
+Le projet Odoru présente une architecture microservices comparable à celle attendue dans le TP :
 
 - frontend web ;
 - API Gateway ;
@@ -29,6 +31,7 @@ L’objectif du rendu est de démontrer la capacité à :
 - packager et déployer l’application avec Helm/Kubernetes ;
 - sécuriser le déploiement Kubernetes ;
 - automatiser la configuration Keycloak ;
+- initialiser les données métier nécessaires aux tests ;
 - démontrer une approche GitOps avec ArgoCD.
 
 ---
@@ -66,7 +69,7 @@ L’application est composée des éléments suivants :
 
 ## 3. Architecture technique
 
-L’architecture déployée suit une logique microservices :
+L’architecture déployée suit une logique microservices.
 
 ```text
 Navigateur
@@ -245,7 +248,7 @@ localhost/odoru/front:1.0.0
 
 Chaque service dispose d’un `Containerfile`.
 
-Exemple :
+Exemples :
 
 ```text
 services/member-service/Containerfile
@@ -277,7 +280,7 @@ Vérification :
 buildah images | grep odoru
 ```
 
-Le script permet de centraliser la construction des images, de limiter les erreurs de manipulation et de rendre le processus reproductible.
+Le script centralise la construction des images et rend le processus reproductible.
 
 ---
 
@@ -556,7 +559,7 @@ Ce rendu utilise des `Secret` Kubernetes, conformément au critère :
 Vault/ESO ou Secret Kubernetes
 ```
 
-Un usage de Vault ou External Secrets Operator pourrait être envisagé comme amélioration future dans un environnement de production réel.
+Dans un contexte de production réel, une solution comme Vault ou External Secrets Operator permettrait une gestion plus centralisée des secrets.
 
 ---
 
@@ -600,7 +603,7 @@ maxReplicas: 3
 targetCPUUtilizationPercentage: 70
 ```
 
-En environnement local Docker Desktop, les HPA peuvent afficher des avertissements si `metrics-server` n’est pas installé. Cela n’empêche pas la génération correcte des ressources Kubernetes.
+En environnement local Docker Desktop, les HPA nécessitent `metrics-server` pour exploiter les métriques CPU.
 
 ---
 
@@ -732,72 +735,157 @@ postgres             1/1 Running
 
 ---
 
-## 23. Automatisation Keycloak
+# Automatisation Keycloak et données métier
 
-La configuration Keycloak est automatisée par :
+## 23. Pourquoi automatiser Keycloak et les données métier ?
+
+Le déploiement Kubernetes lance les pods, les services, les bases PostgreSQL et Keycloak. Cependant, Keycloak doit aussi contenir un realm, un client, des rôles et des utilisateurs pour que l’authentification fonctionne.
+
+De plus, l’application Odoru ne se limite pas à l’identité Keycloak : elle possède aussi une base métier, notamment dans `member-service`. Un utilisateur peut donc exister dans Keycloak sans être reconnu par l’application si son profil métier n’existe pas.
+
+Deux scripts ont été ajoutés pour automatiser cette initialisation :
 
 ```text
 scripts/setup-keycloak-odoru.sh
+scripts/seed-kubernetes-data.sh
 ```
 
-Ce script crée ou met à jour :
+Ces scripts permettent de rendre le projet reproductible après un déploiement Kubernetes.
 
-- le realm `odoru` ;
-- le client `odoru-front` ;
-- les rôles `MEMBER`, `SECRETARY`, `TEACHER`, `PRESIDENT` ;
-- les utilisateurs de démonstration ;
-- les mots de passe ;
-- les redirections frontend.
+---
 
-Comptes créés :
+## 24. Script `setup-keycloak-odoru.sh`
 
-| Utilisateur | Mot de passe | Rôles |
+Le script `setup-keycloak-odoru.sh` initialise automatiquement la configuration Keycloak nécessaire à Odoru.
+
+Il réalise les opérations suivantes :
+
+| Étape | Description |
+| --- | --- |
+| Récupération du token admin | Connexion à Keycloak avec le compte administrateur |
+| Création du realm | Création du realm `odoru` s’il n’existe pas |
+| Création des rôles | Création des rôles `MEMBER`, `SECRETARY`, `TEACHER`, `PRESIDENT` |
+| Configuration du client | Création ou mise à jour du client `odoru-front` |
+| Configuration OAuth2/OIDC | Définition des redirect URIs et web origins |
+| Création des utilisateurs | Création des utilisateurs de démonstration |
+| Attribution des rôles | Association des rôles Keycloak aux utilisateurs |
+| Test de token | Vérification de la récupération d’un token utilisateur |
+
+Configuration créée :
+
+```text
+Realm        : odoru
+Client       : odoru-front
+Redirect URI : http://localhost:30081/*
+Web Origin   : http://localhost:30081
+```
+
+Utilisateurs créés :
+
+| Utilisateur | Mot de passe | Rôles Keycloak |
 | --- | --- | --- |
 | `lea.martin` | `secret123` | MEMBER |
 | `sara.bernard` | `secret123` | MEMBER + SECRETARY |
 | `marc.durand` | `secret123` | MEMBER + TEACHER |
 | `paul.moreau` | `secret123` | MEMBER + PRESIDENT |
 
-Commande :
+Avant d’exécuter ce script, Keycloak doit être accessible localement :
 
 ```bash
 kubectl port-forward -n odoru svc/keycloak 8090:8080
 ```
 
-Puis, dans un autre terminal :
+Puis le script peut être lancé :
 
 ```bash
 ./scripts/setup-keycloak-odoru.sh
 ```
 
+Ce script évite de configurer manuellement Keycloak via l’interface d’administration.
+
 ---
 
-## 24. Seed des données métier
+## 25. Script `seed-kubernetes-data.sh`
 
-Les données métier sont initialisées par :
+Le script `seed-kubernetes-data.sh` initialise les données métier nécessaires dans l’application Odoru.
+
+Keycloak gère l’identité et les rôles applicatifs, mais les utilisateurs doivent également exister dans la base métier du `member-service`.
+
+Ce script assure donc la cohérence suivante :
 
 ```text
-scripts/seed-kubernetes-data.sh
+Utilisateurs Keycloak
+        |
+        v
+Profils métier member-service
+        |
+        v
+Base PostgreSQL member-postgres
 ```
 
-Ce script vérifie ou crée les membres côté `member-service` afin que les comptes Keycloak correspondent aux utilisateurs présents en base métier.
+Il réalise les opérations suivantes :
 
-Commande :
+| Étape | Description |
+| --- | --- |
+| Attente du `member-service` | Vérifie que le deployment `member-service` est disponible |
+| Port-forward temporaire | Ouvre un accès local au service métier |
+| Vérification des membres | Vérifie si chaque membre existe déjà |
+| Création si nécessaire | Crée les membres absents |
+| Affichage final | Liste les membres disponibles |
+| Nettoyage | Arrête le port-forward temporaire |
+
+Membres métier vérifiés ou créés :
+
+```text
+lea.martin
+sara.bernard
+marc.durand
+paul.moreau
+```
+
+Commande d’exécution :
 
 ```bash
 ./scripts/seed-kubernetes-data.sh
 ```
 
-Cette étape garantit la cohérence entre :
-
-- les utilisateurs Keycloak ;
-- les membres métier dans PostgreSQL.
+Ce script évite une incohérence entre un utilisateur authentifié dans Keycloak et un profil métier absent dans l’application.
 
 ---
 
-## 25. Validation fonctionnelle
+## 26. Ordre recommandé après le déploiement Kubernetes
 
-Après déploiement, l’application est accessible via :
+Terminal 1 :
+
+```bash
+kubectl port-forward -n odoru svc/keycloak 8090:8080
+```
+
+Terminal 2 :
+
+```bash
+chmod +x scripts/*.sh
+./scripts/setup-keycloak-odoru.sh
+./scripts/seed-kubernetes-data.sh
+```
+
+L’application peut ensuite être testée avec :
+
+```text
+http://localhost:30081
+```
+
+Compte principal de démonstration :
+
+```text
+lea.martin / secret123
+```
+
+---
+
+## 27. Validation fonctionnelle
+
+Après déploiement et initialisation, l’application est accessible via :
 
 ```text
 http://localhost:30081
@@ -809,7 +897,7 @@ Compte de test :
 lea.martin / secret123
 ```
 
-La connexion passe par Keycloak, puis le frontend récupère les informations métier via l’API Gateway et les microservices.
+La connexion passe par Keycloak. Le frontend récupère ensuite les informations métier via l’API Gateway et les microservices.
 
 Test API avec token Keycloak :
 
@@ -835,7 +923,7 @@ HTTP/1.1 200 OK
 
 # GitOps avec ArgoCD
 
-## 26. Manifeste ArgoCD
+## 28. Manifeste ArgoCD
 
 Le manifeste ArgoCD est disponible dans :
 
@@ -877,7 +965,7 @@ spec:
 
 ---
 
-## 27. Installation ArgoCD
+## 29. Installation ArgoCD
 
 ArgoCD a été installé dans le namespace `argocd` :
 
@@ -897,13 +985,13 @@ kubectl get pods -n argocd
 Résultat observé :
 
 ```text
-argocd-application-controller    1/1 Running
-argocd-applicationset-controller 1/1 Running
-argocd-dex-server                1/1 Running
-argocd-notifications-controller  1/1 Running
-argocd-redis                     1/1 Running
-argocd-repo-server               1/1 Running
-argocd-server                    1/1 Running
+argocd-application-controller     1/1 Running
+argocd-applicationset-controller  1/1 Running
+argocd-dex-server                 1/1 Running
+argocd-notifications-controller   1/1 Running
+argocd-redis                      1/1 Running
+argocd-repo-server                1/1 Running
+argocd-server                     1/1 Running
 ```
 
 Vérification de la CRD `Application` :
@@ -920,7 +1008,7 @@ applications app,apps argoproj.io/v1alpha1 true Application
 
 ---
 
-## 28. Application ArgoCD Odoru
+## 30. Application ArgoCD Odoru
 
 Application du manifeste :
 
@@ -943,15 +1031,11 @@ odoru   Synced        Progressing
 
 Le statut `Synced` confirme que l’état déclaré dans GitHub est synchronisé avec le cluster Kubernetes.
 
-Le statut `Progressing` peut apparaître temporairement en environnement local, notamment à cause :
-
-- du démarrage progressif des pods ;
-- des probes récemment ajoutées ;
-- de l’absence éventuelle de `metrics-server` pour les HPA.
+Le statut `Progressing` concerne l’état de santé applicatif observé par ArgoCD au moment du test. Il peut apparaître pendant le redéploiement des pods, l’évaluation des probes ou l’utilisation de HPA sans `metrics-server` dans un environnement local.
 
 ---
 
-## 29. Démonstration de dérive ArgoCD
+## 31. Démonstration de dérive ArgoCD
 
 Une dérive volontaire a été créée en modifiant manuellement le nombre de replicas du microservice `member-service` :
 
@@ -998,7 +1082,7 @@ Cela valide le mécanisme GitOps attendu : une modification manuelle du cluster 
 
 # Procédure complète de reproduction
 
-## 30. Cloner le dépôt
+## 32. Cloner le dépôt
 
 ```bash
 git clone https://github.com/hachimkidjei/odoru.git
@@ -1007,7 +1091,7 @@ cd odoru
 
 ---
 
-## 31. Construire les services Java
+## 33. Construire les services Java
 
 ```bash
 cd services/config-server && chmod +x mvnw && ./mvnw clean package -DskipTests && cd ../..
@@ -1022,7 +1106,7 @@ cd services/statistics-service && chmod +x mvnw && ./mvnw clean package -DskipTe
 
 ---
 
-## 32. Construire le frontend
+## 34. Construire le frontend
 
 ```bash
 cd odoru-front
@@ -1033,7 +1117,7 @@ cd ..
 
 ---
 
-## 33. Construire les images OCI avec Buildah
+## 35. Construire les images OCI avec Buildah
 
 ```bash
 chmod +x scripts/*.sh
@@ -1048,7 +1132,7 @@ buildah images | grep odoru
 
 ---
 
-## 34. Analyser les images avec Trivy
+## 36. Analyser les images avec Trivy
 
 ```bash
 ./scripts/scan-trivy.sh 1.0.0
@@ -1062,7 +1146,7 @@ build-reports/trivy
 
 ---
 
-## 35. Analyser les images avec Dive
+## 37. Analyser les images avec Dive
 
 ```bash
 ./scripts/analyze-dive.sh 1.0.0
@@ -1076,7 +1160,7 @@ build-reports/dive
 
 ---
 
-## 36. Charger les images dans Docker Desktop
+## 38. Charger les images dans Docker Desktop
 
 ```bash
 docker load -i build-reports/oci/config-server-1.0.0.tar
@@ -1092,13 +1176,15 @@ docker load -i build-reports/oci/front-1.0.0.tar
 
 ---
 
-## 37. Déployer avec Helm
+## 39. Déployer avec Helm
+
+Déploiement standard :
 
 ```bash
 helm upgrade --install odoru infrastructure/helm/odoru
 ```
 
-Ou en configuration production :
+Déploiement avec configuration production :
 
 ```bash
 helm upgrade --install odoru infrastructure/helm/odoru \
@@ -1114,7 +1200,7 @@ kubectl get svc -n odoru
 
 ---
 
-## 38. Initialiser Keycloak et les données métier
+## 40. Initialiser Keycloak et les données métier
 
 Terminal 1 :
 
@@ -1131,7 +1217,7 @@ Terminal 2 :
 
 ---
 
-## 39. Accéder à l’application
+## 41. Accéder à l’application
 
 Frontend :
 
@@ -1149,7 +1235,7 @@ lea.martin / secret123
 
 # Couverture des critères d’évaluation
 
-## 40. Critères d’évaluation — Partie A
+## 42. Critères d’évaluation — Partie A
 
 | Critère | Pondération |
 | --- | --- |
@@ -1159,7 +1245,7 @@ lea.martin / secret123
 | Analyse Dive + optimisations | 15% |
 | Script de build intégré et documenté | 25% |
 
-## 41. Couverture Partie A dans Odoru
+## 43. Couverture Partie A dans Odoru
 
 | Critère | Couverture |
 | --- | --- |
@@ -1171,7 +1257,7 @@ lea.martin / secret123
 
 ---
 
-## 42. Critères d’évaluation — Partie B
+## 44. Critères d’évaluation — Partie B
 
 | Critère | Pondération |
 | --- | --- |
@@ -1180,7 +1266,7 @@ lea.martin / secret123
 | Gestion des secrets : Vault/ESO ou Secret Kubernetes | 20% |
 | GitOps ArgoCD fonctionnel avec démonstration de dérive | 25% |
 
-## 43. Couverture Partie B dans Odoru
+## 45. Couverture Partie B dans Odoru
 
 | Critère | Couverture |
 | --- | --- |
@@ -1191,9 +1277,9 @@ lea.martin / secret123
 
 ---
 
-# Limites et choix techniques
+# Points d’attention liés à l’environnement local
 
-## 44. Points d’attention liés à l’environnement local
+## 46. Points d’attention
 
 Le déploiement a été réalisé dans un environnement Kubernetes local basé sur Docker Desktop. Certains comportements peuvent donc dépendre des composants disponibles dans ce cluster local.
 
@@ -1205,7 +1291,8 @@ Points d’attention identifiés :
 - les secrets sont gérés avec des `Secret` Kubernetes pour répondre au périmètre du TP ;
 - dans un contexte de production réel, une solution comme Vault ou External Secrets Operator serait plus adaptée pour la gestion centralisée des secrets.
 
-Ces points correspondent à des choix d’environnement et de périmètre. Les ressources attendues pour le TP sont présentes dans le chart Helm et ont été validées par les commandes de rendu Helm et par ArgoCD.
+Ces points correspondent à des choix d’environnement et de périmètre. Ils sont documentés pour faciliter la reproduction et l’interprétation des résultats.
+
 ---
 
 # Bibliographie
