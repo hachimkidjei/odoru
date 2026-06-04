@@ -4,7 +4,7 @@ Hachim Kidjei MAHAMADENE — Velat TAS
 
 Ce rendu correspond au TP **Buildah, Trivy, Dive & Helm/Kubernetes**.
 
-Le sujet de référence mentionne l’application **MIAGE Bank**. Dans ce rendu, le même travail technique a été appliqué à mon projet microservices **Odoru**, qui possède une architecture comparable :
+Le sujet de référence mentionne l’application **MIAGE Bank**. Dans ce rendu, le même travail technique a été appliqué au projet microservices **Odoru**, qui possède une architecture comparable :
 
 - frontend web ;
 - API Gateway ;
