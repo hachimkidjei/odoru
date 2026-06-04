@@ -44,7 +44,8 @@ L’objectif du rendu est de démontrer la capacité à :
 - gérer les secrets avec des `Secret` Kubernetes ;
 - automatiser la configuration Keycloak ;
 - initialiser les données métier nécessaires aux tests ;
-- démontrer une approche GitOps avec ArgoCD.
+- démontrer une approche GitOps avec ArgoCD ;
+- vérifier l’accès applicatif complet depuis le navigateur.
 
 ---
 
@@ -90,7 +91,15 @@ Navigateur
    v
 Frontend Odoru
    |
-   | API calls
+   | Redirection OAuth2/OpenID Connect
+   v
+Keycloak
+   |
+   | Token JWT
+   v
+Frontend Odoru
+   |
+   | Appels API sécurisés
    v
 API Gateway
    |
@@ -100,20 +109,16 @@ API Gateway
    +--> badge-service         --> badge-postgres
    +--> statistics-service
    |
-   +--> Keycloak
-   |
    +--> Discovery Service
    |
    +--> Config Server
 ```
 
-Les services exposés localement sont :
+En Kubernetes, l’application est déployée dans le namespace :
 
-| Service | Type Kubernetes | Port local |
-| --- | --- | --- |
-| `front` | NodePort | `30081` |
-| `api-gateway` | NodePort | `30080` |
-| autres services | ClusterIP | interne au cluster |
+```text
+odoru
+```
 
 ---
 
@@ -156,27 +161,30 @@ Structure principale du projet :
 
 ---
 
-## 5. Prérequis techniques
+## 5. Environnement logiciel utilisé
 
-L’environnement de test utilisé repose sur :
+Le projet a été testé dans un environnement local basé sur Windows, WSL2 Ubuntu et Docker Desktop avec Kubernetes activé.
 
-| Outil | Rôle |
-| --- | --- |
-| WSL2 Ubuntu | Environnement Linux |
-| Docker Desktop | Runtime conteneur et Kubernetes local |
-| Kubernetes `docker-desktop` | Cluster Kubernetes local |
-| Buildah | Construction d’images OCI |
-| Trivy | Analyse de vulnérabilités |
-| Dive | Analyse des couches d’images |
-| Helm | Packaging et déploiement Kubernetes |
-| Java 17 | Compilation des microservices Spring Boot |
-| Node.js / npm | Build du frontend |
-| kubectl | Administration Kubernetes |
-| ArgoCD | Déploiement GitOps |
+| Outil | Version utilisée / attendue | Rôle |
+| --- | --- | --- |
+| Windows | Windows 10 / 11 | Système hôte |
+| WSL2 Ubuntu | Ubuntu 24.04.1 LTS | Environnement Linux |
+| Docker Desktop | Docker Engine actif | Runtime conteneur |
+| Kubernetes Docker Desktop | `docker-desktop`, testé en v1.32.2 | Cluster Kubernetes local |
+| Java | OpenJDK 17 | Compilation des microservices Spring Boot |
+| Node.js | v22.22.3 | Build du frontend React/Vite |
+| npm | 11.9.0 | Gestion des dépendances frontend |
+| Helm | v3.21.0 | Packaging et rendu Kubernetes |
+| Buildah | 1.33.7 | Construction des images OCI |
+| Trivy | 0.71.0 | Analyse de vulnérabilités |
+| Dive | 0.13.1 | Analyse des couches d’images |
+| kubectl | Compatible Docker Desktop | Administration Kubernetes |
+| ArgoCD | Manifests officiels `stable` | GitOps et synchronisation du cluster |
 
-Vérification de l’environnement :
+Commandes de vérification :
 
 ```bash
+git status
 kubectl config current-context
 kubectl get nodes
 helm version
@@ -186,6 +194,8 @@ dive --version
 java -version
 node -v
 npm -v
+docker --version
+kubectl version --client
 ```
 
 Résultat attendu :
@@ -200,13 +210,59 @@ Dive OK
 Java 17 OK
 Node.js OK
 npm OK
+Docker OK
+kubectl OK
+```
+
+---
+
+## 6. Logiciels nécessaires pour reproduire le projet
+
+Pour reproduire le projet sur un autre poste, les logiciels suivants doivent être installés :
+
+| Logiciel | Obligatoire | Utilisation |
+| --- | --- | --- |
+| Git | Oui | Cloner le dépôt |
+| Docker Desktop | Oui | Exécuter Kubernetes localement et charger les images |
+| Kubernetes Docker Desktop | Oui | Déployer l’application |
+| WSL2 Ubuntu | Recommandé | Exécuter les scripts Linux |
+| Java 17 | Oui | Compiler les microservices |
+| Node.js + npm | Oui | Compiler le frontend |
+| Buildah | Oui pour la Partie A | Construire les images OCI |
+| Trivy | Oui pour la Partie A | Scanner les images |
+| Dive | Oui pour la Partie A | Analyser les couches d’images |
+| Helm | Oui pour la Partie B | Valider et rendre le chart Kubernetes |
+| kubectl | Oui | Vérifier et administrer le cluster |
+| ArgoCD | Oui pour la démo GitOps | Tester la synchronisation GitOps |
+
+Installation indicative sous WSL2 Ubuntu :
+
+```bash
+sudo apt update
+sudo apt install -y curl wget unzip git openjdk-17-jdk software-properties-common
+sudo add-apt-repository universe -y
+sudo apt update
+sudo apt install -y buildah tree
+```
+
+Installation de Helm :
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
+```
+
+Node.js peut être installé via NodeSource :
+
+```bash
+curl -fsSL https://deb.nodesource.com/setup_22.x | sudo -E bash -
+sudo apt install -y nodejs
 ```
 
 ---
 
 # Partie A — Buildah, Trivy et Dive
 
-## 6. Objectifs de la Partie A
+## 7. Objectifs de la Partie A
 
 La Partie A du TP porte sur :
 
@@ -218,7 +274,7 @@ La Partie A du TP porte sur :
 
 ---
 
-## 7. Analyse comparative Docker / Buildah
+## 8. Analyse comparative Docker / Buildah
 
 Docker est une solution complète de gestion de conteneurs. Il repose historiquement sur un démon centralisé.
 
@@ -236,7 +292,7 @@ Dans ce rendu, Buildah est utilisé pour construire toutes les images des compos
 
 ---
 
-## 8. Images construites avec Buildah
+## 9. Images construites avec Buildah
 
 Les images construites sont :
 
@@ -265,7 +321,7 @@ odoru-front/Containerfile
 
 ---
 
-## 9. Script de build intégré
+## 10. Script de build intégré
 
 Le script principal de build est :
 
@@ -278,6 +334,7 @@ Il permet de construire toutes les images Odoru avec Buildah.
 Commande :
 
 ```bash
+chmod +x scripts/*.sh
 ./scripts/build-all.sh 1.0.0
 ```
 
@@ -291,9 +348,9 @@ Ce script centralise la construction des images et rend le processus reproductib
 
 ---
 
-## 10. Export des images OCI
+## 11. Export des images OCI
 
-Les images construites sont exportées sous forme d’archives OCI dans :
+Les images construites sont exportées sous forme d’archives dans :
 
 ```text
 build-reports/oci
@@ -331,7 +388,7 @@ docker images | grep odoru
 
 ---
 
-## 11. Analyse Trivy
+## 12. Analyse Trivy
 
 Trivy est utilisé pour analyser les vulnérabilités des images.
 
@@ -377,7 +434,7 @@ Plan de remédiation général :
 
 ---
 
-## 12. Analyse Dive
+## 13. Analyse Dive
 
 Dive est utilisé pour analyser les couches des images.
 
@@ -428,7 +485,7 @@ Optimisations retenues :
 
 # Partie B — Helm, Kubernetes, sécurité et GitOps
 
-## 13. Objectifs de la Partie B
+## 14. Objectifs de la Partie B
 
 La Partie B porte sur :
 
@@ -442,7 +499,7 @@ La Partie B porte sur :
 
 ---
 
-## 14. Chart Helm Odoru
+## 15. Chart Helm Odoru
 
 Le chart Helm est disponible dans :
 
@@ -491,7 +548,7 @@ Le chart permet de déployer :
 
 ---
 
-## 15. Infrastructure Kubernetes déployée
+## 16. Infrastructure Kubernetes déployée
 
 Le chart Helm Odoru déploie l’ensemble de l’application dans un namespace dédié :
 
@@ -516,7 +573,7 @@ L’infrastructure Kubernetes est composée des ressources suivantes :
 
 ---
 
-## 16. Composants applicatifs déployés
+## 17. Composants applicatifs déployés
 
 Le chart Helm déploie les composants suivants sous forme de `Deployment` :
 
@@ -535,7 +592,7 @@ Le chart Helm déploie les composants suivants sous forme de `Deployment` :
 
 ---
 
-## 17. Bases PostgreSQL déployées
+## 18. Bases PostgreSQL déployées
 
 Chaque microservice métier nécessitant une base dispose de sa propre base PostgreSQL.
 
@@ -550,41 +607,75 @@ Cette séparation respecte la logique microservices : chaque service métier pos
 
 ---
 
-## 18. Services Kubernetes
+## 19. Services Kubernetes et exposition locale
 
-Les services Kubernetes assurent la communication entre les composants.
+Le déploiement Kubernetes distingue les services exposés vers l’extérieur et les services réservés aux communications internes du cluster.
 
-| Service | Type | Usage |
-| --- | --- | --- |
-| `front` | NodePort | Exposition locale du frontend |
-| `api-gateway` | NodePort | Exposition locale de l’API Gateway |
-| `member-service` | ClusterIP | Communication interne |
-| `course-service` | ClusterIP | Communication interne |
-| `competition-service` | ClusterIP | Communication interne |
-| `badge-service` | ClusterIP | Communication interne |
-| `statistics-service` | ClusterIP | Communication interne |
-| `config-server` | ClusterIP | Configuration interne |
-| `discovery-service` | ClusterIP | Découverte de services |
-| `keycloak` | ClusterIP | Authentification interne |
-| `*-postgres` | ClusterIP | Accès interne aux bases PostgreSQL |
+| Composant | Type Kubernetes | Accès local | Rôle |
+| --- | --- | --- | --- |
+| `front` | `NodePort` | `http://localhost:30081` | Interface web utilisée par le navigateur |
+| `api-gateway` | `NodePort` | `http://localhost:30080` | Point d’entrée HTTP vers les microservices |
+| `keycloak` | `ClusterIP` | Accès interne Kubernetes | Fournisseur d’identité OAuth2/OpenID Connect |
+| microservices métier | `ClusterIP` | Accès interne Kubernetes | Services applicatifs |
+| bases PostgreSQL | `ClusterIP` | Accès interne Kubernetes | Persistance des microservices |
 
-Les deux services exposés localement sont :
+Le frontend et l’API Gateway sont exposés en `NodePort` afin de permettre un test local simple :
 
 ```text
-front        -> http://localhost:30081
-api-gateway  -> http://localhost:30080
+Frontend    : http://localhost:30081
+API Gateway : http://localhost:30080
 ```
 
-Les autres services restent internes au cluster.
+Keycloak est volontairement conservé en `ClusterIP`. Cela signifie qu’il est accessible à l’intérieur du cluster Kubernetes via :
+
+```text
+http://keycloak:8080
+```
+
+Cette adresse est utilisée par les pods Kubernetes, notamment par l’API Gateway pour valider les tokens JWT.
+
+En revanche, le navigateur Windows utilisé pour tester l’application se trouve à l’extérieur du cluster Kubernetes. Il ne peut donc pas résoudre directement l’adresse interne :
+
+```text
+http://keycloak:8080
+```
+
+Or, dans un flux OAuth2/OpenID Connect, le navigateur doit accéder directement à Keycloak pour afficher la page de connexion. Pour cette raison, un port-forward local est utilisé pendant la démonstration :
+
+```powershell
+kubectl port-forward -n odoru svc/keycloak 8090:8080
+```
+
+Ce port-forward rend Keycloak temporairement accessible depuis le navigateur à l’adresse :
+
+```text
+http://localhost:8090
+```
+
+Le port-forward ne déploie pas Keycloak. Keycloak est déjà déployé dans Kubernetes par Helm. Le port-forward crée uniquement un tunnel local entre le poste de test et le service Keycloak interne au cluster.
+
+En production ou dans un environnement d’intégration plus complet, ce port-forward serait remplacé par une exposition stable via Ingress ou par un domaine dédié, par exemple :
+
+```text
+http://keycloak.odoru.local
+```
+
+Ce choix permet de conserver une exposition minimale dans le cluster local : seuls le frontend et l’API Gateway sont exposés directement, tandis que Keycloak reste interne et n’est ouvert localement que pendant les tests d’authentification.
 
 ---
 
-## 19. Communication entre les composants
+## 20. Communication entre les composants
 
 Le flux principal est le suivant :
 
 ```text
 Utilisateur
+   |
+   v
+front
+   |
+   v
+keycloak
    |
    v
 front
@@ -621,7 +712,7 @@ Les services métier accèdent à leurs bases PostgreSQL respectives via des ser
 
 ---
 
-## 20. Configuration standard et production
+## 21. Configuration standard et production
 
 Deux fichiers de configuration sont disponibles.
 
@@ -651,7 +742,7 @@ probes
 
 ---
 
-## 21. Sécurité Kubernetes
+## 22. Sécurité Kubernetes
 
 Les éléments de sécurité suivants sont présents dans le chart Helm.
 
@@ -662,27 +753,27 @@ Les éléments de sécurité suivants sont présents dans le chart Helm.
 | NetworkPolicy | Implémenté | Politique default-deny et autorisations internes |
 | Secrets Kubernetes | Implémenté | Secrets PostgreSQL et Keycloak |
 | Resources | Implémenté | `requests` et `limits` CPU/mémoire |
-| Probes | Implémenté | `readinessProbe` et `livenessProbe` |
+| Probes | Implémenté | `readinessProbe`, `livenessProbe`, `startupProbe` pour Keycloak |
 | HPA | Implémenté | Autoscaling horizontal |
 | Ingress | Implémenté | Ingress Traefik avec `odoru.local` |
 
 ---
 
-## 22. NetworkPolicy
+## 23. NetworkPolicy
 
-La configuration production génère trois `NetworkPolicy` :
+La configuration production génère plusieurs `NetworkPolicy`.
 
 | NetworkPolicy | Rôle |
 | --- | --- |
 | `odoru-default-deny-ingress` | Bloque les flux entrants par défaut |
 | `odoru-allow-same-namespace` | Autorise les communications internes au namespace |
-| `odoru-allow-ingress-controller` | Autorise l’accès au frontend via l’Ingress Controller |
+| `odoru-allow-ingress-controller` | Autorise l’accès via l’Ingress Controller |
 
 Cette configuration permet de documenter une logique réseau plus contrôlée que le comportement Kubernetes par défaut.
 
 ---
 
-## 23. Gestion des secrets
+## 24. Gestion des secrets
 
 Les secrets Kubernetes sont générés par :
 
@@ -716,7 +807,7 @@ Dans un contexte de production réel, une solution comme Vault ou External Secre
 
 ---
 
-## 24. Probes et ressources
+## 25. Probes et ressources
 
 Tous les composants principaux disposent de :
 
@@ -733,6 +824,8 @@ Les services Spring Boot utilisent :
 
 Les bases PostgreSQL et Keycloak utilisent des probes TCP.
 
+Keycloak dispose également d’une `startupProbe`. Ce choix permet d’éviter que Kubernetes redémarre Keycloak trop tôt pendant sa phase de démarrage.
+
 Les probes permettent à Kubernetes de vérifier :
 
 - si un pod est prêt à recevoir du trafic ;
@@ -746,7 +839,7 @@ Les ressources CPU/mémoire permettent de déclarer :
 
 ---
 
-## 25. HPA
+## 26. HPA
 
 La configuration production génère des `HorizontalPodAutoscaler` pour :
 
@@ -767,11 +860,11 @@ maxReplicas: 3
 targetCPUUtilizationPercentage: 70
 ```
 
-En environnement local Docker Desktop, les HPA nécessitent `metrics-server` pour exploiter les métriques CPU.
+En environnement local Docker Desktop, les HPA nécessitent `metrics-server` pour exploiter les métriques CPU. Sans `metrics-server`, les objets HPA existent mais les métriques CPU peuvent apparaître comme non disponibles.
 
 ---
 
-## 26. Ingress
+## 27. Ingress
 
 La configuration production génère un Ingress :
 
@@ -801,7 +894,7 @@ http://localhost:30080
 
 ---
 
-## 27. Validation Helm
+## 28. Validation Helm
 
 Validation du chart standard :
 
@@ -811,7 +904,7 @@ helm template odoru infrastructure/helm/odoru > /tmp/odoru-rendered.yaml
 helm install odoru infrastructure/helm/odoru --dry-run --debug
 ```
 
-Résultats obtenus :
+Résultats attendus :
 
 ```text
 1 chart(s) linted, 0 chart(s) failed
@@ -832,7 +925,7 @@ helm install odoru infrastructure/helm/odoru \
   --dry-run --debug
 ```
 
-Résultats obtenus :
+Résultats attendus :
 
 ```text
 1 chart(s) linted, 0 chart(s) failed
@@ -850,7 +943,7 @@ HorizontalPodAutoscaler
 Ingress
 ```
 
-Commande de vérification utilisée :
+Commande de vérification :
 
 ```bash
 grep -n "kind: NetworkPolicy\|kind: HorizontalPodAutoscaler\|kind: Ingress\|kind: ServiceAccount\|kind: Role\|kind: RoleBinding" /tmp/odoru-prod-rendered.yaml
@@ -858,21 +951,9 @@ grep -n "kind: NetworkPolicy\|kind: HorizontalPodAutoscaler\|kind: Ingress\|kind
 
 ---
 
-## 28. Déploiement Kubernetes
+## 29. Déploiement Kubernetes sans ArgoCD
 
-Déploiement standard :
-
-```bash
-helm install odoru infrastructure/helm/odoru
-```
-
-Mise à jour :
-
-```bash
-helm upgrade odoru infrastructure/helm/odoru
-```
-
-Déploiement avec configuration production :
+Pour un déploiement direct avec Helm, utiliser :
 
 ```bash
 helm upgrade --install odoru infrastructure/helm/odoru \
@@ -883,36 +964,54 @@ Vérification :
 
 ```bash
 kubectl get pods -n odoru
-kubectl get svc -n odoru
 kubectl get deployments -n odoru
+kubectl get svc -n odoru
 ```
 
 Résultat attendu :
 
 ```text
-api-gateway          1/1 Running
-front                1/1 Running
-member-service       1/1 Running
-course-service       1/1 Running
-competition-service  1/1 Running
-badge-service        1/1 Running
-statistics-service   1/1 Running
-config-server        1/1 Running
-discovery-service    1/1 Running
-keycloak             1/1 Running
-postgres             1/1 Running
+Tous les pods en 1/1 Running
+Tous les deployments en 1/1
+front exposé en NodePort 30081
+api-gateway exposé en NodePort 30080
+keycloak en ClusterIP 8080
 ```
+
+---
+
+## 30. Attention sur Helm et ArgoCD
+
+Une fois ArgoCD installé et l’application Odoru synchronisée par ArgoCD, il ne faut plus appliquer les changements directement avec :
+
+```bash
+helm upgrade --install odoru ...
+```
+
+Dans ce mode GitOps, ArgoCD devient la source de vérité. La bonne procédure est :
+
+```text
+Modifier les fichiers du chart Helm
+        ↓
+git add / commit / push
+        ↓
+ArgoCD détecte le changement
+        ↓
+ArgoCD synchronise le cluster
+```
+
+Ce point évite des conflits de propriété entre des ressources créées par ArgoCD et des ressources qu’Helm essaierait ensuite de reprendre directement.
 
 ---
 
 # Automatisation Keycloak et données métier
 
-## 29. Rôle de l’automatisation
+## 31. Rôle de l’automatisation
 
 Le déploiement Kubernetes lance les pods, les services, les bases PostgreSQL et Keycloak. Cependant, Keycloak doit aussi contenir :
 
 - un realm ;
-- un client OAuth2/OIDC ;
+- un client OAuth2/OpenID Connect ;
 - des rôles ;
 - des utilisateurs ;
 - des redirections frontend.
@@ -930,9 +1029,53 @@ Ces scripts rendent le projet reproductible après un déploiement Kubernetes.
 
 ---
 
-## 30. Script `setup-keycloak-odoru.sh`
+## 32. Accès local à Keycloak pour le navigateur
+
+Pour tester l’application depuis un navigateur Windows, le port-forward Keycloak doit être lancé depuis **PowerShell Windows** :
+
+```powershell
+kubectl config use-context docker-desktop
+kubectl port-forward -n odoru svc/keycloak 8090:8080
+```
+
+La fenêtre PowerShell doit rester ouverte pendant toute la durée du test applicatif.
+
+Résultat attendu :
+
+```text
+Forwarding from 127.0.0.1:8090 -> 8080
+Forwarding from [::1]:8090 -> 8080
+```
+
+Vérification dans le navigateur :
+
+```text
+http://localhost:8090/realms/odoru/.well-known/openid-configuration
+```
+
+Résultat attendu : une réponse JSON Keycloak contenant notamment :
+
+```text
+issuer: http://localhost:8090/realms/odoru
+```
+
+Important : si cette fenêtre PowerShell est fermée, le frontend peut encore être accessible sur `http://localhost:30081`, mais la redirection d’authentification vers Keycloak échouera avec :
+
+```text
+ERR_CONNECTION_REFUSED
+```
+
+---
+
+## 33. Script `setup-keycloak-odoru.sh`
 
 Le script `setup-keycloak-odoru.sh` initialise automatiquement la configuration Keycloak nécessaire à Odoru.
+
+Commande :
+
+```bash
+./scripts/setup-keycloak-odoru.sh
+```
 
 Il réalise les opérations suivantes :
 
@@ -965,23 +1108,11 @@ Utilisateurs créés :
 | `marc.durand` | `secret123` | MEMBER + TEACHER |
 | `paul.moreau` | `secret123` | MEMBER + PRESIDENT |
 
-Avant d’exécuter ce script, Keycloak doit être accessible localement :
-
-```bash
-kubectl port-forward -n odoru svc/keycloak 8090:8080
-```
-
-Puis le script peut être lancé :
-
-```bash
-./scripts/setup-keycloak-odoru.sh
-```
-
 Ce script évite de configurer manuellement Keycloak via l’interface d’administration.
 
 ---
 
-## 31. Script `seed-kubernetes-data.sh`
+## 34. Script `seed-kubernetes-data.sh`
 
 Le script `seed-kubernetes-data.sh` initialise les données métier nécessaires dans l’application Odoru.
 
@@ -997,6 +1128,12 @@ Profils métier member-service
         |
         v
 Base PostgreSQL member-postgres
+```
+
+Commande :
+
+```bash
+./scripts/seed-kubernetes-data.sh
 ```
 
 Il réalise les opérations suivantes :
@@ -1019,30 +1156,30 @@ marc.durand
 paul.moreau
 ```
 
-Commande d’exécution :
-
-```bash
-./scripts/seed-kubernetes-data.sh
-```
-
 Ce script évite une incohérence entre un utilisateur authentifié dans Keycloak et un profil métier absent dans l’application.
 
 ---
 
-## 32. Ordre recommandé après le déploiement Kubernetes
+## 35. Ordre recommandé après le déploiement Kubernetes
 
-Terminal 1 :
+Terminal PowerShell Windows :
 
-```bash
+```powershell
+kubectl config use-context docker-desktop
 kubectl port-forward -n odoru svc/keycloak 8090:8080
 ```
 
-Terminal 2 :
+Terminal WSL ou PowerShell séparé :
 
 ```bash
-chmod +x scripts/*.sh
 ./scripts/setup-keycloak-odoru.sh
 ./scripts/seed-kubernetes-data.sh
+```
+
+Vérification Keycloak :
+
+```text
+http://localhost:8090/realms/odoru/.well-known/openid-configuration
 ```
 
 L’application peut ensuite être testée avec :
@@ -1059,23 +1196,9 @@ lea.martin / secret123
 
 ---
 
-## 33. Validation fonctionnelle
+## 36. Validation backend complète
 
-Après déploiement et initialisation, l’application est accessible via :
-
-```text
-http://localhost:30081
-```
-
-Compte de test :
-
-```text
-lea.martin / secret123
-```
-
-La connexion passe par Keycloak. Le frontend récupère ensuite les informations métier via l’API Gateway et les microservices.
-
-Test API avec token Keycloak :
+Récupération d’un token :
 
 ```bash
 TOKEN=$(curl -s -X POST "http://localhost:8090/realms/odoru/protocol/openid-connect/token" \
@@ -1085,21 +1208,159 @@ TOKEN=$(curl -s -X POST "http://localhost:8090/realms/odoru/protocol/openid-conn
   -d "username=lea.martin" \
   -d "password=secret123" | python3 -c "import sys,json; print(json.load(sys.stdin).get('access_token',''))")
 
+echo "TOKEN_SIZE=${#TOKEN}"
+echo "$TOKEN" | awk -F. '{print "JWT_PARTS=" NF}'
+```
+
+Résultat attendu :
+
+```text
+TOKEN_SIZE=1395
+JWT_PARTS=3
+```
+
+Test de l’API Gateway :
+
+```bash
 curl -i -H "Authorization: Bearer $TOKEN" \
   http://localhost:30080/api/members/username/lea.martin
 ```
 
-Résultat obtenu :
+Résultat attendu :
 
 ```text
 HTTP/1.1 200 OK
+```
+
+Exemple de réponse :
+
+```json
+{
+  "id": 1,
+  "lastName": "Martin",
+  "firstName": "Lea",
+  "email": "lea.martin@example.com",
+  "username": "lea.martin",
+  "city": "Toulouse",
+  "country": "France",
+  "expertiseLevel": 1,
+  "registrationStatus": "PENDING_REVIEW",
+  "membershipFeePaid": false,
+  "medicalCertificateProvided": false,
+  "registrationCheckedBySecretary": false,
+  "roles": ["MEMBER"]
+}
+```
+
+Ce test valide la chaîne suivante :
+
+```text
+Keycloak
+   -> token JWT
+      -> API Gateway
+         -> member-service
+            -> member-postgres
+```
+
+---
+
+# Accès applicatif
+
+## 37. Accéder à l’application
+
+Une fois les pods démarrés, Keycloak initialisé et les données métier créées, l’application est accessible via :
+
+```text
+http://localhost:30081
+```
+
+Compte de test principal :
+
+```text
+lea.martin / secret123
+```
+
+Le scénario attendu est le suivant :
+
+```text
+1. Le navigateur ouvre le frontend sur http://localhost:30081
+2. Le frontend redirige vers Keycloak sur http://localhost:8090
+3. L’utilisateur se connecte avec lea.martin / secret123
+4. Keycloak redirige vers le frontend
+5. Le frontend appelle l’API Gateway sur http://localhost:30080
+6. L’API Gateway valide le token JWT
+7. L’API Gateway transmet la requête au member-service
+8. Le member-service retourne le profil métier depuis PostgreSQL
+```
+
+Preuve fonctionnelle attendue dans l’interface :
+
+```text
+Utilisateur : Lea Martin
+Username    : @lea.martin
+ID métier   : 1
+Rôle        : MEMBER
+```
+
+---
+
+## 38. Ports utilisés pendant le test local
+
+| URL | Rôle | Origine |
+| --- | --- | --- |
+| `http://localhost:30081` | Frontend Odoru | Service Kubernetes `front` exposé en NodePort |
+| `http://localhost:30080` | API Gateway | Service Kubernetes `api-gateway` exposé en NodePort |
+| `http://localhost:8090` | Keycloak | Port-forward local vers le service interne `keycloak` |
+
+Le lien `http://localhost:8090` n’est disponible que si le port-forward Keycloak est actif. Il faut donc conserver ouverte la fenêtre PowerShell contenant :
+
+```powershell
+kubectl port-forward -n odoru svc/keycloak 8090:8080
+```
+
+---
+
+## 39. Vérifications utiles en cas de problème
+
+Vérifier les pods :
+
+```bash
+kubectl get pods -n odoru
+kubectl get deployments -n odoru
+```
+
+Vérifier les services :
+
+```bash
+kubectl get svc -n odoru
+```
+
+Vérifier Keycloak depuis le navigateur :
+
+```text
+http://localhost:8090/realms/odoru/.well-known/openid-configuration
+```
+
+Vérifier l’API Gateway avec un token :
+
+```bash
+curl -i -H "Authorization: Bearer $TOKEN" \
+  http://localhost:30080/api/members/username/lea.martin
+```
+
+Vérifier les logs :
+
+```bash
+kubectl logs -n odoru deployment/api-gateway --tail=100
+kubectl logs -n odoru deployment/member-service --tail=100
+kubectl logs -n odoru deployment/keycloak --tail=100
 ```
 
 ---
 
 # GitOps avec ArgoCD
 
-## 34. Manifeste ArgoCD
+## 40. Manifeste ArgoCD
 
 Le manifeste ArgoCD est disponible dans :
 
@@ -1141,7 +1402,7 @@ spec:
 
 ---
 
-## 35. Installation ArgoCD
+## 41. Installation ArgoCD
 
 ArgoCD a été installé dans le namespace `argocd` :
 
@@ -1158,7 +1419,7 @@ Vérification :
 kubectl get pods -n argocd
 ```
 
-Résultat observé :
+Résultat attendu :
 
 ```text
 argocd-application-controller     1/1 Running
@@ -1176,7 +1437,7 @@ Vérification de la CRD `Application` :
 kubectl api-resources | grep applications
 ```
 
-Résultat :
+Résultat attendu :
 
 ```text
 applications app,apps argoproj.io/v1alpha1 true Application
@@ -1184,7 +1445,7 @@ applications app,apps argoproj.io/v1alpha1 true Application
 
 ---
 
-## 36. Application ArgoCD Odoru
+## 42. Application ArgoCD Odoru
 
 Application du manifeste :
 
@@ -1198,7 +1459,7 @@ Vérification :
 kubectl get application odoru -n argocd
 ```
 
-Résultat obtenu :
+Résultat attendu :
 
 ```text
 NAME    SYNC STATUS   HEALTH STATUS
@@ -1215,9 +1476,9 @@ Le statut `Progressing` concerne l’état de santé applicatif observé par Arg
 
 ---
 
-## 37. Démonstration de dérive ArgoCD
+## 43. Démonstration de dérive ArgoCD
 
-Une dérive volontaire a été créée en modifiant manuellement le nombre de replicas du microservice `member-service` :
+Une dérive volontaire peut être créée en modifiant manuellement le nombre de replicas du microservice `member-service` :
 
 ```bash
 kubectl scale deployment member-service -n odoru --replicas=2
@@ -1232,9 +1493,9 @@ syncPolicy:
     selfHeal: true
 ```
 
-ArgoCD a détecté la dérive et a réconcilié l’état réel du cluster avec l’état déclaré dans Git.
+ArgoCD détecte la dérive et réconcilie l’état réel du cluster avec l’état déclaré dans Git.
 
-Preuve observée dans les événements ArgoCD :
+Preuve attendue dans les événements ArgoCD :
 
 ```text
 Updated sync status: Synced -> OutOfSync
@@ -1249,7 +1510,7 @@ kubectl get application odoru -n argocd -o jsonpath='{.status.sync.status}{"\n"}
 kubectl get deployment member-service -n odoru -o jsonpath='{.spec.replicas}{"\n"}'
 ```
 
-Résultat obtenu :
+Résultat attendu :
 
 ```text
 Synced
@@ -1262,7 +1523,7 @@ Cela valide le mécanisme GitOps attendu : une modification manuelle du cluster 
 
 # Procédure complète de reproduction
 
-## 38. Cloner le dépôt
+## 44. Cloner le dépôt
 
 ```bash
 git clone https://github.com/hachimkidjei/odoru.git
@@ -1271,7 +1532,25 @@ cd odoru
 
 ---
 
-## 39. Construire les services Java
+## 45. Vérifier l’environnement
+
+```bash
+git status
+kubectl config use-context docker-desktop
+kubectl get nodes
+docker ps
+helm version
+buildah --version
+trivy --version
+dive --version
+java -version
+node -v
+npm -v
+```
+
+---
+
+## 46. Construire les services Java
 
 ```bash
 cd services/config-server && chmod +x mvnw && ./mvnw clean package -DskipTests && cd ../..
@@ -1286,7 +1565,7 @@ cd services/statistics-service && chmod +x mvnw && ./mvnw clean package -DskipTe
 
 ---
 
-## 40. Construire le frontend
+## 47. Construire le frontend
 
 ```bash
 cd odoru-front
@@ -1297,7 +1576,7 @@ cd ..
 
 ---
 
-## 41. Construire les images OCI avec Buildah
+## 48. Construire les images OCI avec Buildah
 
 ```bash
 chmod +x scripts/*.sh
@@ -1312,7 +1591,7 @@ buildah images | grep odoru
 
 ---
 
-## 42. Analyser les images avec Trivy
+## 49. Analyser les images avec Trivy
 
 ```bash
 ./scripts/scan-trivy.sh 1.0.0
@@ -1326,7 +1605,7 @@ build-reports/trivy
 
 ---
 
-## 43. Analyser les images avec Dive
+## 50. Analyser les images avec Dive
 
 ```bash
 ./scripts/analyze-dive.sh 1.0.0
@@ -1340,7 +1619,7 @@ build-reports/dive
 
 ---
 
-## 44. Charger les images dans Docker Desktop
+## 51. Charger les images dans Docker Desktop
 
 ```bash
 docker load -i build-reports/oci/config-server-1.0.0.tar
@@ -1354,17 +1633,17 @@ docker load -i build-reports/oci/statistics-service-1.0.0.tar
 docker load -i build-reports/oci/front-1.0.0.tar
 ```
 
----
-
-## 45. Déployer avec Helm
-
-Déploiement standard :
+Vérification :
 
 ```bash
-helm upgrade --install odoru infrastructure/helm/odoru
+docker images | grep odoru
 ```
 
-Déploiement avec configuration production :
+---
+
+## 52. Déployer avec Helm
+
+Déploiement direct :
 
 ```bash
 helm upgrade --install odoru infrastructure/helm/odoru \
@@ -1375,20 +1654,22 @@ Vérification :
 
 ```bash
 kubectl get pods -n odoru
+kubectl get deployments -n odoru
 kubectl get svc -n odoru
 ```
 
 ---
 
-## 46. Initialiser Keycloak et les données métier
+## 53. Initialiser Keycloak et les données métier
 
-Terminal 1 :
+Dans PowerShell Windows :
 
-```bash
+```powershell
+kubectl config use-context docker-desktop
 kubectl port-forward -n odoru svc/keycloak 8090:8080
 ```
 
-Terminal 2 :
+Dans un autre terminal :
 
 ```bash
 ./scripts/setup-keycloak-odoru.sh
@@ -1397,25 +1678,56 @@ Terminal 2 :
 
 ---
 
-## 47. Accéder à l’application
+## 54. Vérifier l’accès applicatif
 
-Frontend :
+Vérifier Keycloak dans le navigateur :
+
+```text
+http://localhost:8090/realms/odoru/.well-known/openid-configuration
+```
+
+Vérifier le frontend :
 
 ```text
 http://localhost:30081
 ```
 
-Compte de test :
+Compte :
 
 ```text
 lea.martin / secret123
+```
+
+Vérifier l’API Gateway :
+
+```bash
+TOKEN=$(curl -s -X POST "http://localhost:8090/realms/odoru/protocol/openid-connect/token" \
+  -H "Content-Type: application/x-www-form-urlencoded" \
+  -d "grant_type=password" \
+  -d "client_id=odoru-front" \
+  -d "username=lea.martin" \
+  -d "password=secret123" | python3 -c "import sys,json; print(json.load(sys.stdin).get('access_token',''))")
+
+echo "TOKEN_SIZE=${#TOKEN}"
+echo "$TOKEN" | awk -F. '{print "JWT_PARTS=" NF}'
+
+curl -i -H "Authorization: Bearer $TOKEN" \
+  http://localhost:30080/api/members/username/lea.martin
+```
+
+Résultat attendu :
+
+```text
+TOKEN_SIZE=1395
+JWT_PARTS=3
+HTTP/1.1 200 OK
 ```
 
 ---
 
 # Couverture des critères d’évaluation
 
-## 48. Critères d’évaluation — Partie A
+## 55. Critères d’évaluation — Partie A
 
 | Critère | Pondération |
 | --- | --- |
@@ -1425,7 +1737,7 @@ lea.martin / secret123
 | Analyse Dive + optimisations | 15% |
 | Script de build intégré et documenté | 25% |
 
-## 49. Couverture Partie A dans Odoru
+## 56. Couverture Partie A dans Odoru
 
 | Critère | Couverture |
 | --- | --- |
@@ -1437,7 +1749,7 @@ lea.martin / secret123
 
 ---
 
-## 50. Critères d’évaluation — Partie B
+## 57. Critères d’évaluation — Partie B
 
 | Critère | Pondération |
 | --- | --- |
@@ -1446,7 +1758,7 @@ lea.martin / secret123
 | Gestion des secrets : Vault/ESO ou Secret Kubernetes | 20% |
 | GitOps ArgoCD fonctionnel avec démonstration de dérive | 25% |
 
-## 51. Couverture Partie B dans Odoru
+## 58. Couverture Partie B dans Odoru
 
 | Critère | Couverture |
 | --- | --- |
@@ -1459,7 +1771,7 @@ lea.martin / secret123
 
 # Points d’attention liés à l’environnement local
 
-## 52. Points d’attention
+## 59. Points d’attention
 
 Le déploiement a été réalisé dans un environnement Kubernetes local basé sur Docker Desktop. Certains comportements peuvent donc dépendre des composants disponibles dans ce cluster local.
 
@@ -1469,43 +1781,93 @@ Points d’attention identifiés :
 - le statut `Health` ArgoCD peut apparaître temporairement `Progressing` pendant le démarrage ou le redéploiement des pods ;
 - l’Ingress `odoru.local` nécessite un contrôleur Ingress compatible, par exemple Traefik, ainsi qu’une résolution locale du nom de domaine ;
 - les secrets sont gérés avec des `Secret` Kubernetes pour répondre au périmètre du TP ;
-- dans un contexte de production réel, une solution comme Vault ou External Secrets Operator serait plus adaptée pour la gestion centralisée des secrets.
+- dans un contexte de production réel, une solution comme Vault ou External Secrets Operator serait plus adaptée pour la gestion centralisée des secrets ;
+- Keycloak est déployé en `ClusterIP` et nécessite un port-forward local pour être utilisé depuis le navigateur pendant les tests.
 
 Ces points sont documentés pour faciliter la reproduction et l’interprétation des résultats dans un environnement Kubernetes local.
 
 ---
-## 5.1 Environnement logiciel utilisé
 
-Le projet a été testé dans un environnement local basé sur Windows, WSL2 Ubuntu et Docker Desktop avec Kubernetes activé.
+## 60. Point spécifique sur Keycloak
 
-| Outil | Version utilisée | Rôle |
-| --- | --- | --- |
-| Windows | Windows 10 / 11 | Système hôte |
-| WSL2 Ubuntu | Ubuntu 24.04.1 LTS | Environnement Linux |
-| Docker Desktop | Kubernetes activé | Runtime conteneur et cluster Kubernetes local |
-| Kubernetes | v1.28.2 avec contexte `docker-desktop` | Orchestration des conteneurs |
-| Java | OpenJDK 17 | Compilation et exécution des services Spring Boot |
-| Node.js | v22.22.3 | Build du frontend React/Vite |
-| npm | 11.9.0 | Gestion des dépendances frontend |
-| Helm | v3.21.0 | Packaging et déploiement Kubernetes |
-| Buildah | 1.33.7 | Construction des images OCI |
-| Trivy | 0.71.0 | Analyse de vulnérabilités |
-| Dive | 0.13.1 | Analyse des couches d’images |
-| kubectl | Compatible cluster Docker Desktop | Administration Kubernetes |
-| ArgoCD | Manifests officiels `stable` | GitOps et synchronisation du cluster |
+Dans ce rendu, Keycloak est déployé en `ClusterIP`. Ce choix limite l’exposition réseau directe du fournisseur d’identité dans le cluster local.
 
-Commandes de vérification utilisées :
+Conséquence : pour tester le flux d’authentification depuis le navigateur Windows, il faut ouvrir un port-forward temporaire :
 
-```bash
-kubectl config current-context
-kubectl get nodes
-helm version
-buildah --version
-trivy --version
-dive --version
-java -version
-node -v
-npm -v
+```powershell
+kubectl port-forward -n odoru svc/keycloak 8090:8080
+```
+
+Ce port-forward est uniquement un mécanisme de test local. Il ne déploie pas l’application et ne remplace pas Helm. Il permet simplement au navigateur d’accéder au service Keycloak déjà présent dans Kubernetes.
+
+En environnement de production, cette exposition serait remplacée par une solution plus stable :
+
+- Ingress dédié pour Keycloak ;
+- nom de domaine local ou réel ;
+- configuration TLS ;
+- persistance dédiée de Keycloak ;
+- gestion centralisée des secrets.
+
+---
+
+# Conclusion
+
+Ce rendu démontre l’adaptation complète du TP Buildah, Trivy, Dive et Helm/Kubernetes au projet microservices Odoru.
+
+La Partie A couvre :
+
+- l’analyse comparative Docker / Buildah ;
+- la construction des images OCI avec Buildah ;
+- l’export des images ;
+- les scans Trivy ;
+- les analyses Dive ;
+- l’automatisation via scripts.
+
+La Partie B couvre :
+
+- un chart Helm complet ;
+- un déploiement Kubernetes structuré ;
+- des services NodePort et ClusterIP ;
+- des secrets Kubernetes ;
+- RBAC ;
+- NetworkPolicy ;
+- probes ;
+- resources ;
+- HPA ;
+- Ingress ;
+- une configuration `values-prod.yaml` ;
+- une synchronisation GitOps avec ArgoCD ;
+- une démonstration de dérive corrigée automatiquement ;
+- une initialisation automatisée de Keycloak et des données métier.
+
+Le test final valide la chaîne complète :
+
+```text
+Navigateur
+   -> Frontend Odoru
+      -> Keycloak
+         -> Token JWT
+            -> API Gateway
+               -> member-service
+                  -> PostgreSQL
+```
+
+La réponse `HTTP/1.1 200 OK` obtenue sur :
+
+```text
+http://localhost:30080/api/members/username/lea.martin
+```
+
+ainsi que l’accès visuel au tableau de bord Odoru sur :
+
+```text
+http://localhost:30081
+```
+
+confirment le fonctionnement applicatif de bout en bout.
+
+---
+
 # Bibliographie
 
 - Buildah — Documentation officielle : https://buildah.io/
