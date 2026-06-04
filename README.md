@@ -1474,7 +1474,38 @@ Points d’attention identifiés :
 Ces points sont documentés pour faciliter la reproduction et l’interprétation des résultats dans un environnement Kubernetes local.
 
 ---
+## 5.1 Environnement logiciel utilisé
 
+Le projet a été testé dans un environnement local basé sur Windows, WSL2 Ubuntu et Docker Desktop avec Kubernetes activé.
+
+| Outil | Version utilisée | Rôle |
+| --- | --- | --- |
+| Windows | Windows 10 / 11 | Système hôte |
+| WSL2 Ubuntu | Ubuntu 24.04.1 LTS | Environnement Linux |
+| Docker Desktop | Kubernetes activé | Runtime conteneur et cluster Kubernetes local |
+| Kubernetes | v1.28.2 avec contexte `docker-desktop` | Orchestration des conteneurs |
+| Java | OpenJDK 17 | Compilation et exécution des services Spring Boot |
+| Node.js | v22.22.3 | Build du frontend React/Vite |
+| npm | 11.9.0 | Gestion des dépendances frontend |
+| Helm | v3.21.0 | Packaging et déploiement Kubernetes |
+| Buildah | 1.33.7 | Construction des images OCI |
+| Trivy | 0.71.0 | Analyse de vulnérabilités |
+| Dive | 0.13.1 | Analyse des couches d’images |
+| kubectl | Compatible cluster Docker Desktop | Administration Kubernetes |
+| ArgoCD | Manifests officiels `stable` | GitOps et synchronisation du cluster |
+
+Commandes de vérification utilisées :
+
+```bash
+kubectl config current-context
+kubectl get nodes
+helm version
+buildah --version
+trivy --version
+dive --version
+java -version
+node -v
+npm -v
 # Bibliographie
 
 - Buildah — Documentation officielle : https://buildah.io/
