@@ -34,23 +34,23 @@ spec:
           startupProbe:
             tcpSocket:
               port: {{ .Values.keycloak.port }}
-            initialDelaySeconds: 30
+            initialDelaySeconds: 60
             periodSeconds: 10
             timeoutSeconds: 3
-            failureThreshold: 30
+            failureThreshold: 90
 
           readinessProbe:
             tcpSocket:
               port: {{ .Values.keycloak.port }}
-            initialDelaySeconds: 60
+            initialDelaySeconds: 90
             periodSeconds: 10
             timeoutSeconds: 3
-            failureThreshold: 12
+            failureThreshold: 30
 
           livenessProbe:
             tcpSocket:
               port: {{ .Values.keycloak.port }}
-            initialDelaySeconds: 180
+            initialDelaySeconds: 300
             periodSeconds: 20
             timeoutSeconds: 3
             failureThreshold: 6
