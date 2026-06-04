@@ -88,3 +88,53 @@ front:
   image: front
   port: 80
   nodePort: 30081
+
+exposure:
+  mode: nodePort
+  host: odoru.local
+  ingressClassName: traefik
+
+security:
+  serviceAccount:
+    create: true
+    name: odoru-app
+  rbac:
+    create: true
+  networkPolicy:
+    enabled: false
+
+resources:
+  spring:
+    requests:
+      cpu: "100m"
+      memory: "256Mi"
+    limits:
+      cpu: "500m"
+      memory: "768Mi"
+  frontend:
+    requests:
+      cpu: "50m"
+      memory: "64Mi"
+    limits:
+      cpu: "200m"
+      memory: "256Mi"
+  postgres:
+    requests:
+      cpu: "100m"
+      memory: "256Mi"
+    limits:
+      cpu: "500m"
+      memory: "512Mi"
+  keycloak:
+    requests:
+      cpu: "100m"
+      memory: "512Mi"
+    limits:
+      cpu: "500m"
+      memory: "1Gi"
+
+hpa:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 3
+  targetCPUUtilizationPercentage: 70

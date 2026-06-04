@@ -19,6 +19,7 @@ spec:
         app.kubernetes.io/component: identity-provider
         app.kubernetes.io/instance: {{ .Values.keycloak.serviceName }}
     spec:
+      serviceAccountName: {{ .Values.security.serviceAccount.name }}
       containers:
         - name: keycloak
           image: {{ .Values.keycloak.image }}
@@ -29,17 +30,44 @@ spec:
 {{- end }}
           ports:
             - containerPort: {{ .Values.keycloak.port }}
+
+          readinessProbe:
+            tcpSocket:
+              port: {{ .Values.keycloak.port }}
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            timeoutSeconds: 3
+            failureThreshold: 6
+
+          livenessProbe:
+            tcpSocket:
+              port: {{ .Values.keycloak.port }}
+            initialDelaySeconds: 60
+            periodSeconds: 20
+            timeoutSeconds: 3
+            failureThreshold: 6
+
+          resources:
+            requests:
+              cpu: {{ .Values.resources.keycloak.requests.cpu | quote }}
+              memory: {{ .Values.resources.keycloak.requests.memory | quote }}
+            limits:
+              cpu: {{ .Values.resources.keycloak.limits.cpu | quote }}
+              memory: {{ .Values.resources.keycloak.limits.memory | quote }}
+
           env:
             - name: KEYCLOAK_ADMIN
               valueFrom:
                 secretKeyRef:
                   name: odoru-keycloak-secret
                   key: KEYCLOAK_ADMIN
+
             - name: KEYCLOAK_ADMIN_PASSWORD
               valueFrom:
                 secretKeyRef:
                   name: odoru-keycloak-secret
                   key: KEYCLOAK_ADMIN_PASSWORD
+
 ---
 apiVersion: v1
 kind: Service

@@ -29,12 +29,40 @@ spec:
         app.kubernetes.io/component: microservice
         app.kubernetes.io/instance: {{ $service.name }}
     spec:
+      serviceAccountName: {{ $root.Values.security.serviceAccount.name }}
       containers:
         - name: {{ $service.name }}
           image: "{{ $root.Values.image.registry }}/{{ $service.image }}:{{ $root.Values.image.tag }}"
           imagePullPolicy: {{ $root.Values.global.imagePullPolicy }}
           ports:
             - containerPort: {{ $service.port }}
+
+          readinessProbe:
+            httpGet:
+              path: /actuator/health
+              port: {{ $service.port }}
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            timeoutSeconds: 3
+            failureThreshold: 6
+
+          livenessProbe:
+            httpGet:
+              path: /actuator/health
+              port: {{ $service.port }}
+            initialDelaySeconds: 60
+            periodSeconds: 20
+            timeoutSeconds: 3
+            failureThreshold: 6
+
+          resources:
+            requests:
+              cpu: {{ $root.Values.resources.spring.requests.cpu | quote }}
+              memory: {{ $root.Values.resources.spring.requests.memory | quote }}
+            limits:
+              cpu: {{ $root.Values.resources.spring.limits.cpu | quote }}
+              memory: {{ $root.Values.resources.spring.limits.memory | quote }}
+
           env:
             - name: SERVER_PORT
               value: {{ $service.port | quote }}
@@ -89,6 +117,7 @@ spec:
                   name: odoru-postgres-secret
                   key: POSTGRES_PASSWORD
             {{- end }}
+
 ---
 apiVersion: v1
 kind: Service
