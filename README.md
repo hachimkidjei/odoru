@@ -1868,17 +1868,18 @@ confirment le fonctionnement applicatif de bout en bout.
 
 ---
 
-# Bibliographie
+## Déploiement local complet avec Kubernetes, Helm et Docker Desktop
 
-- Buildah — Documentation officielle : https://buildah.io/
-- Buildah — Dépôt GitHub : https://github.com/containers/buildah
-- OCI Image Format Specification : https://github.com/opencontainers/image-spec
-- Trivy — Documentation officielle : https://aquasecurity.github.io/trivy/
-- Dive — Dépôt GitHub : https://github.com/wagoodman/dive
-- Helm — Documentation officielle : https://helm.sh/docs/
-- ArgoCD — Documentation officielle : https://argo-cd.readthedocs.io/
-- HashiCorp Vault — Documentation : https://developer.hashicorp.com/vault
-- External Secrets Operator : https://external-secrets.io/
-- Kubernetes — NetworkPolicy : https://kubernetes.io/docs/concepts/services-networking/network-policies/
-- Kubernetes — RBAC : https://kubernetes.io/docs/reference/access-authn-authz/rbac/
-- Traefik — Documentation officielle : https://doc.traefik.io/traefik/
+Cette section décrit la procédure permettant de reconstruire et déployer l’application Odoru sur un poste local équipé de Docker Desktop avec Kubernetes activé.
+
+L’application est déployée dans Kubernetes avec Helm. Deux services sont exposés en `NodePort` :
+
+| Composant | Adresse locale |
+|---|---|
+| Frontend React | http://localhost:30081 |
+| API Gateway | http://localhost:30080 |
+
+Keycloak est déployé dans le cluster en `ClusterIP`. Il n’est donc pas exposé directement à l’extérieur du cluster. Pour permettre au navigateur et aux scripts d’initialisation d’y accéder, il faut ouvrir un port-forward local :
+
+```bash
+kubectl port-forward -n odoru svc/keycloak 8090:8080
